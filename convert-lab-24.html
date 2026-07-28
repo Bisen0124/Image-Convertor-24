@@ -3,11 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Convert Lab — image &amp; video converter</title>
+<title>Free Image Converter Online | Convert JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF & SVG</title>
+<meta name="description" content="Convert JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO and many other image formats online for free. No upload required. Files stay on your device for maximum privacy and quality.">
+
+<meta name="keywords" content="image converter,image converter online,jpg to png,png to jpg,webp converter,avif converter,heic converter,bmp converter,tiff converter,svg converter,image format converter,free image converter,convert images">
+
+<meta name="robots" content="index,follow,max-image-preview:large">
+
+<meta name="author" content="Convert Lab">
+
+<meta name="theme-color" content="#4361ee">
+
+<link rel="canonical" href="https://yourdomain.com/">
+
+<link rel="icon" href="/favicon.ico">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Image Converter Online">
+<meta property="og:description" content="Convert any image format instantly in your browser. No uploads. 100% private.">
+<meta property="og:image" content="https://yourdomain.com/og-image.jpg">
+<meta property="og:url" content="https://yourdomain.com/">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Image Converter Online">
+<meta name="twitter:description" content="Convert JPG, PNG, WebP, AVIF, HEIC and more. Private browser-based image converter.">
+<meta name="twitter:image" content="https://yourdomain.com/og-image.jpg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script type="application/ld+json">
+  {
+   "@context":"https://schema.org",
+   "@type":"FAQPage",
+   "mainEntity":[
+   {
+   "@type":"Question",
+   "name":"Are my images uploaded?",
+   "acceptedAnswer":{
+   "@type":"Answer",
+   "text":"No. Every image is converted locally inside your browser."
+   }
+   },
+   {
+   "@type":"Question",
+   "name":"Which image formats are supported?",
+   "acceptedAnswer":{
+   "@type":"Answer",
+   "text":"JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO, GIF and many more."
+   }
+   },
+   {
+   "@type":"Question",
+   "name":"Is there a file size limit?",
+   "acceptedAnswer":{
+   "@type":"Answer",
+   "text":"No. Since processing happens locally, there are no upload size limits."
+   }
+   }
+   ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+    {
+     "@context":"https://schema.org",
+     "@type":"WebApplication",
+     "name":"Convert Lab",
+     "applicationCategory":"UtilitiesApplication",
+     "operatingSystem":"Any",
+     "browserRequirements":"Requires JavaScript",
+     "offers":{
+     "@type":"Offer",
+     "price":"0",
+     "priceCurrency":"USD"
+     }
+    }
+    </script>
 <style>
   :root{
     --bg:#f4f6fb;
@@ -29,6 +108,42 @@
     --radius-sm:8px;
     --shadow:0 1px 2px rgba(20,25,40,0.04), 0 8px 24px rgba(20,25,40,0.05);
   }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.5); }
+    100% { box-shadow: 0 0 0 12px rgba(67, 97, 238, 0); }
+  }
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
+  }
+  @keyframes popIn {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  
+  .cute-loader {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    color: inherit;
+  }
+  .cute-loader span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: currentColor;
+    border-radius: 50%;
+    animation: bounce 0.5s infinite alternate;
+  }
+  .cute-loader span:nth-child(2) { animation-delay: 0.15s; }
+  .cute-loader span:nth-child(3) { animation-delay: 0.3s; }
+
   *{box-sizing:border-box;}
   body{
     margin:0;background:var(--bg);color:var(--ink);
@@ -57,16 +172,29 @@
   .card{
     background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);
     box-shadow:var(--shadow);padding:20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+  .card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(20,25,40,0.08);
   }
 
   /* ---------- preview / dropzone ---------- */
   .dropzone{
     border:2px dashed #d6dbe6;border-radius:var(--radius-md);
     min-height:340px;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;cursor:pointer;transition:border-color .15s, background .15s;padding:24px;
+    text-align:center;cursor:pointer;padding:24px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .dropzone.drag{border-color:var(--accent);background:var(--accent-soft);}
-  .dropzone svg{color:#c3c9d6;margin-bottom:16px;}
+  .dropzone:hover{
+    border-color:var(--accent);
+    background:var(--accent-soft);
+    transform: scale(1.02);
+  }
+  .dropzone.drag{border-color:var(--accent);background:var(--accent-soft); transform: scale(1.05);}
+  .dropzone svg{color:#c3c9d6;margin-bottom:16px; transition: transform 0.3s; animation: float 3s ease-in-out infinite;}
+  .dropzone:hover svg{color:var(--accent); transform: scale(1.1);}
   .dz-title{font-size:15.5px;font-weight:500;color:var(--ink-dim);margin-bottom:6px;}
   .dz-title b{color:var(--ink);font-weight:600;}
   .dz-sub{font-size:12.5px;color:var(--ink-faint);margin-bottom:18px;}
@@ -74,8 +202,10 @@
   .btn-choose{
     background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);
     padding:11px 22px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;
+    transition: background 0.2s, transform 0.2s;
   }
-  .btn-choose:hover{background:var(--accent-hover);}
+  .btn-choose:hover{background:var(--accent-hover); transform: translateY(-2px);}
+  .btn-choose:active{transform: translateY(0);}
 
   /* ---------- compare viewer ---------- */
   .compare-wrap{position:relative;}
@@ -164,11 +294,12 @@
   .preset-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
   .preset{
     border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;
-    padding:10px 6px;text-align:center;cursor:pointer;transition:border-color .12s, background .12s;
+    padding:10px 6px;text-align:center;cursor:pointer;transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
-  .preset:hover{border-color:var(--accent);}
-  .preset.active{border-color:var(--accent);background:var(--accent-soft);}
-  .preset svg{color:var(--ink-dim);margin-bottom:4px;}
+  .preset:hover{border-color:var(--accent); transform: scale(1.05); z-index:1;}
+  .preset.active{border-color:var(--accent);background:var(--accent-soft); transform: scale(1.05);}
+  .preset svg{color:var(--ink-dim);margin-bottom:4px; transition: color 0.2s;}
+  .preset:hover svg, .preset.active svg{color:var(--accent);}
   .preset .p-name{font-size:11.5px;font-weight:600;color:var(--ink);display:block;}
   .preset .p-dim{font-size:10px;color:var(--ink-faint);}
   .dims-row{display:flex;align-items:center;gap:8px;}
@@ -187,8 +318,13 @@
     width:100%;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);
     padding:13px;font-size:14.5px;font-weight:700;cursor:pointer;margin-top:6px;
     display:flex;align-items:center;justify-content:center;gap:8px;
+    transition: all 0.2s;
   }
-  .btn-download:hover{background:var(--accent-hover);}
+  .btn-download:hover:not(:disabled){
+    background:var(--accent-hover);
+    transform: translateY(-2px);
+    animation: pulse-ring 1.5s infinite;
+  }
   .btn-download:disabled{background:#dfe2ea;color:#9aa0b0;cursor:not-allowed;}
   .btn-download-all{
     width:100%;background:none;border:1px solid var(--border);color:var(--ink-dim);
@@ -213,9 +349,17 @@
 <div class="page">
 
   <header class="top">
-    <div class="eyebrow">Local conversion lab</div>
-    <h1>Convert images &amp; video, right in your browser</h1>
-    <p class="sub">Nothing is uploaded — files are decoded and re-encoded on your device, so there's no size cap and no server compression touching your originals.</p>
+    <div class="eyebrow">
+      Free Online Image Converter
+      </div>
+      
+      <h1>
+      Convert JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG & More Online
+      </h1>
+      
+      <p class="sub">
+      Convert any image format directly in your browser without uploading files. Our free image converter supports JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO and many more formats while keeping your images private and preserving maximum quality.
+      </p>
   </header>
 
   <div class="studio">
@@ -225,12 +369,12 @@
       <div id="dropzone" class="dropzone">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
         <div class="dz-title">Drag &amp; drop or <b>click</b></div>
-        <div class="dz-sub">Supports JPG, PNG, WEBP, BMP, MP4, WEBM, MOV — any size</div>
+        <div class="dz-sub">Supports JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO and more</div>
         <label class="btn-choose">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
           Choose file
         </label>
-        <input type="file" id="fileInput" multiple accept="image/*,video/*">
+        <input type="file" id="fileInput" multiple accept="image/*">
       </div>
 
       <div class="compare-wrap" id="compareWrap" style="display:none;">
@@ -274,10 +418,10 @@
 
 <script>
 (function(){
-  const IMG_FORMATS = ['png','jpeg','webp','bmp'];
-  const VID_FORMATS = ['png','jpeg'];
-  const EXT = { png:'png', jpeg:'jpg', webp:'webp', bmp:'bmp' };
-  const MIME = { png:'image/png', jpeg:'image/jpeg', webp:'image/webp' };
+  const IMG_FORMATS = ['jpg','jpeg','png','webp','avif','heic','bmp','tiff','svg','ico'];
+  const VID_FORMATS = ['png','jpeg','jpg'];
+  const EXT = { png:'png', jpeg:'jpeg', jpg:'jpg', webp:'webp', bmp:'bmp', avif:'avif', heic:'heic', tiff:'tiff', svg:'svg', ico:'ico' };
+  const MIME = { png:'image/png', jpeg:'image/jpeg', jpg:'image/jpeg', webp:'image/webp', avif:'image/avif', heic:'image/heic', tiff:'image/tiff', svg:'image/svg+xml', ico:'image/x-icon' };
 
   const PRESETS = [
     { name:'Website', dim:[1280,720], icon:'monitor' },
@@ -448,7 +592,13 @@
     syncAfterImgWidth();
     setDividerPct(50);
     tagLeft.textContent = 'Original · ' + fmtBytes(it.size);
-    tagRight.textContent = it.status === 'done' ? 'Converted · ' + fmtBytes(it.resultSize) : (it.status === 'error' ? 'Failed' : 'Converting…');
+    if (it.status === 'done') {
+      tagRight.innerHTML = 'Converted · ' + fmtBytes(it.resultSize);
+    } else if (it.status === 'error') {
+      tagRight.innerHTML = 'Failed';
+    } else {
+      tagRight.innerHTML = 'Converting <div class="cute-loader"><span></span><span></span><span></span></div>';
+    }
   }
 
   // ---------- settings panel ----------
@@ -486,8 +636,10 @@
       ${it.status === 'error' ? `<div class="err-line">${it.error}</div>` : ''}
 
       <button class="btn-download" id="downloadBtn" ${it.status!=='done'?'disabled':''}>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-        ${it.status==='done' ? 'Download ' + EXT[it.targetFormat].toUpperCase() : (it.status==='working' ? 'Converting…' : 'Download')}
+        ${it.status === 'working' 
+          ? `Converting <div class="cute-loader"><span></span><span></span><span></span></div>` 
+          : `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg> Download ${EXT[it.targetFormat].toUpperCase()}`
+        }
       </button>
       ${state.files.filter(f=>f.status==='done').length > 1 ? '<button class="btn-download-all" id="downloadAllBtn">Download all as .zip</button>' : ''}
     `;
@@ -623,6 +775,16 @@
     ctx.drawImage(source, (tw-nw)/2, (th-nh)/2, nw, nh);
   }
 
+  function encodeSVG(canvas) {
+    const dataUrl = canvas.toDataURL('image/png');
+    const w = canvas.width;
+    const h = canvas.height;
+    const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
+  <image href="${dataUrl}" width="${w}" height="${h}" />
+</svg>`;
+    return new Blob([svgContent], { type: 'image/svg+xml' });
+  }
+
   async function getImageSource(it){
     if (it.kind === 'image') return await createImageBitmap(it.file);
     const video = document.createElement('video');
@@ -657,8 +819,11 @@
       }
 
       let blob;
-      if (it.targetFormat === 'bmp') blob = encodeBMP(canvas);
-      else {
+      if (it.targetFormat === 'bmp') {
+        blob = encodeBMP(canvas);
+      } else if (it.targetFormat === 'svg') {
+        blob = encodeSVG(canvas);
+      } else {
         if (it.targetFormat === 'webp' && !checkWebpSupport()){
           throw new Error("This browser can't encode WEBP (known Safari limitation) — try JPG/PNG, or use Chrome/Edge/Firefox.");
         }
