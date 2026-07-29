@@ -360,15 +360,15 @@
 <div class="page">
 
   <header class="top">
-    <div class="eyebrow">
+    <div class="eyebrow" data-i18n="eyebrow">
       Free Online Image Converter
       </div>
       
-      <h1>
+      <h1 data-i18n="h1">
       Convert JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG & More Online
       </h1>
       
-      <p class="sub">
+      <p class="sub" data-i18n="sub">
       Convert any image format directly in your browser without uploading files. Our free image converter supports JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO and many more formats while keeping your images private and preserving maximum quality.
       </p>
   </header>
@@ -379,11 +379,11 @@
     <div class="card" id="previewCard">
       <div id="dropzone" class="dropzone">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-        <div class="dz-title">Drag &amp; drop or <b>click</b></div>
-        <div class="dz-sub">Supports JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO and more</div>
+        <div class="dz-title" data-i18n="dzTitle">Drag &amp; drop or <b>click</b></div>
+        <div class="dz-sub" data-i18n="dzSub">Supports JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO and more</div>
         <label class="btn-choose">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-          Choose file
+          <span data-i18n="chooseFile">Choose file</span>
         </label>
         <input type="file" id="fileInput" multiple accept="image/*">
       </div>
@@ -403,7 +403,7 @@
           <span style="font-size:12px;color:var(--ink-faint);" id="fileNameLabel"></span>
           <button class="btn-ghost-sm" id="addMoreBtn">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-            Add file
+            <span data-i18n="addFile">Add file</span>
           </button>
         </div>
       </div>
@@ -422,7 +422,7 @@
 
   <div class="footnote">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4Z"/></svg>
-    <div><b>Nothing is uploaded, ever.</b> Conversion runs entirely in your browser using the Canvas API. PNG and BMP stay fully lossless; JPEG and WEBP quality defaults to maximum until you move the slider.</div>
+    <div><b data-i18n="footnoteB">Nothing is uploaded, ever.</b><span data-i18n="footnoteText"> Conversion runs entirely in your browser using the Canvas API. PNG and BMP stay fully lossless; JPEG and WEBP quality defaults to maximum until you move the slider.</span></div>
   </div>
 
 </div>
@@ -434,13 +434,132 @@
   const EXT = { png:'png', jpeg:'jpeg', jpg:'jpg', webp:'webp', bmp:'bmp', avif:'avif', heic:'heic', tiff:'tiff', svg:'svg', ico:'ico' };
   const MIME = { png:'image/png', jpeg:'image/jpeg', jpg:'image/jpeg', webp:'image/webp', avif:'image/avif', heic:'image/heic', tiff:'image/tiff', svg:'image/svg+xml', ico:'image/x-icon' };
 
+  const DICT = {
+    en: {
+      eyebrow: "Free Online Image Converter",
+      h1: "Convert JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG & More Online",
+      sub: "Convert any image format directly in your browser without uploading files. Our free image converter supports JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO and many more formats while keeping your images private and preserving maximum quality.",
+      dzTitle: "Drag & drop or <b>click</b>",
+      dzSub: "Supports JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO and more",
+      chooseFile: "Choose file",
+      addFile: "Add file",
+      footnoteB: "Nothing is uploaded, ever.",
+      footnoteText: " Conversion runs entirely in your browser using the Canvas API. PNG and BMP stay fully lossless; JPEG and WEBP quality defaults to maximum until you move the slider.",
+      original: "Original",
+      converted: "Converted",
+      converting: "Converting",
+      failed: "Failed",
+      settings: "Settings",
+      outputFormat: "Output Format",
+      quality: "Quality",
+      qualityNA: "Quality setting is not available for ",
+      resizeImage: "Resize Image",
+      reopenResize: "+ Resize image",
+      download: "Download",
+      downloadAll: "Download all as .zip",
+      emptySettings: "Choose a file to see conversion settings.",
+      presetWebsite: "Website",
+      presetInstaPost: "Instagram Post",
+      presetInstaStory: "Instagram Story",
+      presetThumb: "Thumbnail",
+      presetHD: "HD",
+      presetSquare: "Square Small"
+    },
+    ja: {
+      eyebrow: "無料オンライン画像コンバーター",
+      h1: "JPG、PNG、WebP、AVIF、HEIC、BMP、TIFF、SVGなどをオンラインで変換",
+      sub: "ファイルをアップロードせずにブラウザで直接画像形式を変換します。JPG、JPEG、PNG、WebP、AVIF、HEIC、BMP、TIFF、SVG、ICOなどをサポートし、プライバシーと最高品質を維持します。",
+      dzTitle: "ドラッグ＆ドロップまたは<b>クリック</b>",
+      dzSub: "JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICOなどに対応",
+      chooseFile: "ファイルを選択",
+      addFile: "ファイルを追加",
+      footnoteB: "アップロードは一切されません。",
+      footnoteText: " 変換はCanvas APIを使用してブラウザ内で完全に実行されます。PNGとBMPは完全にロスレスのままです。JPEGとWEBPの品質はスライダーを動かすまで最大になります。",
+      original: "オリジナル",
+      converted: "変換済み",
+      converting: "変換中",
+      failed: "失敗しました",
+      settings: "設定",
+      outputFormat: "出力形式",
+      quality: "画質",
+      qualityNA: "画質設定は利用できません: ",
+      resizeImage: "画像サイズ変更",
+      reopenResize: "+ 画像サイズ変更",
+      download: "ダウンロード",
+      downloadAll: "すべてZIPでダウンロード",
+      emptySettings: "ファイルを選択して変換設定を表示します。",
+      presetWebsite: "ウェブサイト",
+      presetInstaPost: "インスタ投稿",
+      presetInstaStory: "インスタストーリー",
+      presetThumb: "サムネイル",
+      presetHD: "HD",
+      presetSquare: "正方形（小）"
+    },
+    hi: {
+      eyebrow: "मुफ़्त ऑनलाइन इमेज कनवर्टर",
+      h1: "JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG और बहुत कुछ ऑनलाइन बदलें",
+      sub: "बिना फाइल अपलोड किए सीधे अपने ब्राउज़र में किसी भी इमेज फॉर्मेट को बदलें। हमारा मुफ़्त इमेज कनवर्टर JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO और कई अन्य को सपोर्ट करता है।",
+      dzTitle: "खींचें और छोड़ें या <b>क्लिक करें</b>",
+      dzSub: "JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO आदि को सपोर्ट करता है",
+      chooseFile: "फ़ाइल चुनें",
+      addFile: "फ़ाइल जोड़ें",
+      footnoteB: "कुछ भी अपलोड नहीं होता।",
+      footnoteText: " रूपांतरण पूरी तरह से आपके ब्राउज़र में Canvas API का उपयोग करके चलता है। PNG और BMP पूर्ण दोषरहित रहते हैं।",
+      original: "मूल",
+      converted: "परिवर्तित",
+      converting: "परिवर्तित हो रहा है",
+      failed: "विफल रहा",
+      settings: "सेटिंग्स",
+      outputFormat: "आउटपुट प्रारूप",
+      quality: "गुणवत्ता",
+      qualityNA: "गुणवत्ता सेटिंग उपलब्ध नहीं है: ",
+      resizeImage: "छवि का आकार बदलें",
+      reopenResize: "+ छवि का आकार बदलें",
+      download: "डाउनलोड करें",
+      downloadAll: ".zip के रूप में सभी डाउनलोड करें",
+      emptySettings: "रूपांतरण सेटिंग्स देखने के लिए एक फ़ाइल चुनें।",
+      presetWebsite: "वेबसाइट",
+      presetInstaPost: "इंस्टाग्राम पोस्ट",
+      presetInstaStory: "इंस्टाग्राम स्टोरी",
+      presetThumb: "थंबनेल",
+      presetHD: "एचडी",
+      presetSquare: "छोटा वर्ग"
+    }
+  };
+  
+  let currentLang = 'en';
+  function t(key) { return DICT[currentLang][key] || DICT['en'][key] || key; }
+
+  function applyTranslations() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t(key)) el.innerHTML = t(key);
+    });
+    renderSettings();
+    renderThumbs();
+    const it = activeFile();
+    if (it) renderCompare(it);
+  }
+
+  async function detectLanguage() {
+    try {
+      const res = await fetch('https://ipapi.co/json/');
+      const data = await res.json();
+      if (data.country_code === 'JP') currentLang = 'ja';
+      else if (data.country_code === 'IN') currentLang = 'hi';
+      else currentLang = 'en';
+      applyTranslations();
+    } catch(e) { console.error("IP detect failed", e); }
+  }
+  detectLanguage();
+
   const PRESETS = [
-    { name:'Website', dim:[1280,720], icon:'monitor' },
-    { name:'Instagram Post', dim:[1080,1080], icon:'phone' },
-    { name:'Instagram Story', dim:[1080,1920], icon:'phone' },
-    { name:'Thumbnail', dim:[640,360], icon:'image' },
-    { name:'HD', dim:[1920,1080], icon:'monitor' },
-    { name:'Square Small', dim:[512,512], icon:'square' },
+    { nameKey:'presetWebsite', dim:[1280,720], icon:'monitor' },
+    { nameKey:'presetInstaPost', dim:[1080,1080], icon:'phone' },
+    { nameKey:'presetInstaStory', dim:[1080,1920], icon:'phone' },
+    { nameKey:'presetThumb', dim:[640,360], icon:'image' },
+    { nameKey:'presetHD', dim:[1920,1080], icon:'monitor' },
+    { nameKey:'presetSquare', dim:[512,512], icon:'square' },
   ];
   const ICONS = {
     monitor:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
@@ -628,13 +747,13 @@
     imgAfter.src = it.resultUrl || it.originalUrl;
     syncAfterImgWidth();
     setDividerPct(50);
-    tagLeft.textContent = 'Original · ' + fmtBytes(it.size);
+    tagLeft.textContent = t('original') + ' · ' + fmtBytes(it.size);
     if (it.status === 'done') {
-      tagRight.innerHTML = 'Converted · ' + fmtBytes(it.resultSize);
+      tagRight.innerHTML = t('converted') + ' · ' + fmtBytes(it.resultSize);
     } else if (it.status === 'error') {
-      tagRight.innerHTML = 'Failed';
+      tagRight.innerHTML = t('failed');
     } else {
-      tagRight.innerHTML = 'Converting <div class="cute-loader"><span></span><span></span><span></span></div>';
+      tagRight.innerHTML = t('converting') + ' <div class="cute-loader"><span></span><span></span><span></span></div>';
     }
     
     manageCropper(it);
@@ -681,16 +800,16 @@
   // ---------- settings panel ----------
   function renderSettings(){
     const it = activeFile();
-    if (!it){ settingsBody.innerHTML = '<div class="empty-settings">Choose a file to see conversion settings.</div>'; return; }
+    if (!it){ settingsBody.innerHTML = `<div class="empty-settings">${t('emptySettings')}</div>`; return; }
     const formats = it.kind === 'image' ? IMG_FORMATS : VID_FORMATS;
     const noQuality = it.targetFormat === 'png' || it.targetFormat === 'bmp';
 
     settingsBody.innerHTML = `
-      <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>Settings</h3>
+      <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>${t('settings')}</h3>
       <hr>
 
       <div class="field">
-        <div class="field-label-row"><label>Output Format</label></div>
+        <div class="field-label-row"><label>${t('outputFormat')}</label></div>
         <select id="fmtSelect">
           ${formats.map(f => `<option value="${f}" ${f===it.targetFormat?'selected':''}>${EXT[f].toUpperCase()}</option>`).join('')}
         </select>
@@ -698,13 +817,13 @@
 
       <div class="field">
         <div class="field-label-row">
-          <label>Quality</label>
-          <span class="hint">${noQuality ? 'Quality setting is not available for ' + EXT[it.targetFormat].toUpperCase() : Math.round(it.quality*100) + '%'}</span>
+          <label>${t('quality')}</label>
+          <span class="hint">${noQuality ? t('qualityNA') + EXT[it.targetFormat].toUpperCase() : Math.round(it.quality*100) + '%'}</span>
         </div>
         <input type="range" id="qualitySlider" min="10" max="100" value="${Math.round(it.quality*100)}" ${noQuality?'disabled':''}>
         <div class="size-row">
-          <span>Original: <b>${fmtBytes(it.size)}</b></span>
-          <span>Converted: <b>${it.status==='done' ? fmtBytes(it.resultSize) : (it.status==='working' ? '…' : '—')}</b></span>
+          <span>${t('original')}: <b>${fmtBytes(it.size)}</b></span>
+          <span>${t('converted')}: <b>${it.status==='done' ? fmtBytes(it.resultSize) : (it.status==='working' ? '…' : '—')}</b></span>
         </div>
       </div>
 
@@ -714,11 +833,11 @@
 
       <button class="btn-download" id="downloadBtn" ${it.status!=='done'?'disabled':''}>
         ${it.status === 'working' 
-          ? `Converting <div class="cute-loader"><span></span><span></span><span></span></div>` 
-          : `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg> Download ${EXT[it.targetFormat].toUpperCase()}`
+          ? `${t('converting')} <div class="cute-loader"><span></span><span></span><span></span></div>` 
+          : `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg> ${t('download')} ${EXT[it.targetFormat].toUpperCase()}`
         }
       </button>
-      ${state.files.filter(f=>f.status==='done').length > 1 ? '<button class="btn-download-all" id="downloadAllBtn">Download all as .zip</button>' : ''}
+      ${state.files.filter(f=>f.status==='done').length > 1 ? `<button class="btn-download-all" id="downloadAllBtn">${t('downloadAll')}</button>` : ''}
     `;
 
     document.getElementById('fmtSelect').addEventListener('change', e => {
@@ -747,19 +866,19 @@
 
   function renderResizeBlock(it){
     if (!it.resizeOpen){
-      return `<button class="reopen" id="reopenResize">+ Resize image</button>`;
+      return `<button class="reopen" id="reopenResize">${t('reopenResize')}</button>`;
     }
     return `
       <div class="field">
         <div class="resize-head">
-          <label>Resize Image</label>
+          <label>${t('resizeImage')}</label>
           <button class="x-btn" id="closeResize" title="Skip resizing">&times;</button>
         </div>
         <div class="preset-grid">
           ${PRESETS.map((p,i) => `
             <div class="preset ${it.activePreset===i?'active':''}" data-idx="${i}">
               ${ICONS[p.icon]}
-              <span class="p-name">${p.name}</span>
+              <span class="p-name">${t(p.nameKey)}</span>
               <span class="p-dim">${p.dim[0]}×${p.dim[1]}</span>
             </div>`).join('')}
         </div>
