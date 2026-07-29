@@ -242,6 +242,15 @@
 
   /* ---------- thumb strip ---------- */
   .thumb-strip{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;align-items:center;}
+  .thumb-wrap { position:relative; display:inline-block; }
+  .thumb-remove {
+    position:absolute; top:-6px; right:-6px; width:18px; height:18px;
+    background:var(--error); color:#fff; border-radius:50%; font-size:12px;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    border:none; line-height:1; opacity:0; transition:opacity 0.2s; z-index:2;
+  }
+  .thumb-wrap:hover .thumb-remove { opacity:1; }
+
   .thumb{
     width:46px;height:46px;border-radius:9px;object-fit:cover;border:2px solid transparent;
     opacity:.55;cursor:pointer;background:#eef0f5;
@@ -490,7 +499,7 @@
       const item = {
         id:'f'+(uid++), file, kind, name:file.name, size:file.size,
         targetFormat: defaultTarget(kind, srcExt), quality: 1,
-        resizeW: null, resizeH: null, aspectLocked: true, activePreset: null, resizeOpen: true,
+        resizeW: null, resizeH: null, aspectLocked: true, activePreset: null, resizeOpen: true, fitMode: 'fill',
         originalUrl: null, resultBlob: null, resultUrl: null, resultSize: null,
         naturalW: null, naturalH: null, status:'idle', error:''
       };
@@ -546,12 +555,36 @@
       compareWrap.style.display = 'block';
     }
     state.files.forEach(it => {
+      const wrap = document.createElement('div');
+      wrap.className = 'thumb-wrap';
       const el = document.createElement('img');
       el.className = 'thumb' + (it.id === state.activeId ? ' active' : '');
       el.src = it.originalUrl || '';
       el.title = it.name;
       el.addEventListener('click', () => selectFile(it.id));
-      thumbStrip.appendChild(el);
+      
+      const rm = document.createElement('button');
+      rm.className = 'thumb-remove';
+      rm.innerHTML = '&times;';
+      rm.title = 'Remove file';
+      rm.addEventListener('click', (e) => {
+        e.stopPropagation();
+        state.files = state.files.filter(f => f.id !== it.id);
+        if (state.activeId === it.id) {
+          state.activeId = state.files.length ? state.files[0].id : null;
+          selectFile(state.activeId);
+        } else {
+          renderThumbs();
+        }
+        if (!state.files.length) {
+          dropzone.style.display = 'flex';
+          compareWrap.style.display = 'none';
+          settingsBody.innerHTML = '<div class="empty-settings">Choose a file to see conversion settings.</div>';
+        }
+      });
+      wrap.appendChild(el);
+      wrap.appendChild(rm);
+      thumbStrip.appendChild(wrap);
     });
     if (state.files.length){
       const add = document.createElement('button');
@@ -695,6 +728,13 @@
           <input type="number" id="hInput" placeholder="0" value="${it.resizeH || ''}">
           <span class="dims-suffix">px</span>
         </div>
+        <div class="field-label-row" style="margin-top:16px;">
+          <label>Fitting Mode</label>
+        </div>
+        <select id="fitModeSelect">
+          <option value="fill" ${it.fitMode==='fill'?'selected':''}>Fill (Crop to fit)</option>
+          <option value="fit" ${it.fitMode==='fit'?'selected':''}>Fit (Add borders, no cropping)</option>
+        </select>
       </div>
     `;
   }
@@ -731,6 +771,13 @@
       scheduleConvert(280);
     });
     document.getElementById('lockBtn').addEventListener('click', () => { it.aspectLocked = !it.aspectLocked; renderSettings(); });
+    const fitSel = document.getElementById('fitModeSelect');
+    if(fitSel) {
+      fitSel.addEventListener('change', e => {
+        it.fitMode = e.target.value;
+        scheduleConvert(0);
+      });
+    }
   }
 
   // ---------- conversion engine ----------
@@ -767,12 +814,18 @@
     return new Blob([buf], {type:'image/bmp'});
   }
 
-  function drawCover(source, sw, sh, canvas, tw, th){
+  function drawResized(source, sw, sh, canvas, tw, th, mode){
     canvas.width = tw; canvas.height = th;
     const ctx = canvas.getContext('2d');
-    const scale = Math.max(tw/sw, th/sh);
-    const nw = sw*scale, nh = sh*scale;
-    ctx.drawImage(source, (tw-nw)/2, (th-nh)/2, nw, nh);
+    if (mode === 'fit') {
+      const scale = Math.min(tw/sw, th/sh);
+      const nw = sw*scale, nh = sh*scale;
+      ctx.drawImage(source, (tw-nw)/2, (th-nh)/2, nw, nh);
+    } else {
+      const scale = Math.max(tw/sw, th/sh);
+      const nw = sw*scale, nh = sh*scale;
+      ctx.drawImage(source, (tw-nw)/2, (th-nh)/2, nw, nh);
+    }
   }
 
   function encodeSVG(canvas) {
@@ -808,7 +861,7 @@
       const sh = it.kind === 'image' ? source.height : source.videoHeight;
       const tw = it.resizeW || sw, th = it.resizeH || sh;
       const canvas = document.createElement('canvas');
-      if (it.resizeW || it.resizeH) drawCover(source, sw, sh, canvas, tw, th);
+      if (it.resizeW || it.resizeH) drawResized(source, sw, sh, canvas, tw, th, it.fitMode);
       else { canvas.width = sw; canvas.height = sh; canvas.getContext('2d').drawImage(source, 0, 0); }
       if (it.kind === 'video') URL.revokeObjectURL(source.src);
 
