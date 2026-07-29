@@ -16,12 +16,8 @@
 
 <link rel="canonical" href="https://yourdomain.com/">
 
-<link rel="icon" href="/favicon.ico">
-
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
-<link rel="manifest" href="/site.webmanifest">
-
+<!-- Inline SVG Favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔄</text></svg>">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Free Image Converter Online">
@@ -154,11 +150,35 @@
   .page{max-width:1080px;margin:0 auto;padding:40px 24px 72px;}
 
   header.top{margin-bottom:28px;}
+  .header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
   .eyebrow{
     font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--accent);display:flex;align-items:center;gap:8px;margin-bottom:10px;
+    color:var(--accent);display:flex;align-items:center;gap:8px;margin:0;
   }
   .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);}
+  
+  /* Language Switcher Styling */
+  .lang-switcher select {
+    width: auto;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 28px 6px 10px;
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    transition: all 0.2s ease;
+  }
+  .lang-switcher select:hover {
+    border-color: var(--accent);
+  }
+
   h1{
     font-family:var(--display);font-weight:700;font-size:clamp(26px,4vw,34px);
     margin:0 0 8px;letter-spacing:-0.01em;
@@ -235,10 +255,46 @@
   .tag.left{left:10px;}
   .tag.right{right:10px;}
 
+  /* ---------- Cropper Backdrop & Handles Styling ---------- */
+  .cropper-container {
+    transition: all 0.2s ease-out !important;
+  }
+  .cropper-modal {
+    background-color: rgba(0, 0, 0, 0.45) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    opacity: 1 !important;
+  }
+  .cropper-view-box {
+    outline: 2px solid rgba(255, 255, 255, 0.95) !important;
+  }
+  .cropper-line {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+  }
+  .cropper-point {
+    background-color: #ffffff !important;
+    width: 10px !important;
+    height: 10px !important;
+    opacity: 0.95 !important;
+    border-radius: 50% !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4) !important;
+  }
+  .cropper-point.point-se,
+  .cropper-point.point-sw,
+  .cropper-point.point-nw,
+  .cropper-point.point-ne {
+    width: 12px !important;
+    height: 12px !important;
+  }
+  .cropper-bg {
+    background-image: none !important;
+  }
+
   .swap-row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;}
   .swap-row .btn-ghost-sm{
     font-size:12.5px;color:var(--ink-dim);background:none;border:1px solid var(--border);
     border-radius:20px;padding:6px 12px;display:flex;align-items:center;gap:6px;
+    cursor:pointer;
   }
   .swap-row .btn-ghost-sm:hover{border-color:#c7ccd8;color:var(--ink);}
 
@@ -325,6 +381,34 @@
   .lock-btn.on{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);}
   .dims-suffix{font-size:11px;color:var(--ink-faint);flex-shrink:0;}
 
+  /* Crop Controls Bar */
+  .crop-controls-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .crop-controls-row button {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ink-dim);
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .crop-controls-row button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
   .btn-download{
     width:100%;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);
     padding:13px;font-size:14.5px;font-weight:700;cursor:pointer;margin-top:6px;
@@ -360,17 +444,34 @@
 <div class="page">
 
   <header class="top">
-    <div class="eyebrow" data-i18n="eyebrow">
-      Free Online Image Converter
+    <div class="header-bar">
+      <div class="eyebrow" data-i18n="eyebrow">
+        Free Online Image Converter
       </div>
+      <!-- Manual Language Switcher with Flags -->
+      <div class="lang-switcher">
+        <select id="langSelect" aria-label="Select Language">
+          <option value="en">🇺🇸 English</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+          <option value="ja">🇯🇵 日本語</option>
+          <option value="zh">🇨🇳 中文</option>
+          <option value="hi">🇮🇳 हिंदी</option>
+          <option value="ar">🇸🇦 العربية</option>
+          <option value="pt">🇧🇷 Português</option>
+          <option value="ko">🇰🇷 한국어</option>
+        </select>
+      </div>
+    </div>
       
-      <h1 data-i18n="h1">
-      Convert JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG & More Online
-      </h1>
-      
-      <p class="sub" data-i18n="sub">
-      Convert any image format directly in your browser without uploading files. Our free image converter supports JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO and many more formats while keeping your images private and preserving maximum quality.
-      </p>
+    <h1 data-i18n="h1">
+    Convert JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG & More Online
+    </h1>
+    
+    <p class="sub" data-i18n="sub">
+    Convert any image format directly in your browser without uploading files. Our free image converter supports JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO and many more formats while keeping your images private and preserving maximum quality.
+    </p>
   </header>
 
   <div class="studio">
@@ -432,7 +533,7 @@
   const IMG_FORMATS = ['jpg','jpeg','png','webp','avif','heic','bmp','tiff','svg','ico'];
   const VID_FORMATS = ['png','jpeg','jpg'];
   const EXT = { png:'png', jpeg:'jpeg', jpg:'jpg', webp:'webp', bmp:'bmp', avif:'avif', heic:'heic', tiff:'tiff', svg:'svg', ico:'ico' };
-  const MIME = { png:'image/png', jpeg:'image/jpeg', jpg:'image/jpeg', webp:'image/webp', avif:'image/avif', heic:'image/heic', tiff:'image/tiff', svg:'image/svg+xml', ico:'image/x-icon' };
+  const MIME = { png:'image/png', jpeg:'image/jpeg', jpg:'image/jpeg', webp:'image/webp', avif:'image/avif', heic:'image/heic', tiff:'tiff', svg:'image/svg+xml', ico:'image/x-icon' };
 
   const DICT = {
     en: {
@@ -463,21 +564,123 @@
       presetInstaStory: "Instagram Story",
       presetThumb: "Thumbnail",
       presetHD: "HD",
-      presetSquare: "Square Small"
+      presetSquare: "Square Small",
+      resetPosition: "Reset Position",
+      zoomIn: "Zoom In",
+      zoomOut: "Zoom Out"
+    },
+    es: {
+      eyebrow: "Convertidor de imágenes gratuito",
+      h1: "Convierte JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG y más en línea",
+      sub: "Convierte cualquier formato de imagen directamente en tu navegador sin cargar archivos. Privacidad garantizada.",
+      dzTitle: "Arrastra y suelta o <b>haz clic</b>",
+      dzSub: "Soporta JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG e ICO",
+      chooseFile: "Elegir archivo",
+      addFile: "Añadir archivo",
+      footnoteB: "Nunca se sube nada.",
+      footnoteText: " El procesamiento se realiza localmente en tu navegador mediante la API Canvas.",
+      original: "Original",
+      converted: "Convertido",
+      converting: "Convirtiendo",
+      failed: "Error",
+      settings: "Ajustes",
+      outputFormat: "Formato de salida",
+      quality: "Calidad",
+      qualityNA: "Ajuste de calidad no disponible para ",
+      resizeImage: "Redimensionar imagen",
+      reopenResize: "+ Redimensionar imagen",
+      download: "Descargar",
+      downloadAll: "Descargar todo en .zip",
+      emptySettings: "Elige un archivo para ver los ajustes.",
+      presetWebsite: "Sitio web",
+      presetInstaPost: "Publicación de IG",
+      presetInstaStory: "Historia de IG",
+      presetThumb: "Miniatura",
+      presetHD: "HD",
+      presetSquare: "Cuadrado pequeño",
+      resetPosition: "Restablecer posición",
+      zoomIn: "Acercar",
+      zoomOut: "Alejar"
+    },
+    fr: {
+      eyebrow: "Convertisseur d'images gratuit",
+      h1: "Convertissez JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG en ligne",
+      sub: "Convertissez n'importe quel format d'image directement dans votre navigateur sans téléverser de fichiers.",
+      dzTitle: "Glissez-déposez ou <b>cliquez</b>",
+      dzSub: "Prend en charge JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO",
+      chooseFile: "Choisir un fichier",
+      addFile: "Ajouter un fichier",
+      footnoteB: "Rien n'est téléversé.",
+      footnoteText: " La conversion s'effectue localement dans votre navigateur via l'API Canvas.",
+      original: "Original",
+      converted: "Converti",
+      converting: "Conversion...",
+      failed: "Échec",
+      settings: "Paramètres",
+      outputFormat: "Format de sortie",
+      quality: "Qualité",
+      qualityNA: "Réglage de qualité indisponible pour ",
+      resizeImage: "Redimensionner l'image",
+      reopenResize: "+ Redimensionner l'image",
+      download: "Télécharger",
+      downloadAll: "Tout télécharger (.zip)",
+      emptySettings: "Choisissez un fichier pour voir les paramètres.",
+      presetWebsite: "Site Web",
+      presetInstaPost: "Publication IG",
+      presetInstaStory: "Story IG",
+      presetThumb: "Miniature",
+      presetHD: "HD",
+      presetSquare: "Petit carré",
+      resetPosition: "Réinitialiser la position",
+      zoomIn: "Zoom avant",
+      zoomOut: "Zoom arrière"
+    },
+    de: {
+      eyebrow: "Kostenloser Online-Bildkonverter",
+      h1: "Konvertieren Sie JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG online",
+      sub: "Konvertieren Sie jedes Bildformat direkt in Ihrem Browser ohne Uploads. 100% privat.",
+      dzTitle: "Ziehen & ablegen oder <b>klicken</b>",
+      dzSub: "Unterstützt JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO",
+      chooseFile: "Datei auswählen",
+      addFile: "Datei hinzufügen",
+      footnoteB: "Es wird nichts hochgeladen.",
+      footnoteText: " Die Konvertierung läuft lokal in Ihrem Browser über die Canvas API.",
+      original: "Original",
+      converted: "Konvertiert",
+      converting: "Konvertieren...",
+      failed: "Fehlgeschlagen",
+      settings: "Einstellungen",
+      outputFormat: "Ausgabeformat",
+      quality: "Qualität",
+      qualityNA: "Qualitätseinstellung nicht verfügbar für ",
+      resizeImage: "Bildgröße ändern",
+      reopenResize: "+ Bildgröße ändern",
+      download: "Herunterladen",
+      downloadAll: "Alle als .zip herunterladen",
+      emptySettings: "Wählen Sie eine Datei, um Einstellungen zu sehen.",
+      presetWebsite: "Webseite",
+      presetInstaPost: "Instagram Post",
+      presetInstaStory: "Instagram Story",
+      presetThumb: "Thumbnail",
+      presetHD: "HD",
+      presetSquare: "Kleines Quadrat",
+      resetPosition: "Position zurücksetzen",
+      zoomIn: "Vergrößern",
+      zoomOut: "Verkleinern"
     },
     ja: {
       eyebrow: "無料オンライン画像コンバーター",
       h1: "JPG、PNG、WebP、AVIF、HEIC、BMP、TIFF、SVGなどをオンラインで変換",
-      sub: "ファイルをアップロードせずにブラウザで直接画像形式を変換します。JPG、JPEG、PNG、WebP、AVIF、HEIC、BMP、TIFF、SVG、ICOなどをサポートし、プライバシーと最高品質を維持します。",
+      sub: "ファイルをアップロードせずにブラウザで直接画像形式を変換します。プライバシーと最高品質を維持します。",
       dzTitle: "ドラッグ＆ドロップまたは<b>クリック</b>",
       dzSub: "JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICOなどに対応",
       chooseFile: "ファイルを選択",
       addFile: "ファイルを追加",
       footnoteB: "アップロードは一切されません。",
-      footnoteText: " 変換はCanvas APIを使用してブラウザ内で完全に実行されます。PNGとBMPは完全にロスレスのままです。JPEGとWEBPの品質はスライダーを動かすまで最大になります。",
+      footnoteText: " 変換はCanvas APIを使用してブラウザ内で完全に実行されます。",
       original: "オリジナル",
       converted: "変換済み",
-      converting: "変換中",
+      converting: "変換中...",
       failed: "失敗しました",
       settings: "設定",
       outputFormat: "出力形式",
@@ -493,21 +696,57 @@
       presetInstaStory: "インスタストーリー",
       presetThumb: "サムネイル",
       presetHD: "HD",
-      presetSquare: "正方形（小）"
+      presetSquare: "正方形（小）",
+      resetPosition: "位置をリセット",
+      zoomIn: "拡大",
+      zoomOut: "縮小"
+    },
+    zh: {
+      eyebrow: "免费在线图像转换器",
+      h1: "在线转换 JPG、PNG、WebP、AVIF、HEIC、BMP、TIFF、SVG 等",
+      sub: "无需上传文件，直接在浏览器中转换任何图像格式。保护隐私，保持最高质量。",
+      dzTitle: "拖放文件或<b>点击上传</b>",
+      dzSub: "支持 JPG、PNG、WebP、AVIF、HEIC、BMP、TIFF、SVG、ICO 等",
+      chooseFile: "选择文件",
+      addFile: "添加文件",
+      footnoteB: "文件绝不上传。",
+      footnoteText: " 转换完全通过 Canvas API 在浏览器本地运行。",
+      original: "原图",
+      converted: "已转换",
+      converting: "转换中...",
+      failed: "转换失败",
+      settings: "设置",
+      outputFormat: "输出格式",
+      quality: "画质",
+      qualityNA: "画质设置不适用于 ",
+      resizeImage: "调整图像大小",
+      reopenResize: "+ 调整图像大小",
+      download: "下载",
+      downloadAll: "打包下载 (.zip)",
+      emptySettings: "请选择一个文件以查看转换设置。",
+      presetWebsite: "网站",
+      presetInstaPost: "IG 帖子",
+      presetInstaStory: "IG 快讯",
+      presetThumb: "缩略图",
+      presetHD: "高清 HD",
+      presetSquare: "小正方形",
+      resetPosition: "重置位置",
+      zoomIn: "放大",
+      zoomOut: "缩小"
     },
     hi: {
       eyebrow: "मुफ़्त ऑनलाइन इमेज कनवर्टर",
       h1: "JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG और बहुत कुछ ऑनलाइन बदलें",
-      sub: "बिना फाइल अपलोड किए सीधे अपने ब्राउज़र में किसी भी इमेज फॉर्मेट को बदलें। हमारा मुफ़्त इमेज कनवर्टर JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO और कई अन्य को सपोर्ट करता है।",
+      sub: "बिना फाइल अपलोड किए सीधे अपने ब्राउज़र में किसी भी इमेज फॉर्मेट को बदलें। निजी और उच्च गुणवत्ता।",
       dzTitle: "खींचें और छोड़ें या <b>क्लिक करें</b>",
       dzSub: "JPG, JPEG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO आदि को सपोर्ट करता है",
       chooseFile: "फ़ाइल चुनें",
       addFile: "फ़ाइल जोड़ें",
       footnoteB: "कुछ भी अपलोड नहीं होता।",
-      footnoteText: " रूपांतरण पूरी तरह से आपके ब्राउज़र में Canvas API का उपयोग करके चलता है। PNG और BMP पूर्ण दोषरहित रहते हैं।",
+      footnoteText: " रूपांतरण पूरी तरह से आपके ब्राउज़र में Canvas API का उपयोग करके चलता है।",
       original: "मूल",
       converted: "परिवर्तित",
-      converting: "परिवर्तित हो रहा है",
+      converting: "परिवर्तित हो रहा है...",
       failed: "विफल रहा",
       settings: "सेटिंग्स",
       outputFormat: "आउटपुट प्रारूप",
@@ -523,35 +762,111 @@
       presetInstaStory: "इंस्टाग्राम स्टोरी",
       presetThumb: "थंबनेल",
       presetHD: "एचडी",
-      presetSquare: "छोटा वर्ग"
+      presetSquare: "छोटा वर्ग",
+      resetPosition: "स्थिति रीसेट करें",
+      zoomIn: "ज़ूम इन",
+      zoomOut: "ज़ूम आउट"
+    },
+    ar: {
+      eyebrow: "محول صور مجاني عبر الإنترنت",
+      h1: "تحويل JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG مجاناً",
+      sub: "قم بتحويل أي تنسيق صورة مباشرة في متصفحك دون رفع أي ملفات. خصوصية 100%.",
+      dzTitle: "اسحب وأفلت أو <b>انقر للاختيار</b>",
+      dzSub: "يدعم JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO",
+      chooseFile: "اختر ملف",
+      addFile: "إضافة ملف",
+      footnoteB: "لا يتم رفع أي شيء أبداً.",
+      footnoteText: " يتم التحويل بالكامل داخل متصفحك باستخدام Canvas API.",
+      original: "الأصلي",
+      converted: "المحول",
+      converting: "جاري التحويل...",
+      failed: "فشل التحويل",
+      settings: "الإعدادات",
+      outputFormat: "تنسيق الاخراج",
+      quality: "الجودة",
+      qualityNA: "إعداد الجودة غير متاح لـ ",
+      resizeImage: "تغيير حجم الصورة",
+      reopenResize: "+ تغيير حجم الصورة",
+      download: "تحميل",
+      downloadAll: "تحميل الكل (.zip)",
+      emptySettings: "اختر ملفاً لعرض إعدادات التحويل.",
+      presetWebsite: "موقع إلكتروني",
+      presetInstaPost: "منشور إنستغرام",
+      presetInstaStory: "قصة إنستغرام",
+      presetThumb: "صورة مصغرة",
+      presetHD: "عالي الدقة HD",
+      presetSquare: "مربع صغير",
+      resetPosition: "إعادة ضبط موضع الصورة",
+      zoomIn: "تكبير",
+      zoomOut: "تصغير"
+    },
+    pt: {
+      eyebrow: "Conversor de Imagens Gratuito",
+      h1: "Converta JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG Online",
+      sub: "Converta qualquer formato de imagem diretamente no seu navegador sem enviar arquivos. 100% privado.",
+      dzTitle: "Arraste e solte ou <b>clique</b>",
+      dzSub: "Suporta JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG e ICO",
+      chooseFile: "Escolher arquivo",
+      addFile: "Adicionar arquivo",
+      footnoteB: "Nada é enviado para servidores.",
+      footnoteText: " A conversão roda totalmente no seu navegador usando Canvas API.",
+      original: "Original",
+      converted: "Convertido",
+      converting: "Convertendo...",
+      failed: "Falhou",
+      settings: "Configurações",
+      outputFormat: "Formato de Saída",
+      quality: "Qualidade",
+      qualityNA: "Ajuste de qualidade indisponível para ",
+      resizeImage: "Redimensionar Imagem",
+      reopenResize: "+ Redimensionar Imagem",
+      download: "Baixar",
+      downloadAll: "Baixar tudo (.zip)",
+      emptySettings: "Escolha um arquivo para ver as configurações.",
+      presetWebsite: "Website",
+      presetInstaPost: "Post do Instagram",
+      presetInstaStory: "Story do Instagram",
+      presetThumb: "Miniatura",
+      presetHD: "HD",
+      presetSquare: "Quadrado Pequeno",
+      resetPosition: "Redefinir Posição",
+      zoomIn: "Aumentar Zoom",
+      zoomOut: "Diminuir Zoom"
+    },
+    ko: {
+      eyebrow: "무료 온라인 이미지 변환기",
+      h1: "JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG 온라인 변환",
+      sub: "파일 업로드 없이 브라우저에서 직접 모든 이미지 형식을 변환하세요. 100% 개인정보 보호.",
+      dzTitle: "드래그 앤 드롭 또는 <b>클릭</b>",
+      dzSub: "JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO 지원",
+      chooseFile: "파일 선택",
+      addFile: "파일 추가",
+      footnoteB: "어떤 파일도 업로드되지 않습니다.",
+      footnoteText: " 변환은 Canvas API를 사용하여 브라우저에서 완전히 실행됩니다.",
+      original: "원본",
+      converted: "변환됨",
+      converting: "변환 중...",
+      failed: "실패",
+      settings: "설정",
+      outputFormat: "출력 형식",
+      quality: "품질",
+      qualityNA: "다음 형식은 품질 설정을 지원하지 않습니다: ",
+      resizeImage: "이미지 크기 조절",
+      reopenResize: "+ 이미지 크기 조절",
+      download: "다운로드",
+      downloadAll: "전체 ZIP 다운로드",
+      emptySettings: "파일을 선택하여 변환 설정을 확인하세요.",
+      presetWebsite: "웹사이트",
+      presetInstaPost: "인스타그램 게시물",
+      presetInstaStory: "인스타그램 스토리",
+      presetThumb: "썸네일",
+      presetHD: "HD",
+      presetSquare: "작은 정사각형",
+      resetPosition: "위치 초기화",
+      zoomIn: "확대",
+      zoomOut: "축소"
     }
   };
-  
-  let currentLang = 'en';
-  function t(key) { return DICT[currentLang][key] || DICT['en'][key] || key; }
-
-  function applyTranslations() {
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (t(key)) el.innerHTML = t(key);
-    });
-    renderSettings();
-    renderThumbs();
-    const it = activeFile();
-    if (it) renderCompare(it);
-  }
-
-  async function detectLanguage() {
-    try {
-      const res = await fetch('https://ipapi.co/json/');
-      const data = await res.json();
-      if (data.country_code === 'JP') currentLang = 'ja';
-      else if (data.country_code === 'IN') currentLang = 'hi';
-      else currentLang = 'en';
-      applyTranslations();
-    } catch(e) { console.error("IP detect failed", e); }
-  }
-  detectLanguage();
 
   const PRESETS = [
     { nameKey:'presetWebsite', dim:[1280,720], icon:'monitor' },
@@ -561,6 +876,7 @@
     { nameKey:'presetHD', dim:[1920,1080], icon:'monitor' },
     { nameKey:'presetSquare', dim:[512,512], icon:'square' },
   ];
+
   const ICONS = {
     monitor:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
     phone:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',
@@ -568,12 +884,15 @@
     square:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>'
   };
 
+  // Declare state variables
   const state = { files: [], activeId: null };
   let uid = 0;
   let webpSupport = null;
   let convertTimer = null;
   let cropperInstance = null;
   let currentCropperFileId = null;
+  let currentAspect = null;
+  let currentLang = 'en';
 
   const dropzone = document.getElementById('dropzone');
   const fileInput = document.getElementById('fileInput');
@@ -591,6 +910,66 @@
   const settingsBody = document.getElementById('settingsBody');
   const addMoreBtn = document.getElementById('addMoreBtn');
   const fileNameLabel = document.getElementById('fileNameLabel');
+  const langSelect = document.getElementById('langSelect');
+
+  function t(key) { return DICT[currentLang][key] || DICT['en'][key] || key; }
+
+  function activeFile(){ return state.files.find(f => f.id === state.activeId) || null; }
+
+  function applyTranslations() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t(key)) el.innerHTML = t(key);
+    });
+    if (langSelect) langSelect.value = currentLang;
+    renderSettings();
+    renderThumbs();
+    const it = activeFile();
+    if (it) renderCompare(it);
+  }
+
+  // Detect language via IP location or browser fallback
+  async function detectLanguage() {
+    const countryMap = {
+      JP: 'ja', IN: 'hi', ES: 'es', MX: 'es', AR: 'es', CL: 'es', CO: 'es',
+      FR: 'fr', DE: 'de', CN: 'zh', TW: 'zh', HK: 'zh', SA: 'ar', AE: 'ar',
+      EG: 'ar', BR: 'pt', PT: 'pt', KR: 'ko'
+    };
+    try {
+      const res = await fetch('https://ipapi.co/json/');
+      if (res.ok) {
+        const data = await res.json();
+        if (countryMap[data.country_code]) {
+          currentLang = countryMap[data.country_code];
+          applyTranslations();
+          return;
+        }
+      }
+    } catch(e) {}
+
+    // Fallback to browser navigator language
+    const lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    if (lang.startsWith('es')) currentLang = 'es';
+    else if (lang.startsWith('fr')) currentLang = 'fr';
+    else if (lang.startsWith('de')) currentLang = 'de';
+    else if (lang.startsWith('ja')) currentLang = 'ja';
+    else if (lang.startsWith('zh')) currentLang = 'zh';
+    else if (lang.startsWith('hi')) currentLang = 'hi';
+    else if (lang.startsWith('ar')) currentLang = 'ar';
+    else if (lang.startsWith('pt')) currentLang = 'pt';
+    else if (lang.startsWith('ko')) currentLang = 'ko';
+    else currentLang = 'en';
+
+    applyTranslations();
+  }
+
+  // Manual Language Switch Event Listener
+  if (langSelect) {
+    langSelect.addEventListener('change', (e) => {
+      currentLang = e.target.value;
+      applyTranslations();
+    });
+  }
 
   function fmtBytes(b){
     if (b == null) return '—';
@@ -610,8 +989,6 @@
     return srcExt === 'png' ? 'jpeg' : 'png';
   }
 
-  function activeFile(){ return state.files.find(f => f.id === state.activeId) || null; }
-
   // ---------- intake ----------
   function addFiles(list){
     let firstNew = null;
@@ -622,7 +999,7 @@
       const item = {
         id:'f'+(uid++), file, kind, name:file.name, size:file.size,
         targetFormat: defaultTarget(kind, srcExt), quality: 1,
-        resizeW: null, resizeH: null, aspectLocked: true, activePreset: null, resizeOpen: true, fitMode: 'fill',
+        resizeW: null, resizeH: null, aspectLocked: true, activePreset: null, resizeOpen: false, fitMode: 'fill',
         originalUrl: null, resultBlob: null, resultUrl: null, resultSize: null,
         naturalW: null, naturalH: null, status:'idle', error:''
       };
@@ -765,6 +1142,7 @@
         cropperInstance.destroy();
         cropperInstance = null;
         currentCropperFileId = null;
+        currentAspect = null;
       }
       afterWrap.style.display = '';
       divider.style.display = '';
@@ -781,19 +1159,30 @@
     const aspect = (it.resizeW && it.resizeH && it.aspectLocked) ? (it.resizeW / it.resizeH) : NaN;
     
     if (cropperInstance && currentCropperFileId === it.id) {
-      return; // Already initialized for this file
+      if (currentAspect !== aspect) {
+        currentAspect = aspect;
+        cropperInstance.setAspectRatio(aspect);
+      }
+      return;
     }
     
     if (cropperInstance) cropperInstance.destroy();
     currentCropperFileId = it.id;
+    currentAspect = aspect;
     
     cropperInstance = new Cropper(imgOriginal, {
       aspectRatio: aspect,
-      viewMode: 0,
+      viewMode: 1,                    // Constrains crop box inside image canvas
+      dragMode: 'crop',               // Allows user to drag custom selection box
+      cropBoxMovable: true,          // Allows dragging the crop box
+      cropBoxResizable: true,        // Allows stretching corner/edge handles
+      toggleDragModeOnDblclick: false,
+      autoCropArea: 1,                // Default crop box covers 100% of image width/height on load
       background: false,
       zoomable: true,
-      cropend: function() { scheduleConvert(300); },
-      zoom: function() { scheduleConvert(300); }
+      wheelZoomRatio: 0.05,
+      cropend: function() { scheduleConvert(100); },
+      zoom: function() { scheduleConvert(100); }
     });
   }
 
@@ -882,6 +1271,21 @@
               <span class="p-dim">${p.dim[0]}×${p.dim[1]}</span>
             </div>`).join('')}
         </div>
+        <!-- Zoom & Reset Action Buttons -->
+        <div class="crop-controls-row">
+          <button type="button" id="zoomOutBtn" title="${t('zoomOut')}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            <span>${t('zoomOut')}</span>
+          </button>
+          <button type="button" id="zoomInBtn" title="${t('zoomIn')}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            <span>${t('zoomIn')}</span>
+          </button>
+          <button type="button" id="resetCropBtn" title="${t('resetPosition')}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            <span>${t('resetPosition')}</span>
+          </button>
+        </div>
         <div class="dims-row">
           <input type="number" id="wInput" placeholder="0" value="${it.resizeW || ''}">
           <span class="dims-suffix">px</span>
@@ -897,42 +1301,94 @@
 
   function bindResizeEvents(it){
     const reopen = document.getElementById('reopenResize');
-    if (reopen){ reopen.addEventListener('click', () => { it.resizeOpen = true; renderSettings(); }); return; }
+    if (reopen){ 
+      reopen.addEventListener('click', () => { 
+        it.resizeOpen = true; 
+        renderSettings(); 
+        renderCompare(it);
+      }); 
+      return; 
+    }
 
     document.getElementById('closeResize').addEventListener('click', () => {
-      it.resizeOpen = false; it.resizeW = null; it.resizeH = null; it.activePreset = null;
-      renderSettings(); scheduleConvert(0);
+      it.resizeOpen = false; 
+      it.resizeW = null; 
+      it.resizeH = null; 
+      it.activePreset = null;
+      renderSettings(); 
+      renderCompare(it);
+      scheduleConvert(0);
     });
+
+    // Reset position & scale event listener
+    const resetBtn = document.getElementById('resetCropBtn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        if (cropperInstance) {
+          cropperInstance.reset();
+          scheduleConvert(0);
+        }
+      });
+    }
+
+    // Zoom In event listener
+    const zoomInBtn = document.getElementById('zoomInBtn');
+    if (zoomInBtn) {
+      zoomInBtn.addEventListener('click', () => {
+        if (cropperInstance) {
+          cropperInstance.zoom(0.1);
+          scheduleConvert(300);
+        }
+      });
+    }
+
+    // Zoom Out event listener
+    const zoomOutBtn = document.getElementById('zoomOutBtn');
+    if (zoomOutBtn) {
+      zoomOutBtn.addEventListener('click', () => {
+        if (cropperInstance) {
+          cropperInstance.zoom(-0.1);
+          scheduleConvert(300);
+        }
+      });
+    }
+
     document.querySelectorAll('.preset').forEach(el => {
       el.addEventListener('click', () => {
         const idx = Number(el.dataset.idx);
-        it.activePreset = idx; it.resizeW = PRESETS[idx].dim[0]; it.resizeH = PRESETS[idx].dim[1];
-        if (cropperInstance) cropperInstance.setAspectRatio(it.resizeW / it.resizeH);
-        renderSettings(); scheduleConvert(0);
+        it.activePreset = idx; 
+        it.resizeW = PRESETS[idx].dim[0]; 
+        it.resizeH = PRESETS[idx].dim[1];
+        it.resizeOpen = true;
+        renderSettings(); 
+        renderCompare(it);
+        scheduleConvert(0);
       });
     });
     const wInput = document.getElementById('wInput');
     const hInput = document.getElementById('hInput');
     wInput.addEventListener('input', () => {
       it.activePreset = null;
+      it.resizeOpen = true;
       const w = Number(wInput.value) || null;
       it.resizeW = w;
       if (it.aspectLocked && w && it.naturalW){ it.resizeH = Math.round(w * (it.naturalH/it.naturalW)); hInput.value = it.resizeH; }
-      if (cropperInstance) cropperInstance.setAspectRatio(it.aspectLocked && it.resizeH ? it.resizeW / it.resizeH : NaN);
+      renderCompare(it);
       scheduleConvert(280);
     });
     hInput.addEventListener('input', () => {
       it.activePreset = null;
+      it.resizeOpen = true;
       const h = Number(hInput.value) || null;
       it.resizeH = h;
       if (it.aspectLocked && h && it.naturalH){ it.resizeW = Math.round(h * (it.naturalW/it.naturalH)); wInput.value = it.resizeW; }
-      if (cropperInstance) cropperInstance.setAspectRatio(it.aspectLocked && it.resizeH ? it.resizeW / it.resizeH : NaN);
+      renderCompare(it);
       scheduleConvert(280);
     });
     document.getElementById('lockBtn').addEventListener('click', () => {
       it.aspectLocked = !it.aspectLocked;
-      if (cropperInstance) cropperInstance.setAspectRatio(it.aspectLocked && it.resizeH ? it.resizeW / it.resizeH : NaN);
       renderSettings();
+      renderCompare(it);
     });
   }
 
@@ -1006,9 +1462,7 @@
   async function convertActive(){
     const it = activeFile();
     if (!it) return;
-    it.status = 'working'; renderCompare(it);
-    const dlBtn = document.getElementById('downloadBtn');
-    if (dlBtn){ dlBtn.disabled = true; dlBtn.textContent = 'Converting…'; }
+    it.status = 'working';
 
     try {
       const source = await getImageSource(it);
@@ -1060,10 +1514,25 @@
       if (it.resultUrl) URL.revokeObjectURL(it.resultUrl);
       it.resultBlob = blob; it.resultUrl = URL.createObjectURL(blob); it.resultSize = blob.size;
       it.status = 'done'; it.error = '';
+
+      // Direct DOM Updates
+      const tagRight = document.getElementById('tagRight');
+      if (tagRight) tagRight.innerHTML = t('converted') + ' · ' + fmtBytes(it.resultSize);
+
+      const dlBtn = document.getElementById('downloadBtn');
+      if (dlBtn) {
+        dlBtn.disabled = false;
+        dlBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg> ${t('download')} ${EXT[it.targetFormat].toUpperCase()}`;
+      }
+
+      const imgAfterEl = document.getElementById('imgAfter');
+      if (imgAfterEl) imgAfterEl.src = it.resultUrl;
+
     } catch(err){
       it.status = 'error'; it.error = err.message || String(err);
+      const tagRight = document.getElementById('tagRight');
+      if (tagRight) tagRight.innerHTML = t('failed');
     }
-    renderCompare(it); renderSettings(); renderThumbs();
   }
 
   function scheduleConvert(delay){
@@ -1082,6 +1551,10 @@
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 4000);
   }
+
+  // Initialize Language Detection
+  detectLanguage();
+
 })();
 </script>
 </body>
