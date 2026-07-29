@@ -37,6 +37,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 <script type="application/ld+json">
@@ -451,6 +453,8 @@
   let uid = 0;
   let webpSupport = null;
   let convertTimer = null;
+  let cropperInstance = null;
+  let currentCropperFileId = null;
 
   const dropzone = document.getElementById('dropzone');
   const fileInput = document.getElementById('fileInput');
@@ -632,6 +636,46 @@
     } else {
       tagRight.innerHTML = 'Converting <div class="cute-loader"><span></span><span></span><span></span></div>';
     }
+    
+    manageCropper(it);
+  }
+
+  function manageCropper(it) {
+    if (!it || !it.resizeOpen || (!it.resizeW && !it.resizeH)) {
+      if (cropperInstance) {
+        cropperInstance.destroy();
+        cropperInstance = null;
+        currentCropperFileId = null;
+      }
+      afterWrap.style.display = '';
+      divider.style.display = '';
+      handle.style.display = '';
+      tagRight.style.display = '';
+      return;
+    }
+    
+    afterWrap.style.display = 'none';
+    divider.style.display = 'none';
+    handle.style.display = 'none';
+    tagRight.style.display = 'none';
+    
+    const aspect = (it.resizeW && it.resizeH && it.aspectLocked) ? (it.resizeW / it.resizeH) : NaN;
+    
+    if (cropperInstance && currentCropperFileId === it.id) {
+      return; // Already initialized for this file
+    }
+    
+    if (cropperInstance) cropperInstance.destroy();
+    currentCropperFileId = it.id;
+    
+    cropperInstance = new Cropper(imgOriginal, {
+      aspectRatio: aspect,
+      viewMode: 0,
+      background: false,
+      zoomable: true,
+      cropend: function() { scheduleConvert(300); },
+      zoom: function() { scheduleConvert(300); }
+    });
   }
 
   // ---------- settings panel ----------
@@ -728,13 +772,6 @@
           <input type="number" id="hInput" placeholder="0" value="${it.resizeH || ''}">
           <span class="dims-suffix">px</span>
         </div>
-        <div class="field-label-row" style="margin-top:16px;">
-          <label>Fitting Mode</label>
-        </div>
-        <select id="fitModeSelect">
-          <option value="fill" ${it.fitMode==='fill'?'selected':''}>Fill (Crop to fit)</option>
-          <option value="fit" ${it.fitMode==='fit'?'selected':''}>Fit (Add borders, no cropping)</option>
-        </select>
       </div>
     `;
   }
@@ -751,6 +788,7 @@
       el.addEventListener('click', () => {
         const idx = Number(el.dataset.idx);
         it.activePreset = idx; it.resizeW = PRESETS[idx].dim[0]; it.resizeH = PRESETS[idx].dim[1];
+        if (cropperInstance) cropperInstance.setAspectRatio(it.resizeW / it.resizeH);
         renderSettings(); scheduleConvert(0);
       });
     });
@@ -761,6 +799,7 @@
       const w = Number(wInput.value) || null;
       it.resizeW = w;
       if (it.aspectLocked && w && it.naturalW){ it.resizeH = Math.round(w * (it.naturalH/it.naturalW)); hInput.value = it.resizeH; }
+      if (cropperInstance) cropperInstance.setAspectRatio(it.aspectLocked && it.resizeH ? it.resizeW / it.resizeH : NaN);
       scheduleConvert(280);
     });
     hInput.addEventListener('input', () => {
@@ -768,16 +807,14 @@
       const h = Number(hInput.value) || null;
       it.resizeH = h;
       if (it.aspectLocked && h && it.naturalH){ it.resizeW = Math.round(h * (it.naturalW/it.naturalH)); wInput.value = it.resizeW; }
+      if (cropperInstance) cropperInstance.setAspectRatio(it.aspectLocked && it.resizeH ? it.resizeW / it.resizeH : NaN);
       scheduleConvert(280);
     });
-    document.getElementById('lockBtn').addEventListener('click', () => { it.aspectLocked = !it.aspectLocked; renderSettings(); });
-    const fitSel = document.getElementById('fitModeSelect');
-    if(fitSel) {
-      fitSel.addEventListener('change', e => {
-        it.fitMode = e.target.value;
-        scheduleConvert(0);
-      });
-    }
+    document.getElementById('lockBtn').addEventListener('click', () => {
+      it.aspectLocked = !it.aspectLocked;
+      if (cropperInstance) cropperInstance.setAspectRatio(it.aspectLocked && it.resizeH ? it.resizeW / it.resizeH : NaN);
+      renderSettings();
+    });
   }
 
   // ---------- conversion engine ----------
@@ -814,18 +851,17 @@
     return new Blob([buf], {type:'image/bmp'});
   }
 
-  function drawResized(source, sw, sh, canvas, tw, th, mode){
+  function drawResized(source, sw, sh, canvas, tw, th, mode, zoom, panX, panY){
     canvas.width = tw; canvas.height = th;
     const ctx = canvas.getContext('2d');
-    if (mode === 'fit') {
-      const scale = Math.min(tw/sw, th/sh);
-      const nw = sw*scale, nh = sh*scale;
-      ctx.drawImage(source, (tw-nw)/2, (th-nh)/2, nw, nh);
-    } else {
-      const scale = Math.max(tw/sw, th/sh);
-      const nw = sw*scale, nh = sh*scale;
-      ctx.drawImage(source, (tw-nw)/2, (th-nh)/2, nw, nh);
-    }
+    const baseScale = mode === 'fit' ? Math.min(tw/sw, th/sh) : Math.max(tw/sw, th/sh);
+    const scale = baseScale * (zoom || 1.0);
+    const nw = sw*scale, nh = sh*scale;
+    const slackX = tw - nw;
+    const slackY = th - nh;
+    const x = (slackX / 2) + (slackX / 2) * ((panX || 0) / 100);
+    const y = (slackY / 2) + (slackY / 2) * ((panY || 0) / 100);
+    ctx.drawImage(source, x, y, nw, nh);
   }
 
   function encodeSVG(canvas) {
@@ -860,9 +896,24 @@
       const sw = it.kind === 'image' ? source.width : source.videoWidth;
       const sh = it.kind === 'image' ? source.height : source.videoHeight;
       const tw = it.resizeW || sw, th = it.resizeH || sh;
-      const canvas = document.createElement('canvas');
-      if (it.resizeW || it.resizeH) drawResized(source, sw, sh, canvas, tw, th, it.fitMode);
-      else { canvas.width = sw; canvas.height = sh; canvas.getContext('2d').drawImage(source, 0, 0); }
+      
+      let canvas;
+      if (cropperInstance) {
+        canvas = cropperInstance.getCroppedCanvas({
+          width: it.resizeW || undefined,
+          height: it.resizeH || undefined
+        });
+        if (!canvas) throw new Error("Cropper failed to generate image.");
+      } else {
+        canvas = document.createElement('canvas');
+        if (it.resizeW || it.resizeH) {
+           drawResized(source, sw, sh, canvas, tw, th, it.fitMode, it.cropZoom, it.panX, it.panY);
+        } else {
+           canvas.width = sw; canvas.height = sh; 
+           canvas.getContext('2d').drawImage(source, 0, 0);
+        }
+      }
+      
       if (it.kind === 'video') URL.revokeObjectURL(source.src);
 
       if (it.targetFormat === 'jpeg'){
