@@ -892,6 +892,8 @@
   let cropperInstance = null;
   let currentCropperFileId = null;
   let currentAspect = null;
+  let currentGlobalFormat = 'jpeg'; // Default global format
+  let currentGlobalQuality = 1.0;
   let currentLang = 'en';
 
   const dropzone = document.getElementById('dropzone');
@@ -992,45 +994,64 @@
   // ---------- intake ----------
   function addFiles(list){
     let firstNew = null;
+    const promises = [];
     [...list].forEach(file => {
       const kind = file.type.startsWith('video') ? 'video' : (file.type.startsWith('image') ? 'image' : null);
       if (!kind) return;
       const srcExt = (file.name.split('.').pop() || '').toLowerCase();
+      
+      const immediateUrl = kind === 'image' ? URL.createObjectURL(file) : null;
+
       const item = {
         id:'f'+(uid++), file, kind, name:file.name, size:file.size,
-        targetFormat: defaultTarget(kind, srcExt), quality: 1,
+        targetFormat: currentGlobalFormat, // Apply current global format to bulk uploads
+        quality: currentGlobalQuality,
         resizeW: null, resizeH: null, aspectLocked: true, activePreset: null, resizeOpen: false, fitMode: 'fill',
-        originalUrl: null, resultBlob: null, resultUrl: null, resultSize: null,
+        originalUrl: immediateUrl, resultBlob: null, resultUrl: null, resultSize: null,
         naturalW: null, naturalH: null, status:'idle', error:''
       };
       state.files.push(item);
       if (!firstNew) firstNew = item;
+      promises.push(loadPreviewSource(item));
     });
-    if (firstNew){
+
+    if (firstNew && !state.activeId){
       state.activeId = firstNew.id;
-      loadPreviewSource(firstNew).then(() => { renderThumbs(); renderSettings(); scheduleConvert(); });
     }
+
     renderThumbs();
+
+    Promise.all(promises).then(() => {
+      renderThumbs();
+      renderSettings();
+      const active = activeFile();
+      if (active) renderCompare(active);
+      scheduleConvert();
+    });
   }
 
   async function loadPreviewSource(it){
-    if (it.kind === 'image'){
-      it.originalUrl = URL.createObjectURL(it.file);
-      const bmp = await createImageBitmap(it.file);
-      it.naturalW = bmp.width; it.naturalH = bmp.height;
-      bmp.close && bmp.close();
-    } else {
-      const video = document.createElement('video');
-      video.src = URL.createObjectURL(it.file); video.muted = true;
-      await new Promise(res => { video.onloadeddata = res; });
-      video.currentTime = 0;
-      await new Promise(res => { video.onseeked = res; });
-      const c = document.createElement('canvas');
-      c.width = video.videoWidth; c.height = video.videoHeight;
-      c.getContext('2d').drawImage(video, 0, 0);
-      it.naturalW = video.videoWidth; it.naturalH = video.videoHeight;
-      it.originalUrl = c.toDataURL('image/png');
-      URL.revokeObjectURL(video.src);
+    try {
+      if (it.kind === 'image'){
+        if (!it.originalUrl) it.originalUrl = URL.createObjectURL(it.file);
+        const bmp = await createImageBitmap(it.file);
+        it.naturalW = bmp.width; it.naturalH = bmp.height;
+        if (bmp.close) bmp.close();
+      } else {
+        const video = document.createElement('video');
+        video.src = URL.createObjectURL(it.file); video.muted = true;
+        await new Promise(res => { video.onloadeddata = res; });
+        video.currentTime = 0;
+        await new Promise(res => { video.onseeked = res; });
+        const c = document.createElement('canvas');
+        c.width = video.videoWidth; c.height = video.videoHeight;
+        c.getContext('2d').drawImage(video, 0, 0);
+        it.naturalW = video.videoWidth; it.naturalH = video.videoHeight;
+        it.originalUrl = c.toDataURL('image/png');
+        URL.revokeObjectURL(video.src);
+      }
+    } catch(e) {
+      console.warn("Preview load fallback for file:", it.name, e);
     }
   }
 
@@ -1120,8 +1141,8 @@
   function renderCompare(it){
     if (!it) return;
     fileNameLabel.textContent = it.name;
-    imgOriginal.src = it.originalUrl;
-    imgAfter.src = it.resultUrl || it.originalUrl;
+    imgOriginal.src = it.originalUrl || '';
+    imgAfter.src = it.resultUrl || it.originalUrl || '';
     syncAfterImgWidth();
     setDividerPct(50);
     tagLeft.textContent = t('original') + ' · ' + fmtBytes(it.size);
@@ -1229,17 +1250,33 @@
       ${state.files.filter(f=>f.status==='done').length > 1 ? `<button class="btn-download-all" id="downloadAllBtn">${t('downloadAll')}</button>` : ''}
     `;
 
+    // CRITICAL FIX: Changing format updates ALL files in bulk batch simultaneously
     document.getElementById('fmtSelect').addEventListener('change', e => {
-      it.targetFormat = e.target.value; renderSettings(); scheduleConvert(0);
+      const newFmt = e.target.value;
+      currentGlobalFormat = newFmt;
+      state.files.forEach(f => {
+        f.targetFormat = newFmt;
+        f.status = 'idle';
+      });
+      renderSettings();
+      scheduleConvert(0);
     });
+
+    // CRITICAL FIX: Quality slider updates ALL files in bulk batch simultaneously
     const qs = document.getElementById('qualitySlider');
     if (qs){
       qs.addEventListener('input', e => {
-        it.quality = Number(e.target.value)/100;
-        settingsBody.querySelector('.hint').textContent = Math.round(it.quality*100)+'%';
+        const newQ = Number(e.target.value)/100;
+        currentGlobalQuality = newQ;
+        state.files.forEach(f => {
+          f.quality = newQ;
+          f.status = 'idle';
+        });
+        settingsBody.querySelector('.hint').textContent = Math.round(newQ*100)+'%';
         scheduleConvert(280);
       });
     }
+
     const dl = document.getElementById('downloadBtn');
     dl.addEventListener('click', () => {
       if (it.status !== 'done') return;
@@ -1459,8 +1496,7 @@
     return video;
   }
 
-  async function convertActive(){
-    const it = activeFile();
+  async function convertSingle(it){
     if (!it) return;
     it.status = 'working';
 
@@ -1471,7 +1507,7 @@
       const tw = it.resizeW || sw, th = it.resizeH || sh;
       
       let canvas;
-      if (cropperInstance) {
+      if (it.id === state.activeId && cropperInstance) {
         canvas = cropperInstance.getCroppedCanvas({
           width: it.resizeW || undefined,
           height: it.resizeH || undefined
@@ -1502,12 +1538,12 @@
         blob = encodeSVG(canvas);
       } else {
         if (it.targetFormat === 'webp' && !checkWebpSupport()){
-          throw new Error("This browser can't encode WEBP (known Safari limitation) — try JPG/PNG, or use Chrome/Edge/Firefox.");
+          throw new Error("This browser can't encode WEBP.");
         }
         const mime = MIME[it.targetFormat];
         const q = it.targetFormat === 'png' ? undefined : it.quality;
         blob = await new Promise((resolve, reject) => {
-          canvas.toBlob(b => b ? resolve(b) : reject(new Error('Your browser could not produce this format.')), mime, q);
+          canvas.toBlob(b => b ? resolve(b) : reject(new Error('Format conversion failed.')), mime, q);
         });
       }
 
@@ -1515,29 +1551,45 @@
       it.resultBlob = blob; it.resultUrl = URL.createObjectURL(blob); it.resultSize = blob.size;
       it.status = 'done'; it.error = '';
 
-      // Direct DOM Updates
-      const tagRight = document.getElementById('tagRight');
-      if (tagRight) tagRight.innerHTML = t('converted') + ' · ' + fmtBytes(it.resultSize);
+      if (it.id === state.activeId) {
+        const tagRight = document.getElementById('tagRight');
+        if (tagRight) tagRight.innerHTML = t('converted') + ' · ' + fmtBytes(it.resultSize);
 
-      const dlBtn = document.getElementById('downloadBtn');
-      if (dlBtn) {
-        dlBtn.disabled = false;
-        dlBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg> ${t('download')} ${EXT[it.targetFormat].toUpperCase()}`;
+        const dlBtn = document.getElementById('downloadBtn');
+        if (dlBtn) {
+          dlBtn.disabled = false;
+          dlBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg> ${t('download')} ${EXT[it.targetFormat].toUpperCase()}`;
+        }
+
+        const imgAfterEl = document.getElementById('imgAfter');
+        if (imgAfterEl) imgAfterEl.src = it.resultUrl;
       }
-
-      const imgAfterEl = document.getElementById('imgAfter');
-      if (imgAfterEl) imgAfterEl.src = it.resultUrl;
 
     } catch(err){
       it.status = 'error'; it.error = err.message || String(err);
-      const tagRight = document.getElementById('tagRight');
-      if (tagRight) tagRight.innerHTML = t('failed');
+      if (it.id === state.activeId) {
+        const tagRight = document.getElementById('tagRight');
+        if (tagRight) tagRight.innerHTML = t('failed');
+      }
     }
+  }
+
+  // Batch-convert active image first, then remaining files in background
+  async function convertAll(){
+    const active = activeFile();
+    if (active) await convertSingle(active);
+    for (const f of state.files) {
+      if (f.id !== (active ? active.id : null)) {
+        await convertSingle(f);
+      }
+    }
+    renderThumbs();
+    renderSettings();
   }
 
   function scheduleConvert(delay){
     clearTimeout(convertTimer);
-    convertTimer = setTimeout(convertActive, delay === undefined ? 0 : delay);
+    convertTimer = setTimeout(convertAll, delay === undefined ? 0 : delay);
   }
 
   async function downloadAllZip(){
