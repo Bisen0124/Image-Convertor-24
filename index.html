@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fast - Free Online Image & Video Converter | Bulk Processing</title>
+<title>Free Online Image & Video Converter | Bulk Processing</title>
 <meta name="description" content="Free online bulk media converter. Convert images and videos instantly in your browser. Private, ultra-fast client-side conversion.">
 <meta name="theme-color" content="#ff4d4d">
 
@@ -15,6 +15,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
 
 <style>
   :root {
@@ -83,7 +84,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-35deg);
-    font-size: clamp(60px, 12vw, 200px);
+    font-size: clamp(80px, 12vw, 200px);
     font-weight: 900;
     color: rgba(255, 255, 255, 0.08);
     pointer-events: none;
@@ -95,14 +96,13 @@
 
   /* Glassmorphism Page Container */
   .page {
-    max-width: 1300px; margin: 0 auto; 
-    background: rgb(255 253 245 / 35%); /* Semi-transparent base */
+    max-width: 1060px; margin: 0 auto; 
+    background: rgba(255, 253, 245, 0.85);
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
     border: 3.5px solid var(--border-dark); border-radius: var(--radius-lg);
     box-shadow: var(--shadow-hard-lg); padding: 36px 28px 56px;
     background-image: radial-gradient(var(--ink-faint) 0.8px, transparent 0.8px); background-size: 20px 20px;
     position: relative; z-index: 1;
-    overflow: hidden;
   }
 
   header.top { margin-bottom: 24px; }
@@ -261,11 +261,12 @@
   }
   .thumb-add:hover { background: var(--sky-accent); border-style: solid; }
 
-  /* Modals - Updated Animation to Slide Down */
+  /* ---------------- MODALS (FIXED CENTERING) ---------------- */
+  /* Placed outside of .page container flow via z-index and 100vw/vh */
   .cute-modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(20, 16, 12, 0.55);
-    backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 9999;
-    
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(20, 16, 12, 0.55);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center; z-index: 99999;
   }
   .cute-modal-content {
     background: #FBF7EC; border: 3px solid var(--border-dark); border-radius: 28px; padding: 32px 28px 24px;
@@ -554,17 +555,6 @@
       <p data-i18n="seoImgP2">Our online image converter requires no registration, software installation, or subscription. Because processing happens locally on your computer hardware, you get unlimited file size limits, zero network latency, and maximum data privacy.</p>
     </article>
 
-    <div class="cute-modal-overlay" id="imgConfirmModal" style="display:none;">
-      <div class="cute-modal-content">
-        <div class="cute-modal-icon-wrap"><span class="cute-modal-icon">🥺</span></div>
-        <h3 data-i18n="imgConfirmRemove">Remove Image?</h3>
-        <p data-i18n="imgConfirmRemoveText">Are you sure you want to remove this image from the current batch? This action will remove it from the conversion queue.</p>
-        <div class="cute-modal-actions">
-          <button class="btn-pill btn-keep" id="imgConfirmNoBtn" data-i18n="imgConfirmNo">Keep Image</button>
-          <button class="btn-pill btn-danger" id="imgConfirmYesBtn" data-i18n="imgConfirmYes">Remove Image</button>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- ==================== VIDEO CONVERTER APP ==================== -->
@@ -819,24 +809,37 @@
       <h2 data-i18n="seoVidH2_4">Why Choose Our Local Browser Video Converter?</h2>
       <p data-i18n="seoVidP2">Our online video converter requires no registration, software installation, or subscription. Because processing happens locally on your computer hardware, you get unlimited file size limits, zero network latency, and maximum data privacy.</p>
     </article>
-
-    <div class="cute-modal-overlay" id="vidConfirmModal" style="display:none;">
-      <div class="cute-modal-content">
-        <div style="font-size:32px; margin-bottom:8px;">🥺</div>
-        <h3 data-i18n="vidConfirmRemove">Remove Video?</h3>
-        <p id="vidConfirmRemoveText" style="font-size:13px; color:var(--ink-dim);" data-i18n="vidConfirmRemoveText">Are you sure you want to remove this video from the queue?</p>
-        <div style="display:flex; gap:10px; margin-top:16px;">
-          <button class="btn-pill" id="vidConfirmNoBtn" style="background:#fff;" data-i18n="vidConfirmNo">Keep</button>
-          <button class="btn-pill" id="vidConfirmYesBtn" style="background:var(--error); color:#fff;" data-i18n="vidConfirmYes">Remove</button>
-        </div>
-      </div>
-    </div>
   </div>
 
   <footer class="copyright-footer">
     &copy; <span id="dynamicYear"></span> <a href="https://www.fastimageconvertor.com/">fastimageconvertor.com</a>
   </footer>
 
+</div>
+
+<!-- Modals outside .page container to prevent backdrop-filter stacking issues -->
+<div class="cute-modal-overlay" id="imgConfirmModal" style="display:none;">
+  <div class="cute-modal-content">
+    <div class="cute-modal-icon-wrap"><span class="cute-modal-icon">🥺</span></div>
+    <h3 data-i18n="imgConfirmRemove">Remove Image?</h3>
+    <p data-i18n="imgConfirmRemoveText">Are you sure you want to remove this image from the current batch? This action will remove it from the conversion queue.</p>
+    <div class="cute-modal-actions">
+      <button class="btn-pill btn-keep" id="imgConfirmNoBtn" data-i18n="imgConfirmNo">Keep Image</button>
+      <button class="btn-pill btn-danger" id="imgConfirmYesBtn" data-i18n="imgConfirmYes">Remove Image</button>
+    </div>
+  </div>
+</div>
+
+<div class="cute-modal-overlay" id="vidConfirmModal" style="display:none;">
+  <div class="cute-modal-content">
+    <div class="cute-modal-icon-wrap"><span class="cute-modal-icon">🥺</span></div>
+    <h3 data-i18n="vidConfirmRemove">Remove Video?</h3>
+    <p id="vidConfirmRemoveText" style="font-size:13px; color:var(--ink-dim);" data-i18n="vidConfirmRemoveText">Are you sure you want to remove this video from the queue?</p>
+    <div class="cute-modal-actions">
+      <button class="btn-pill btn-keep" id="vidConfirmNoBtn" data-i18n="vidConfirmNo">Keep</button>
+      <button class="btn-pill btn-danger" id="vidConfirmYesBtn" data-i18n="vidConfirmYes">Remove</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1311,14 +1314,36 @@ document.addEventListener('keydown', e => {
   async function loadPreviewSource(it){
     try {
       if (it.kind === 'image'){
-        if (!it.originalUrl) it.originalUrl = URL.createObjectURL(it.file);
+        let workingBlob = it.file;
+
+        // Check if HEIC/HEIF
+        const isHeic = it.name.toLowerCase().endsWith('.heic') || it.name.toLowerCase().endsWith('.heif') || it.file.type === 'image/heic' || it.file.type === 'image/heif';
+        
+        if (isHeic) {
+          if (typeof heic2any !== 'undefined') {
+            try {
+              let converted = await heic2any({ blob: it.file, toType: "image/png" });
+              workingBlob = Array.isArray(converted) ? converted[0] : converted;
+              it.workingBlob = workingBlob;
+            } catch (heicErr) {
+              console.warn("heic2any failed", heicErr);
+            }
+          }
+        }
+
+        if (!it.originalUrl) it.originalUrl = URL.createObjectURL(workingBlob);
+
         try {
-          const bmp = await createImageBitmap(it.file);
+          const bmp = await createImageBitmap(workingBlob);
           it.naturalW = bmp.width; it.naturalH = bmp.height;
           if (bmp.close) bmp.close();
         } catch(e) {
           const img = new Image();
-          await new Promise((res, rej) => { img.onload=res; img.onerror=rej; img.src = it.originalUrl; });
+          await new Promise((res, rej) => { 
+            img.onload = res; 
+            img.onerror = () => rej(new Error('Image format not natively supported.')); 
+            img.src = it.originalUrl; 
+          });
           it.naturalW = img.naturalWidth || 800; it.naturalH = img.naturalHeight || 800;
         }
       } else {
@@ -1333,7 +1358,9 @@ document.addEventListener('keydown', e => {
         it.naturalW = video.videoWidth; it.naturalH = video.videoHeight;
         it.originalUrl = c.toDataURL('image/png'); URL.revokeObjectURL(video.src);
       }
-    } catch(e) {}
+    } catch(e) {
+      console.warn("Preview load failure", e);
+    }
   }
 
   fileInput.addEventListener('change', e => { addFiles(e.target.files); fileInput.value=''; });
@@ -1571,8 +1598,9 @@ document.addEventListener('keydown', e => {
 
   async function getImageSource(it){
     if (it.kind === 'image') {
-      try { return await createImageBitmap(it.file); } catch(e) {
-        const img = new Image(); await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = it.originalUrl || URL.createObjectURL(it.file); }); return img;
+      const blobToUse = it.workingBlob || it.file;
+      try { return await createImageBitmap(blobToUse); } catch(e) {
+        const img = new Image(); await new Promise((res, rej) => { img.onload = res; img.onerror = () => rej(new Error('Image failed to decode.')); img.src = it.originalUrl || URL.createObjectURL(blobToUse); }); return img;
       }
     }
     const video = document.createElement('video'); video.src = URL.createObjectURL(it.file); video.muted = true;
