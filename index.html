@@ -133,6 +133,8 @@
     --ink: #1e1e1e;
     --ink-dim: #4a4a4a;
     --ink-faint: #7a7a7a;
+    --error: #ff4b4b;
+    --error-hover: #ff2f2f;
     --lime-accent: #c6ff00;
     --lime-hover: #b8f000;
     --sky-accent: #8ce0ff;
@@ -179,13 +181,104 @@
   .cute-loader span:nth-child(2) { animation-delay: 0.15s; }
   .cute-loader span:nth-child(3) { animation-delay: 0.3s; }
 
+  /* Modal Popup CSS */
+  .cute-modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(20, 16, 12, 0.55);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+  }
+
+  .cute-modal-content {
+    background: #FBF7EC;
+    border: 3px solid var(--border-dark, #171412);
+    border-radius: 28px;
+    padding: 32px 28px 24px;
+    text-align: center;
+    max-width: 340px;
+    width: 90%;
+    box-shadow: 8px 8px 0px 0px var(--border-dark, #171412);
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .cute-modal-icon-wrap {
+    width: 68px; height: 68px;
+    margin: -56px auto 12px;
+    background: #FBF7EC;
+    border: 3px solid var(--border-dark, #171412);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 4px 4px 0px 0px var(--border-dark, #171412);
+  }
+
+  .cute-modal-icon { font-size: 32px; line-height: 1; }
+
+  .cute-modal-content h3 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--ink, #171412);
+  }
+
+  .cute-modal-content p {
+    margin: 0 0 24px 0;
+    font-size: 14px;
+    color: var(--ink-dim, #6b645c);
+    line-height: 1.5;
+  }
+
+  .cute-modal-actions {
+    display: flex; gap: 12px; justify-content: center;
+  }
+
+  .btn-pill {
+    flex: 1;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: 800;
+    border: 2.5px solid var(--border-dark, #171412);
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0px 0px var(--border-dark, #171412);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+
+  .btn-pill:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px 0px var(--border-dark, #171412);
+  }
+
+  .btn-pill:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0px 0px var(--border-dark, #171412);
+  }
+
+  .btn-keep {
+    background: #fff;
+    color: var(--ink, #171412);
+  }
+
+  .btn-danger {
+    background: var(--error, #F0664D) !important;
+    color: #fff !important;
+  }
+
+  .btn-danger:hover {
+    background: var(--error-hover, #e2543a) !important;
+  }
+
+  @keyframes popIn {
+    0%   { opacity: 0; transform: scale(0.85) translateY(8px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
   * { 
     box-sizing: border-box; 
-    user-select: none; /* Disable UI text/image dragging */
+    user-select: none;
     -webkit-user-select: none;
   }
   
-  /* Coral Red Background with Subtle Pokéball Watermark Rings */
   body {
     margin: 0;
     background-color: var(--bg-red);
@@ -200,7 +293,6 @@
     padding: 24px 16px 60px;
   }
 
-  /* Main Container Frame */
   .page {
     max-width: 1060px;
     margin: 0 auto;
@@ -246,7 +338,6 @@
     background: var(--border-dark);
   }
   
-  /* Language Switcher Styling */
   .lang-switcher select {
     width: auto;
     font-size: 13.5px;
@@ -284,7 +375,6 @@
     font-weight: 500;
   }
 
-  /* ---------- Studio Layout ---------- */
   .studio {
     display: grid;
     grid-template-columns: 1.3fr 1fr;
@@ -304,7 +394,6 @@
     animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   }
 
-  /* ---------- Preview / Dropzone Screen ---------- */
   .dropzone {
     border: 3px dashed var(--border-dark);
     border-radius: var(--radius-md);
@@ -366,7 +455,6 @@
     box-shadow: 1px 1px 0px var(--border-dark);
   }
 
-  /* ---------- Compare Viewer Screen ---------- */
   .compare-wrap { position: relative; }
   .compare {
     position: relative;
@@ -407,7 +495,6 @@
   .tag.left { left: 12px; }
   .tag.right { right: 12px; }
 
-  /* ---------- Cropper Backdrop & Neubrutalist Handles ---------- */
   .cropper-container { transition: all 0.2s ease-out !important; }
   .cropper-modal {
     background-color: rgba(0, 0, 0, 0.45) !important;
@@ -439,8 +526,21 @@
     transform: translate(-1px, -1px);
     box-shadow: 3.5px 3.5px 0px var(--border-dark);
   }
+  .rename-wrapper { position: relative; flex: 1; max-width: 280px; display: flex; align-items: center; }
+  .rename-input {
+    font-size: 14px; font-weight: 700; color: var(--ink);
+    background: #fff; border: 2px solid var(--border-dark); outline: none;
+    width: 100%; padding: 8px 12px; padding-right: 32px;
+    border-radius: var(--radius-sm); transition: all 0.2s;
+    box-shadow: var(--shadow-hard-sm);
+  }
+  .rename-input:focus {
+    border-color: var(--accent);
+    box-shadow: 3.5px 3.5px 0px var(--border-dark);
+    transform: translate(-1px, -1px);
+  }
+  .rename-icon { position: absolute; right: 10px; color: var(--ink-faint); pointer-events: none; }
 
-  /* ---------- Thumb Strip ---------- */
   .thumb-strip { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; align-items: center; }
   .thumb-wrap { position: relative; display: inline-block; }
   .thumb-remove {
@@ -450,6 +550,7 @@
     border: 2px solid var(--border-dark); line-height: 1; opacity: 0; transition: opacity 0.2s; z-index: 2;
   }
   .thumb-wrap:hover .thumb-remove { opacity: 1; }
+  .thumb-wrap.dragging { opacity: 0.5; }
 
   .thumb {
     width: 50px; height: 50px; border-radius: 12px; object-fit: cover;
@@ -464,7 +565,6 @@
   }
   .thumb-add:hover { background: var(--sky-accent); border-style: solid; }
 
-  /* ---------- Settings Panel ---------- */
   .settings h3 {
     display: flex; align-items: center; gap: 9px; font-size: 17px; font-weight: 800; margin: 0 0 8px; color: var(--ink);
   }
@@ -533,7 +633,6 @@
   .lock-btn.on { background: var(--lime-accent); }
   .dims-suffix { font-size: 12px; font-weight: 700; color: var(--ink-dim); flex-shrink: 0; }
 
-  /* Crop Controls Bar */
   .crop-controls-row { display: flex; gap: 8px; margin-bottom: 14px; }
   .crop-controls-row button {
     flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
@@ -574,7 +673,6 @@
   .footnote b { color: var(--ink); font-weight: 800; }
   .err-line { color: var(--error); font-size: 13px; font-weight: 700; margin-top: 8px; }
 
-  /* ---------- SEO Rich Text Section ---------- */
   .seo-article {
     margin-top: 48px; background: var(--card-bg); border: 3px solid var(--border-dark);
     border-radius: var(--radius-lg); padding: 36px 32px; box-shadow: var(--shadow-hard);
@@ -659,12 +757,23 @@
           <span class="tag left" id="tagLeft">Original · 0.0 KB</span>
           <span class="tag right" id="tagRight">Converted · 0.0 KB</span>
         </div>
-        <div class="swap-row">
-          <span style="font-size:12px;color:var(--ink-faint);font-weight:700;" id="fileNameLabel"></span>
-          <button class="btn-ghost-sm" id="addMoreBtn" aria-label="Add more files to batch">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-            <span data-i18n="addFile">Add file</span>
-          </button>
+        <div class="swap-row" style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+          <div class="rename-wrapper">
+            <input type="text" class="rename-input" id="fileNameLabel" aria-label="Rename file" placeholder="Enter file name...">
+            <svg class="rename-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <div style="display:flex; gap:8px; margin-left:auto;">
+            <button class="btn-ghost-sm" id="sortAscBtn" title="Sort A-Z" aria-label="Sort Ascending">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 6h18M3 12h12M3 18h6"/></svg> A-Z
+            </button>
+            <button class="btn-ghost-sm" id="sortDescBtn" title="Sort Z-A" aria-label="Sort Descending">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 6h6M3 12h12M3 18h18"/></svg> Z-A
+            </button>
+            <button class="btn-ghost-sm" id="addMoreBtn" aria-label="Add more files to batch">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              <span data-i18n="addFile">Add file</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -750,6 +859,28 @@
 
 </div>
 
+<!-- Cute confirmation modal -->
+<div class="cute-modal-overlay" id="confirmModal" style="display:none;">
+  <div class="cute-modal-content">
+    <div class="cute-modal-icon-wrap">
+      <span class="cute-modal-icon">🥺</span>
+    </div>
+    <h3 data-i18n="ConfirmRemoveImage">Remove Image?</h3>
+    <p id="confirmRemoveText" data-i18n="confirmRemoveText">
+      Are you sure you want to remove this image from the current batch? This action will remove it from the conversion queue.
+    </p>
+    
+    <div class="cute-modal-actions">
+      <button class="btn-pill btn-keep" id="confirmNoBtn" data-i18n="confirmNo">
+        Keep Image
+      </button>
+      <button class="btn-pill btn-danger" id="confirmYesBtn" data-i18n="confirmYes">
+        Remove Image
+      </button>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
   // DISABLE RIGHT CLICK
@@ -806,6 +937,10 @@
       resetPosition: "Reset Position",
       zoomIn: "Zoom In",
       zoomOut: "Zoom Out",
+      ConfirmRemoveImage: "Remove Image?",
+      confirmRemoveText: "Are you sure you want to remove this image from the current batch? This action will remove it from the conversion queue.",
+      confirmNo: "Keep Image",
+      confirmYes: "Remove Image",
       seoH2_1: "Fast, Free & Private Online Image Converter",
       seoP1: "Welcome to the ultimate browser-based online image converter. Easily convert single files or bulk image batches between <strong>JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, and ICO</strong> formats instantly. Unlike traditional image converters, our tool processes all images locally inside your device using HTML5 Client-Side Canvas technology—meaning your photos are 100% private and never uploaded to an external server.",
       seoH2_2: "How to Bulk Convert Images Online in 3 Simple Steps",
@@ -864,6 +999,10 @@
       resetPosition: "Restablecer posición",
       zoomIn: "Acercar",
       zoomOut: "Alejar",
+      ConfirmRemoveImage: "¿Eliminar imagen?",
+      confirmRemoveText: "¿Estás seguro de que deseas eliminar esta imagen del lote actual? Esta acción la eliminará de la cola de conversión.",
+      confirmNo: "Mantener imagen",
+      confirmYes: "Eliminar imagen",
       seoH2_1: "Convertidor de imágenes en línea rápido, gratuito y privado",
       seoP1: "Bienvenido al convertidor de imágenes en línea definitivo basado en navegador. Convierte fácilmente archivos individuales o lotes de imágenes entre formatos <strong>JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG e ICO</strong> de forma instantánea.",
       seoH2_2: "Cómo convertir imágenes en lote en 3 sencillos pasos",
@@ -922,6 +1061,10 @@
       resetPosition: "Réinitialiser la position",
       zoomIn: "Zoom avant",
       zoomOut: "Zoom arrière",
+      ConfirmRemoveImage: "Supprimer l'image ?",
+      confirmRemoveText: "Êtes-vous sûr de vouloir supprimer cette image du lot actuel ? Cette action la retirera de la file d'attente.",
+      confirmNo: "Garder l'image",
+      confirmYes: "Supprimer l'image",
       seoH2_1: "Convertisseur d'images en ligne rapide, gratuit et privé",
       seoP1: "Bienvenue sur le convertisseur d'images en ligne basé sur navigateur. Convertissez facilement des fichiers uniques ou par lots entre les formats <strong>JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG et ICO</strong>.",
       seoH2_2: "Comment convertir des images en lot en 3 étapes simples",
@@ -980,6 +1123,10 @@
       resetPosition: "Position zurücksetzen",
       zoomIn: "Vergrößern",
       zoomOut: "Verkleinern",
+      ConfirmRemoveImage: "Bild entfernen?",
+      confirmRemoveText: "Sind Sie sicher, dass Sie dieses Bild aus dem aktuellen Stapel entfernen möchten? Dadurch wird es aus der Warteschlange gelöscht.",
+      confirmNo: "Bild behalten",
+      confirmYes: "Bild entfernen",
       seoH2_1: "Schneller, kostenloser & privater Online-Bildkonverter",
       seoP1: "Willkommen beim browserbasierten Online-Bildkonverter. Konvertieren Sie Einzeldateien oder Batch-Dateien sofort zwischen <strong>JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG und ICO</strong>.",
       seoH2_2: "Bilder in 3 einfachen Schritten konvertieren",
@@ -1038,6 +1185,10 @@
       resetPosition: "位置をリセット",
       zoomIn: "拡大",
       zoomOut: "縮小",
+      ConfirmRemoveImage: "画像を削除しますか？",
+      confirmRemoveText: "現在のバッチからこの画像を削除してもよろしいですか？この操作により変換キューから削除されます。",
+      confirmNo: "画像を保持",
+      confirmYes: "画像を削除",
       seoH2_1: "高速・無料・安全なオンライン画像コンバーター",
       seoP1: "ブラウザ上で動作する高機能な画像変換ツールです。<strong>JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO</strong>の相互変換を一括で瞬時に行えます。",
       seoH2_2: "簡単3ステップで一括画像変換",
@@ -1096,6 +1247,10 @@
       resetPosition: "重置位置",
       zoomIn: "放大",
       zoomOut: "缩小",
+      ConfirmRemoveImage: "移除图片？",
+      confirmRemoveText: "您确定要从当前批次中移除此图片吗？此操作将从转换队列中将其删除。",
+      confirmNo: "保留图片",
+      confirmYes: "移除图片",
       seoH2_1: "快速、免费且安全的本地在线图像转换工具",
       seoP1: "欢迎使用基于浏览器的在线图像转换器。支持在 <strong>JPG、PNG、WebP、AVIF、HEIC、BMP、TIFF、SVG、ICO</strong> 格式之间进行单张或批量快速转换。",
       seoH2_2: "只需简单3步即可批量转换图像",
@@ -1154,6 +1309,10 @@
       resetPosition: "स्थिति रीसेट करें",
       zoomIn: "ज़ूम इन",
       zoomOut: "ज़ूम आउट",
+      ConfirmRemoveImage: "छवि हटाएँ?",
+      confirmRemoveText: "क्या आप वाकई इस छवि को वर्तमान बैच से हटाना चाहते हैं? यह कार्रवाई इसे रूपांतरण कतार से हटा देगी।",
+      confirmNo: "छवि रखें",
+      confirmYes: "छवि हटाएँ",
       seoH2_1: "तेज़, मुफ़्त और सुरक्षित ऑनलाइन इमेज कनवर्टर",
       seoP1: "ब्राउज़र-आधारित ऑनलाइन इमेज कनवर्टर में आपका स्वागत है। आसानी से <strong>JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, और ICO</strong> फॉर्मेट में बल्क इमेज कन्वर्ट करें।",
       seoH2_2: "3 आसान चरणों में इमेज बल्क कन्वर्ट करें",
@@ -1212,6 +1371,10 @@
       resetPosition: "إعادة ضبط موضع الصورة",
       zoomIn: "تكبير",
       zoomOut: "تصغير",
+      ConfirmRemoveImage: "إزالة الصورة؟",
+      confirmRemoveText: "هل أنت تأكد من رغبتك في إزالة هذه الصورة من الدفعة الحالية؟ سيؤدي هذا الإجراء إلى إزالتها من قائمة الانتظار.",
+      confirmNo: "الاحتفاظ بالصورة",
+      confirmYes: "إزالة الصورة",
       seoH2_1: "محول صور سريع ومجاني وآمن عبر المتصفح",
       seoP1: "مرحباً بك في أداة تحويل الصور المباشرة. قم بتحويل الصور الفردية أو المجموعات الكبيرة بين <strong>JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO</strong> بخصوصية سرية 100%.",
       seoH2_2: "كيفية تحويل مجموعة صور في 3 خطوات بسيطة",
@@ -1270,6 +1433,10 @@
       resetPosition: "Redefinir Posição",
       zoomIn: "Aumentar Zoom",
       zoomOut: "Diminuir Zoom",
+      ConfirmRemoveImage: "Remover imagem?",
+      confirmRemoveText: "Tem certeza de que deseja remover esta imagem do lote atual? Esta ação a removerá da fila de conversão.",
+      confirmNo: "Manter imagem",
+      confirmYes: "Remover imagem",
       seoH2_1: "Conversor de imagens online rápido, gratuito e privado",
       seoP1: "Bem-vindo ao conversor de imagens online baseado no navegador. Converta facilmente arquivos individuais ou em lote entre <strong>JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG e ICO</strong> de forma instantânea.",
       seoH2_2: "Como converter imagens em lote em 3 passos simples",
@@ -1328,6 +1495,10 @@
       resetPosition: "위치 초기화",
       zoomIn: "확대",
       zoomOut: "축소",
+      ConfirmRemoveImage: "이미지를 삭제하시겠습니까?",
+      confirmRemoveText: "현재 배치에서 이 이미지를 삭제하시겠습니까? 이 작업은 변환 대기열에서 해당 이미지를 제거합니다.",
+      confirmNo: "이미지 유지",
+      confirmYes: "이미지 삭제",
       seoH2_1: "빠르고 안전한 무료 온라인 이미지 변환기",
       seoP1: "브라우저 기반의 온라인 이미지 변환 프로그램입니다. <strong>JPG, PNG, WebP, AVIF, HEIC, BMP, TIFF, SVG, ICO</strong> 형식을 일괄 변환할 수 있습니다.",
       seoH2_2: "간단한 3단계 대량 이미지 변환 방법",
@@ -1372,7 +1543,6 @@
     square:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>'
   };
 
-  // Declare state variables
   const state = { files: [], activeId: null };
   let uid = 0;
   let webpSupport = null;
@@ -1472,7 +1642,6 @@
     return webpSupport;
   }
 
-  // ---------- intake ----------
   function addFiles(list){
     let firstNew = null;
     const promises = [];
@@ -1514,9 +1683,16 @@
     try {
       if (it.kind === 'image'){
         if (!it.originalUrl) it.originalUrl = URL.createObjectURL(it.file);
-        const bmp = await createImageBitmap(it.file);
-        it.naturalW = bmp.width; it.naturalH = bmp.height;
-        if (bmp.close) bmp.close();
+        try {
+          const bmp = await createImageBitmap(it.file);
+          it.naturalW = bmp.width; it.naturalH = bmp.height;
+          if (bmp.close) bmp.close();
+        } catch(e) {
+          const img = new Image();
+          await new Promise((res, rej) => { img.onload=res; img.onerror=rej; img.src = it.originalUrl; });
+          it.naturalW = img.naturalWidth || 800;
+          it.naturalH = img.naturalHeight || 800;
+        }
       } else {
         const video = document.createElement('video');
         video.src = URL.createObjectURL(it.file); video.muted = true;
@@ -1542,6 +1718,29 @@
   ['dragleave','drop'].forEach(ev => dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.remove('drag'); }));
   dropzone.addEventListener('drop', e => addFiles(e.dataTransfer.files));
 
+  fileNameLabel.addEventListener('input', e => {
+    const it = activeFile();
+    if (it) it.customName = e.target.value.trim();
+  });
+
+  document.getElementById('sortAscBtn').addEventListener('click', () => {
+    state.files.sort((a, b) => {
+      const nameA = (a.customName || baseName(a.name)).toLowerCase();
+      const nameB = (b.customName || baseName(b.name)).toLowerCase();
+      return nameA.localeCompare(nameB);
+    });
+    renderThumbs();
+  });
+
+  document.getElementById('sortDescBtn').addEventListener('click', () => {
+    state.files.sort((a, b) => {
+      const nameA = (a.customName || baseName(a.name)).toLowerCase();
+      const nameB = (b.customName || baseName(b.name)).toLowerCase();
+      return nameB.localeCompare(nameA);
+    });
+    renderThumbs();
+  });
+
   function selectFile(id){
     state.activeId = id;
     const it = activeFile();
@@ -1549,16 +1748,58 @@
     scheduleConvert(0);
   }
 
-  // ---------- thumb strip ----------
+  let draggedThumbIndex = null;
+  const confirmModal = document.getElementById('confirmModal');
+  const confirmYesBtn = document.getElementById('confirmYesBtn');
+  const confirmNoBtn = document.getElementById('confirmNoBtn');
+  let confirmCallback = null;
+  
+  function showConfirmModal(callback) {
+    confirmCallback = callback;
+    confirmModal.style.display = 'flex';
+  }
+  
+  confirmYesBtn.addEventListener('click', () => {
+    confirmModal.style.display = 'none';
+    if (confirmCallback) confirmCallback();
+  });
+  
+  confirmNoBtn.addEventListener('click', () => {
+    confirmModal.style.display = 'none';
+    confirmCallback = null;
+  });
+
   function renderThumbs(){
     thumbStrip.innerHTML = '';
     if (state.files.length){
       dropzone.style.display = 'none';
       compareWrap.style.display = 'block';
     }
-    state.files.forEach(it => {
+    state.files.forEach((it, index) => {
       const wrap = document.createElement('div');
       wrap.className = 'thumb-wrap';
+      wrap.draggable = true;
+      wrap.dataset.index = index;
+
+      wrap.addEventListener('dragstart', (e) => {
+        draggedThumbIndex = index;
+        setTimeout(() => wrap.classList.add('dragging'), 0);
+      });
+      wrap.addEventListener('dragend', () => {
+        draggedThumbIndex = null;
+        wrap.classList.remove('dragging');
+      });
+      wrap.addEventListener('dragover', (e) => {
+        e.preventDefault();
+      });
+      wrap.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if (draggedThumbIndex !== null && draggedThumbIndex !== index) {
+          const draggedItem = state.files.splice(draggedThumbIndex, 1)[0];
+          state.files.splice(index, 0, draggedItem);
+          renderThumbs();
+        }
+      });
       const el = document.createElement('img');
       el.className = 'thumb' + (it.id === state.activeId ? ' active' : '');
       el.src = it.originalUrl || '';
@@ -1573,18 +1814,20 @@
       rm.setAttribute('aria-label', 'Remove file ' + it.name);
       rm.addEventListener('click', (e) => {
         e.stopPropagation();
-        state.files = state.files.filter(f => f.id !== it.id);
-        if (state.activeId === it.id) {
-          state.activeId = state.files.length ? state.files[0].id : null;
-          selectFile(state.activeId);
-        } else {
-          renderThumbs();
-        }
-        if (!state.files.length) {
-          dropzone.style.display = 'flex';
-          compareWrap.style.display = 'none';
-          settingsBody.innerHTML = '<div class="empty-settings">Choose a file to see conversion settings.</div>';
-        }
+        showConfirmModal(() => {
+          state.files = state.files.filter(f => f.id !== it.id);
+          if (state.activeId === it.id) {
+            state.activeId = state.files.length ? state.files[0].id : null;
+            selectFile(state.activeId);
+          } else {
+            renderThumbs();
+          }
+          if (!state.files.length) {
+            dropzone.style.display = 'flex';
+            compareWrap.style.display = 'none';
+            settingsBody.innerHTML = '<div class="empty-settings">Choose a file to see conversion settings.</div>';
+          }
+        });
       });
       wrap.appendChild(el);
       wrap.appendChild(rm);
@@ -1600,7 +1843,6 @@
     }
   }
 
-  // ---------- compare viewer ----------
   let dragging = false;
   function setDividerPct(pct){
     pct = Math.max(0, Math.min(100, pct));
@@ -1624,7 +1866,7 @@
 
   function renderCompare(it){
     if (!it) return;
-    fileNameLabel.textContent = it.name;
+    fileNameLabel.value = it.customName || baseName(it.name);
     imgOriginal.src = it.originalUrl || '';
     imgAfter.src = it.resultUrl || it.originalUrl || '';
     syncAfterImgWidth();
@@ -1691,7 +1933,6 @@
     });
   }
 
-  // ---------- settings panel ----------
   function renderSettings(){
     const it = activeFile();
     if (!it){ settingsBody.innerHTML = `<div class="empty-settings">${t('emptySettings')}</div>`; return; }
@@ -1767,7 +2008,8 @@
     dl.addEventListener('click', () => {
       if (it.status !== 'done') return;
       const a = document.createElement('a');
-      a.href = it.resultUrl; a.download = baseName(it.name) + '.' + EXT[it.targetFormat];
+      const fname = it.customName || baseName(it.name);
+      a.href = it.resultUrl; a.download = fname + '.' + EXT[it.targetFormat];
       document.body.appendChild(a); a.click(); a.remove();
     });
     const dlAll = document.getElementById('downloadAllBtn');
@@ -1911,7 +2153,6 @@
     });
   }
 
-  // ---------- conversion engine ----------
   function encodeBMP(canvas){
     const w = canvas.width, h = canvas.height;
     const data = canvas.getContext('2d').getImageData(0,0,w,h).data;
@@ -1969,7 +2210,15 @@
   }
 
   async function getImageSource(it){
-    if (it.kind === 'image') return await createImageBitmap(it.file);
+    if (it.kind === 'image') {
+      try {
+        return await createImageBitmap(it.file);
+      } catch(e) {
+        const img = new Image();
+        await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = it.originalUrl || URL.createObjectURL(it.file); });
+        return img;
+      }
+    }
     const video = document.createElement('video');
     video.src = URL.createObjectURL(it.file); video.muted = true;
     await new Promise(res => { video.onloadeddata = res; });
@@ -1984,8 +2233,8 @@
 
     try {
       const source = await getImageSource(it);
-      const sw = it.kind === 'image' ? source.width : source.videoWidth;
-      const sh = it.kind === 'image' ? source.height : source.videoHeight;
+      const sw = it.kind === 'image' ? (source.width || source.naturalWidth || it.naturalW || 800) : source.videoWidth;
+      const sh = it.kind === 'image' ? (source.height || source.naturalHeight || it.naturalH || 800) : source.videoHeight;
       const tw = it.resizeW || sw, th = it.resizeH || sh;
       
       let canvas;
@@ -2089,7 +2338,8 @@
       if (f.status !== 'done') {
         await convertSingle(f);
       }
-      zip.file(baseName(f.name) + '.' + EXT[f.targetFormat], f.resultBlob);
+      const fname = f.customName || baseName(f.name);
+      zip.file(fname + '.' + EXT[f.targetFormat], f.resultBlob);
       
       await new Promise(res => setTimeout(res, 10));
     }
