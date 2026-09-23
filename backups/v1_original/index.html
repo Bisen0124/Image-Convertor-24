@@ -363,6 +363,34 @@
   .crop-controls-row button { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; font-weight: 800; color: var(--ink); background: #fff; border: 2.5px solid var(--border-dark); border-radius: var(--radius-sm); padding: 9px; cursor: pointer; box-shadow: var(--shadow-hard-sm); transition: all 0.15s ease; }
   .crop-controls-row button:hover { background: var(--sky-accent); transform: translate(-1px, -1px); box-shadow: 3.5px 3.5px 0 var(--border-dark); }
 
+  /* ---------------- VIDEO SPECIFIC CSS ---------------- */
+  .video-preview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  @media (max-width: 520px) { .video-preview-grid { grid-template-columns: 1fr; } }
+  .player-box { background: #000; border: 2.5px solid var(--border-dark); border-radius: var(--radius-sm); overflow: hidden; position: relative; aspect-ratio: 16/9; }
+  .player-box video { width: 100%; height: 100%; object-fit: contain; }
+  .player-label { position: absolute; top: 8px; left: 8px; background: var(--lime-accent); color: var(--ink); font-size: 11px; font-weight: 800; padding: 3px 8px; border: 1.5px solid var(--border-dark); border-radius: var(--radius-pill); box-shadow: 1.5px 1.5px 0px var(--border-dark); z-index: 2; }
+  .specs-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .specs-section { background: var(--screen-bg); border: 2.5px solid var(--border-dark); border-radius: var(--radius-sm); padding: 10px 14px; box-shadow: var(--shadow-hard-sm); }
+  .specs-section.converted { background: #f1ffe6; }
+  .specs-section-title { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--ink); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .specs-grid-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 8px; }
+  .spec-item { font-size: 11px; color: var(--ink-dim); font-weight: 600; }
+  .spec-item b { display: block; font-size: 13px; color: var(--ink); font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  
+  .progress-wrap { margin: 16px 0; background: #fff; border: 2.5px solid var(--border-dark); border-radius: var(--radius-sm); padding: 16px; box-shadow: 4px 4px 0px var(--border-dark); }
+  .progress-header { display: flex; justify-content: space-between; font-size: 13px; font-weight: 800; margin-bottom: 10px; color: var(--ink); }
+  .progress-track { width: 100%; height: 24px; background: #f0f0f0; border: 2.5px solid var(--border-dark); border-radius: var(--radius-pill); overflow: hidden; box-shadow: inset 2px 2px 0px rgba(0,0,0,0.1); }
+  .progress-fill { 
+    height: 100%; width: 0%; background-color: var(--lime-accent); 
+    background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.5) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.5) 75%, transparent 75%, transparent);
+    background-size: 24px 24px; transition: width 0.3s ease; animation: stripemove 0.6s linear infinite;
+  }
+  @keyframes stripemove { 0% { background-position: 0 0; } 100% { background-position: 24px 0; } }
+
+  .est-card { background: var(--lime-accent); border: 2.5px solid var(--border-dark); border-radius: var(--radius-sm); padding: 12px; box-shadow: var(--shadow-hard-sm); display: flex; align-items: center; justify-content: space-around; text-align: center; margin-bottom: 18px; }
+  .est-card .val { font-size: 16px; font-weight: 800; }
+  .est-card .lbl { font-size: 11px; font-weight: 700; color: var(--ink-dim); }
+
   /* ---------------- FOOTER & SEO ---------------- */
   .footnote { display: flex; gap: 12px; align-items: flex-start; font-size: 13.5px; color: var(--ink-dim); font-weight: 500; margin-top: 32px; padding: 20px; background: var(--card-bg); border: 2.5px solid var(--border-dark); border-radius: var(--radius-md); box-shadow: var(--shadow-hard-sm); line-height: 1.6; }
   .footnote svg { flex-shrink: 0; margin-top: 2px; color: var(--ink); }
@@ -387,40 +415,7 @@
   .copyright-footer a { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--ink); transition: color 0.2s, border-color 0.2s; }
   .copyright-footer a:hover { color: var(--error); border-bottom-color: var(--error); }
 
-  
-
-  /* ---------------- POPULAR INTERNAL LINKS ---------------- */
-  .seo-internal-links {
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 2px solid var(--border-dark);
-  }
-  .seo-links-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
-  }
-  .seo-link-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--ink);
-    background: #fff;
-    padding: 6px 14px;
-    border: 2px solid var(--border-dark);
-    border-radius: var(--radius-pill);
-    text-decoration: none;
-    box-shadow: 2px 2px 0px var(--border-dark);
-    transition: all 0.15s ease;
-  }
-  .seo-link-pill:hover {
-    background: var(--lime-accent);
-    transform: translate(-1px, -1px);
-  }
-
+  @media screen and (max-width:999px) { .seo-article { display: none; } }
 </style>
 
 
@@ -438,67 +433,6 @@
 
 
 
-
-<!-- Structured Data: WebApplication & HowTo Schema -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Fast Image Convertor",
-  "url": "https://fastimageconvertor.com/",
-  "operatingSystem": "All",
-  "applicationCategory": "MultimediaApplication",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "ratingCount": "3850"
-  },
-  "description": "Free, fast, and private online bulk image converter. Convert JPG, PNG, WebP, AVIF, HEIC, and SVG directly in your browser with no login required."
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  "name": "How to Convert Images Online for Free Without Login",
-  "step": [
-    {
-      "@type": "HowToStep",
-      "name": "Select or Drop Images",
-      "text": "Drag and drop single or multiple image files into the upload dropzone, or click Choose File."
-    },
-    {
-      "@type": "HowToStep",
-      "name": "Choose Output Format",
-      "text": "Pick your target file format (JPG, PNG, WebP, etc.) and adjust quality or resize settings."
-    },
-    {
-      "@type": "HowToStep",
-      "name": "Download Converted Images",
-      "text": "Download individual converted images or click Download all as .ZIP to save all files."
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Fast Image Convertor",
-  "url": "https://fastimageconvertor.com/",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://fastimageconvertor.com/{search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
-}
-</script>
-
 </head>
 <body>
 
@@ -512,7 +446,7 @@
       <!-- Unified Tabs -->
       <div class="nav-tabs">
         <button class="nav-tab active" id="tabImageBtn" data-i18n="tabImage">🖼️ Image Converter</button>
-        
+        <button class="nav-tab" id="tabVideoBtn" data-i18n="tabVideo" style="display: none;">🎬 Video Converter</button>
       </div>
       
       <div class="lang-switcher">
@@ -655,36 +589,293 @@
 
       <h2 data-i18n="seoImgH2_4">Why Choose Our Local Browser Image Converter?</h2>
       <p data-i18n="seoImgP2">Our online image converter requires no registration, software installation, or subscription. Because processing happens locally on your computer hardware, you get unlimited file size limits, zero network latency, and maximum data privacy.</p>
-    
-      <div class="seo-internal-links">
-        <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 8px;">Popular Image Converters</h3>
-        <div class="seo-links-grid">
-          <a href="png-to-jpeg.html" class="seo-link-pill">PNG to JPEG</a>
-          <a href="png-to-jpg.html" class="seo-link-pill">PNG to JPG</a>
-          <a href="jpg-to-png.html" class="seo-link-pill">JPG to PNG</a>
-          <a href="jpeg-to-png.html" class="seo-link-pill">JPEG to PNG</a>
-          <a href="jpeg-to-webp.html" class="seo-link-pill">JPEG to WebP</a>
-          <a href="jpg-to-webp.html" class="seo-link-pill">JPG to WebP</a>
-          <a href="webp-to-png.html" class="seo-link-pill">WebP to PNG</a>
-          <a href="png-to-webp.html" class="seo-link-pill">PNG to WebP</a>
-          <a href="webp-to-jpg.html" class="seo-link-pill">WebP to JPG</a>
-          <a href="webp-to-jpeg.html" class="seo-link-pill">WebP to JPEG</a>
-          <a href="heic-to-jpg.html" class="seo-link-pill">HEIC to JPG</a>
-          <a href="heic-to-jpeg.html" class="seo-link-pill">HEIC to JPEG</a>
-          <a href="heic-to-png.html" class="seo-link-pill">HEIC to PNG</a>
-          <a href="svg-to-png.html" class="seo-link-pill">SVG to PNG</a>
-        </div>
-      </div>
-
     </article>
 
   </div>
 
-  <!-- Modals outside .page container to prevent backdrop-filter stacking issues -->
+  <!-- ==================== VIDEO CONVERTER APP ==================== -->
+  <div id="appVideo" style="display:none;">
+    <h1 data-i18n="vidH1">Convert MP4, AVI, MOV, MKV, WebM & GIF Online</h1>
+    <p class="sub" data-i18n="vidSub">Convert, compress, and resize video files fast inside your browser. Privacy guaranteed—your videos never leave your hardware.</p>
+    
+    <main class="studio">
+      <section class="card" id="vidPreviewCard">
+        <div id="vidDropzone" class="dropzone" role="button" tabindex="0">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 10-5 3V7l5 3z"/><rect x="2" y="4" width="20" height="16" rx="3"/></svg>
+          <div class="dz-title" data-i18n="vidDzTitle">Drop video here or <b>browse</b></div>
+          <div class="dz-sub" data-i18n="vidDzSub">Supports MP4, MOV, WebM, AVI, MKV & FLV</div>
+          <label class="btn-choose">
+            <span data-i18n="vidChooseFile">Browse Files</span>
+          </label>
+          <input type="file" id="vidFileInput" multiple accept="video/*">
+        </div>
+
+        <div id="vidVideoWorkspace" style="display:none;">
+          <div class="video-preview-grid">
+            <div class="player-box">
+              <span class="player-label" data-i18n="vidOriginal">Original</span>
+              <video id="vidOriginal" controls></video>
+            </div>
+            <div class="player-box">
+              <span class="player-label" data-i18n="vidConverted">Converted Preview</span>
+              <video id="vidConverted" controls></video>
+            </div>
+          </div>
+
+          <div class="specs-container">
+            <div class="specs-section">
+              <div class="specs-section-title">📹 <span data-i18n="vidOriginalSpecs">Original Specs</span></div>
+              <div class="specs-grid-row">
+                <div class="spec-item"><span data-i18n="vidLblRes">Resolution</span><b id="vidSpecOrigRes">—</b></div>
+                <div class="spec-item"><span data-i18n="vidLblFps">FPS</span><b id="vidSpecOrigFps">—</b></div>
+                <div class="spec-item"><span data-i18n="vidLblAspect">Aspect</span><b id="vidSpecOrigAspect">—</b></div>
+                <div class="spec-item"><span data-i18n="vidLblCodec">Codec</span><b id="vidSpecOrigCodec">H.264</b></div>
+                <div class="spec-item"><span data-i18n="vidLblAudio">Audio</span><b id="vidSpecOrigAudio">AAC</b></div>
+                <div class="spec-item"><span data-i18n="vidLblSize">File Size</span><b id="vidSpecOrigSize">—</b></div>
+              </div>
+            </div>
+            <div class="specs-section converted">
+              <div class="specs-section-title">⚡ <span data-i18n="vidTargetSpecs">Converted Output Specs</span></div>
+              <div class="specs-grid-row">
+                <div class="spec-item"><span data-i18n="vidLblRes">Resolution</span><b id="vidSpecTargetRes">—</b></div>
+                <div class="spec-item"><span data-i18n="vidLblFps">FPS</span><b id="vidSpecTargetFps">—</b></div>
+                <div class="spec-item"><span data-i18n="vidLblAspect">Aspect</span><b id="vidSpecTargetAspect">—</b></div>
+                <div class="spec-item"><span data-i18n="vidLblCodec">Codec</span><b id="vidSpecTargetCodec">—</b></div>
+                <div class="spec-item"><span data-i18n="vidLblAudio">Audio</span><b id="vidSpecTargetAudio">—</b></div>
+                <div class="spec-item"><span data-i18n="vidLblSize">File Size</span><b id="vidSpecTargetSize">—</b></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="progress-wrap" id="vidProgressWrap" style="display:none;">
+            <div class="progress-header">
+              <span id="vidStageLabel">Uploading...</span>
+              <span id="vidProgressPct">0%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="vidProgressFill"></div>
+            </div>
+            <div style="font-size:11px; margin-top:4px; color:var(--ink-dim); text-align:right;" id="vidEtaLabel">Calculating ETA...</div>
+          </div>
+
+          <div class="thumb-strip" id="vidThumbStrip"></div>
+        </div>
+      </section>
+
+      <section class="card settings">
+        <div id="vidEmptySettings" class="empty-settings" data-i18n="vidEmptySettings">Upload a video to see conversion settings.</div>
+        <div id="vidSettingsBody" style="display:none;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 data-i18n="vidSettingsTitle">Video Output Settings</h3>
+            <button id="vidApplyAllBtn" class="btn-ghost-sm" data-i18n="vidApplyToAll">Apply to All</button>
+          </div>
+          <hr>
+          <div class="est-card">
+            <div><div class="lbl" data-i18n="vidEstCurrent">Current</div><div class="val" id="vidEstCurrent">0 MB</div></div>
+            <div style="font-size:18px; font-weight:800;">↓</div>
+            <div><div class="lbl" data-i18n="vidEstOutput">Estimated</div><div class="val" id="vidEstOutput">0 MB</div></div>
+            <div><div class="lbl" data-i18n="vidEstSaving">Reduction</div><div class="val" id="vidEstSaving" style="color:#008822;">0%</div></div>
+          </div>
+
+          <div class="field">
+            <label data-i18n="vidLblFormat">Format</label>
+            <select id="vidFmtSelect">
+              <option value="mp4">MP4</option>
+              <option value="webm">WebM</option>
+              <option value="avi">AVI</option>
+              <option value="mkv">MKV</option>
+              <option value="mov">MOV</option>
+              <option value="gif">GIF</option>
+              <option value="mp3">MP3 (Audio Only)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label data-i18n="vidLblRes">Resolution</label>
+            <select id="vidResSelect">
+              <option value="original">Keep Original</option>
+              <option value="2160">4K (2160p)</option>
+              <option value="1440">1440p</option>
+              <option value="1080">1080p</option>
+              <option value="720">720p</option>
+              <option value="480">480p</option>
+              <option value="360">360p</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label data-i18n="vidLblFps">FPS (Frame Rate)</label>
+            <select id="vidFpsSelect">
+              <option value="original">Original</option>
+              <option value="24">24 FPS</option>
+              <option value="30">30 FPS</option>
+              <option value="50">50 FPS</option>
+              <option value="60">60 FPS</option>
+              <option value="120">120 FPS</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label data-i18n="vidLblAspect">Aspect Ratio</label>
+            <select id="vidAspectSelect">
+              <option value="original">Original</option>
+              <option value="16:9">16:9 (Landscape)</option>
+              <option value="9:16">9:16 (Vertical/Reels)</option>
+              <option value="1:1">1:1 (Square)</option>
+              <option value="4:3">4:3 (Classic)</option>
+              <option value="21:9">21:9 (Ultrawide)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label data-i18n="vidLblVCodec">Video Codec</label>
+            <select id="vidVcodecSelect">
+              <option value="h264">H.264 / AVC</option>
+              <option value="h265">H.265 / HEVC</option>
+              <option value="vp9">VP9</option>
+              <option value="av1">AV1</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label data-i18n="vidLblACodec">Audio Codec</label>
+            <select id="vidAcodecSelect">
+              <option value="aac">AAC</option>
+              <option value="mp3">MP3</option>
+              <option value="opus">Opus</option>
+            </select>
+          </div>
+
+          <!-- Filters: Noise Removal & Mute Audio -->
+          <div class="field">
+            <label class="checkbox-field">
+              <input type="checkbox" id="vidDenoiseCheck">
+              <span data-i18n="vidLblDenoise">Remove Video Noise (Denoise Filter)</span>
+            </label>
+            <label class="checkbox-field">
+              <input type="checkbox" id="vidRemoveAudioCheck">
+              <span data-i18n="vidLblRemoveAudio">Remove Audio Track Entirely</span>
+            </label>
+          </div>
+
+          <div class="field">
+            <label data-i18n="vidLblQuality">Compression Quality Slider</label>
+            <input type="range" id="vidQualitySlider" min="1" max="3" step="1" value="2">
+            <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:700; color:var(--ink-dim); margin-top:4px;">
+              <span data-i18n="vidQBest">Best Quality</span>
+              <span data-i18n="vidQBalanced">Balanced</span>
+              <span data-i18n="vidQSmall">Smaller Size</span>
+            </div>
+          </div>
+
+          <button class="btn-download" id="vidConvertBtn"><span id="vidConvertBtnText" data-i18n="vidBtnConvert">Convert Video Now</span></button>
+          <button class="btn-download-all" id="vidDownloadAllBtn" style="display:none;" data-i18n="vidBtnDownloadAll">Convert & Download All (.ZIP)</button>
+        </div>
+      </section>
+    </main>
+
+    <aside class="footnote">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 2 3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4Z"/></svg>
+      <div><b data-i18n="vidFootnoteB">Nothing is uploaded, ever.</b><span data-i18n="vidFootnoteText"> Conversion runs entirely in your browser using Client-Side HTML5 Canvas & MediaRecorder API. Your videos stay 100% private on your device.</span></div>
+    </aside>
+
+    <article class="seo-article">
+      <h2 data-i18n="seoVidH2_1">Fast, Free & Private Online Video Converter</h2>
+      <p data-i18n="seoVidP1">Welcome to the ultimate browser-based online video converter. Easily convert single files or bulk video batches between <strong>MP4, WebM, AVI, MOV, MKV, GIF, and MP3</strong> formats instantly. Unlike traditional video converters, our tool processes all video streams locally inside your device using HTML5 Client-Side Canvas and MediaRecorder technology—meaning your videos are 100% private and never uploaded to an external server.</p>
+
+      <h2 data-i18n="seoVidH2_2">How to Bulk Convert Videos Online in 3 Simple Steps</h2>
+      <div class="seo-grid">
+        <div class="seo-feature-card">
+          <h3 data-i18n="seoVidStep1Title">1. Select or Drop Videos</h3>
+          <p data-i18n="seoVidStep1Desc">Drag and drop single or multiple video files into the upload dropzone, or click "Browse Files" to select videos from your desktop or phone gallery.</p>
+        </div>
+        <div class="seo-feature-card">
+          <h3 data-i18n="seoVidStep2Title">2. Choose Output Format & Settings</h3>
+          <p data-i18n="seoVidStep2Desc">Pick your target format (e.g., MP4, WebM, GIF) and customize resolution, frame rate (FPS), video noise filtering, or audio removal options for each video.</p>
+        </div>
+        <div class="seo-feature-card">
+          <h3 data-i18n="seoVidStep3Title">3. Download Converted Files</h3>
+          <p data-i18n="seoVidStep3Desc">Preview your converted video in real-time and click "Download Converted Video" or "Convert & Download All (.ZIP)" to save all files at once.</p>
+        </div>
+      </div>
+
+      <h2 data-i18n="seoVidH2_3">Supported Video Formats Overview</h2>
+      <table class="seo-table">
+        <thead>
+          <tr>
+            <th data-i18n="seoVidThFormat">Format</th>
+            <th data-i18n="seoVidThType">Type</th>
+            <th data-i18n="seoVidThUsedFor">Best Used For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>MP4</strong></td>
+            <td data-i18n="seoVidType1">Video / Audio</td>
+            <td data-i18n="seoVidDesc1">Universal format compatible with all smartphones, social media, and video players.</td>
+          </tr>
+          <tr>
+            <td><strong>WebM</strong></td>
+            <td data-i18n="seoVidType2">HTML5 Video</td>
+            <td data-i18n="seoVidDesc2">Modern web video stream with high compression and tiny file size.</td>
+          </tr>
+          <tr>
+            <td><strong>MOV</strong></td>
+            <td data-i18n="seoVidType3">Apple QuickTime</td>
+            <td data-i18n="seoVidDesc3">High quality footage taken on iPhone, iPad, and Mac cameras.</td>
+          </tr>
+          <tr>
+            <td><strong>AVI / MKV</strong></td>
+            <td data-i18n="seoVidType4">Container Format</td>
+            <td data-i18n="seoVidDesc4">Lossless video archival and high definition desktop playback.</td>
+          </tr>
+          <tr>
+            <td><strong>GIF</strong></td>
+            <td data-i18n="seoVidType5">Animated Graphic</td>
+            <td data-i18n="seoVidDesc5">Short looping video clips for messaging and social media posts.</td>
+          </tr>
+          <tr>
+            <td><strong>MP3</strong></td>
+            <td data-i18n="seoVidType6">Audio Track</td>
+            <td data-i18n="seoVidDesc6">Extract background audio, voiceovers, or music from video files.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 data-i18n="seoVidH2_4">Why Choose Our Local Browser Video Converter?</h2>
+      <p data-i18n="seoVidP2">Our online video converter requires no registration, software installation, or subscription. Because processing happens locally on your computer hardware, you get unlimited file size limits, zero network latency, and maximum data privacy.</p>
+    </article>
+  </div>
+
+  <footer class="copyright-footer">
+    &copy; <span id="dynamicYear"></span> <a href="https://www.fastimageconvertor.com/">fastimageconvertor.com</a>
+  </footer>
 
 </div>
 
+<!-- Modals outside .page container to prevent backdrop-filter stacking issues -->
+<div class="cute-modal-overlay" id="imgConfirmModal" style="display:none;">
+  <div class="cute-modal-content">
+    <div class="cute-modal-icon-wrap"><span class="cute-modal-icon">🥺</span></div>
+    <h3 data-i18n="imgConfirmRemove">Remove Image?</h3>
+    <p data-i18n="imgConfirmRemoveText">Are you sure you want to remove this image from the current batch? This action will remove it from the conversion queue.</p>
+    <div class="cute-modal-actions">
+      <button class="btn-pill btn-keep" id="imgConfirmNoBtn" data-i18n="imgConfirmNo">Keep Image</button>
+      <button class="btn-pill btn-danger" id="imgConfirmYesBtn" data-i18n="imgConfirmYes">Remove Image</button>
+    </div>
+  </div>
+</div>
 
+<div class="cute-modal-overlay" id="vidConfirmModal" style="display:none;">
+  <div class="cute-modal-content">
+    <div class="cute-modal-icon-wrap"><span class="cute-modal-icon">🥺</span></div>
+    <h3 data-i18n="vidConfirmRemove">Remove Video?</h3>
+    <p id="vidConfirmRemoveText" style="font-size:13px; color:var(--ink-dim);" data-i18n="vidConfirmRemoveText">Are you sure you want to remove this video from the queue?</p>
+    <div class="cute-modal-actions">
+      <button class="btn-pill btn-keep" id="vidConfirmNoBtn" data-i18n="vidConfirmNo">Keep</button>
+      <button class="btn-pill btn-danger" id="vidConfirmYesBtn" data-i18n="vidConfirmYes">Remove</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -974,7 +1165,25 @@ const DICT = {
 
 let currentLang = 'en';
 
+const tabImageBtn = document.getElementById('tabImageBtn');
+const tabVideoBtn = document.getElementById('tabVideoBtn');
+const appImage = document.getElementById('appImage');
+const appVideo = document.getElementById('appVideo');
 const langSelect = document.getElementById('langSelect');
+
+tabImageBtn.addEventListener('click', () => {
+  tabImageBtn.classList.add('active');
+  tabVideoBtn.classList.remove('active');
+  appImage.style.display = 'block';
+  appVideo.style.display = 'none';
+});
+
+tabVideoBtn.addEventListener('click', () => {
+  tabVideoBtn.classList.add('active');
+  tabImageBtn.classList.remove('active');
+  appVideo.style.display = 'block';
+  appImage.style.display = 'none';
+});
 
 function t(key) { 
   if(DICT[currentLang] && DICT[currentLang][key]) return DICT[currentLang][key];
@@ -992,7 +1201,6 @@ function applyTranslations() {
 
 langSelect.addEventListener('change', (e) => {
   currentLang = e.target.value;
-  try { localStorage.setItem('fastconvert_lang', currentLang); } catch(e){}
   applyTranslations();
 });
 
@@ -1015,13 +1223,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function detectLanguage() {
-  let saved = null;
-  try { saved = localStorage.getItem('fastconvert_lang'); } catch(e){}
-  if (saved && DICT[saved]) {
-    currentLang = saved;
-    applyTranslations();
-    return;
-  }
   const lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
   if (lang.startsWith('es')) currentLang = 'es';
   else if (lang.startsWith('fr')) currentLang = 'fr';
@@ -1118,7 +1319,7 @@ document.addEventListener('keydown', e => {
     return webpSupport;
   }
 
-  function addFiles(list, shouldCache = true){
+  function addFiles(list){
     let firstNew = null;
     const promises = [];
     [...list].forEach(file => {
@@ -1133,14 +1334,10 @@ document.addEventListener('keydown', e => {
         naturalW: null, naturalH: null, status:'idle', error:''
       };
       state.files.push(item);
-      if (shouldCache) saveFileToCache(item);
       if (!firstNew) firstNew = item;
       promises.push(loadPreviewSource(item));
     });
     if (firstNew && !state.activeId) state.activeId = firstNew.id;
-    if (typeof gtag === 'function') {
-      gtag('event', 'image_upload', { 'event_category': 'conversion', 'file_count': list.length });
-    }
     renderThumbs();
     Promise.all(promises).then(() => {
       renderThumbs(); renderSettings();
@@ -1225,103 +1422,17 @@ document.addEventListener('keydown', e => {
     scheduleConvert(0);
   }
 
-    let draggedThumbIndex = null;
-
-  // ==================== PERSISTENT QUEUE (INDEXEDDB & ACCIDENTAL RELOAD GUARD) ====================
-  const DB_NAME = 'FastImageConvertor_DB';
-  const DB_VERSION = 1;
-  const STORE_NAME = 'batch_queue';
-
-  function getDB() {
-    return new Promise((resolve) => {
-      if (!window.indexedDB) return resolve(null);
-      const req = indexedDB.open(DB_NAME, DB_VERSION);
-      req.onupgradeneeded = (e) => {
-        const db = e.target.result;
-        if (!db.objectStoreNames.contains(STORE_NAME)) {
-          db.createObjectStore(STORE_NAME, { keyPath: 'id' });
-        }
-      };
-      req.onsuccess = () => resolve(req.result);
-      req.onerror = () => resolve(null);
-    });
+  let draggedThumbIndex = null;
+  const confirmModal = document.getElementById('imgConfirmModal');
+  const confirmYesBtn = document.getElementById('imgConfirmYesBtn');
+  const confirmNoBtn = document.getElementById('imgConfirmNoBtn');
+  let confirmCallback = null;
+  
+  function showConfirmModal(callback) {
+    confirmCallback = callback; confirmModal.style.display = 'flex';
   }
-
-  async function saveFileToCache(it) {
-    try {
-      const db = await getDB();
-      if (!db || !it.file) return;
-      const tx = db.transaction(STORE_NAME, 'readwrite');
-      tx.objectStore(STORE_NAME).put({
-        id: it.id,
-        name: it.name,
-        size: it.size,
-        type: it.file.type || 'image/jpeg',
-        blob: it.file,
-        targetFormat: it.targetFormat,
-        quality: it.quality,
-        timestamp: Date.now()
-      });
-    } catch(e) {}
-  }
-
-  async function removeCachedFile(id) {
-    try {
-      const db = await getDB();
-      if (!db) return;
-      const tx = db.transaction(STORE_NAME, 'readwrite');
-      tx.objectStore(STORE_NAME).delete(id);
-    } catch(e) {}
-  }
-
-  async function clearAllCachedFiles() {
-    try {
-      const db = await getDB();
-      if (!db) return;
-      const tx = db.transaction(STORE_NAME, 'readwrite');
-      tx.objectStore(STORE_NAME).clear();
-    } catch(e) {}
-  }
-
-  async function restoreCachedFiles() {
-    try {
-      const db = await getDB();
-      if (!db) return;
-      const tx = db.transaction(STORE_NAME, 'readonly');
-      const store = tx.objectStore(STORE_NAME);
-      const req = store.getAll();
-      req.onsuccess = () => {
-        const items = req.result;
-        if (!items || !items.length) return;
-        const restoredFiles = [];
-        items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
-        for (const item of items) {
-          if (item.blob) {
-            try {
-              const fileObj = new File([item.blob], item.name, { type: item.type, lastModified: item.timestamp });
-              restoredFiles.push(fileObj);
-            } catch(e) {
-              const blobObj = item.blob;
-              blobObj.name = item.name;
-              restoredFiles.push(blobObj);
-            }
-          }
-        }
-        if (restoredFiles.length > 0) {
-          addFiles(restoredFiles, false);
-        }
-      };
-    } catch(e) {}
-  }
-
-  // Prevent accidental tab closure or accidental page refresh when files are loaded
-  window.addEventListener('beforeunload', (e) => {
-    if (state.files && state.files.length > 0) {
-      e.preventDefault();
-      e.returnValue = '';
-      return '';
-    }
-  });
+  confirmYesBtn.addEventListener('click', () => { confirmModal.style.display = 'none'; if (confirmCallback) confirmCallback(); });
+  confirmNoBtn.addEventListener('click', () => { confirmModal.style.display = 'none'; confirmCallback = null; });
 
   function renderThumbs(){
     thumbStrip.innerHTML = '';
@@ -1342,23 +1453,15 @@ document.addEventListener('keydown', e => {
       el.src = it.originalUrl || ''; el.addEventListener('click', () => selectFile(it.id));
       
       const rm = document.createElement('button'); rm.className = 'thumb-remove'; rm.innerHTML = '&times;';
-      rm.setAttribute('title', 'Remove image');
       rm.addEventListener('click', (e) => {
         e.stopPropagation();
-        state.files = state.files.filter(f => f.id !== it.id);
-        removeCachedFile(it.id);
-        if (state.activeId === it.id) {
-          state.activeId = state.files.length ? state.files[0].id : null;
-          selectFile(state.activeId);
-        } else {
-          renderThumbs();
-        }
-        if (!state.files.length) {
-          dropzone.style.display = 'flex';
-          compareWrap.style.display = 'none';
-          settingsBody.innerHTML = `<div class="empty-settings">${t('imgEmptySettings')}</div>`;
-          clearAllCachedFiles();
-        }
+        showConfirmModal(() => {
+          state.files = state.files.filter(f => f.id !== it.id);
+          if (state.activeId === it.id) {
+            state.activeId = state.files.length ? state.files[0].id : null; selectFile(state.activeId);
+          } else { renderThumbs(); }
+          if (!state.files.length) { dropzone.style.display = 'flex'; compareWrap.style.display = 'none'; settingsBody.innerHTML = `<div class="empty-settings">${t('imgEmptySettings')}</div>`; }
+        });
       });
       wrap.appendChild(el); wrap.appendChild(rm); thumbStrip.appendChild(wrap);
     });
@@ -1431,7 +1534,7 @@ document.addEventListener('keydown', e => {
       <button class="btn-download" id="imgDownloadBtn" ${it.status!=='done'?'disabled':''}>
         ${it.status === 'working' ? `${t('imgConverting')} <div class="cute-loader"><span></span><span></span><span></span></div>` : `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg> ${t('imgDownload')} ${EXT[it.targetFormat].toUpperCase()}`}
       </button>
-      ${state.files.length > 1 ? `<button class="btn-download-all" id="imgDownloadAllBtn">${t('imgDownloadAll')}</button><button class="btn-pill" id="imgClearAllBtn" style="margin-top:8px; width:100%; font-size:12px; padding:6px 10px; background:#fff0f0; color:#d32f2f; border:1.5px solid #d32f2f; cursor:pointer; font-weight:700;">🗑 Clear Queue</button>` : ''}
+      ${state.files.length > 1 ? `<button class="btn-download-all" id="imgDownloadAllBtn">${t('imgDownloadAll')}</button>` : ''}
     `;
 
     document.getElementById('imgFmtSelect').addEventListener('change', e => {
@@ -1457,7 +1560,6 @@ document.addEventListener('keydown', e => {
         if (it.status !== 'done') return;
         const a = document.createElement('a'); a.href = it.resultUrl; a.download = (it.customName || baseName(it.name)) + '.' + EXT[it.targetFormat];
         document.body.appendChild(a); a.click(); a.remove();
-        if (typeof gtag === 'function') { gtag('event', 'image_download', { 'event_category': 'conversion', 'target_format': it.targetFormat, 'file_size': it.resultSize }); }
       });
     }
     const dlAll = document.getElementById('imgDownloadAllBtn');
@@ -1607,13 +1709,286 @@ document.addEventListener('keydown', e => {
     if (dlAllBtn) dlAllBtn.innerHTML = `Generating ZIP...`;
     const content = await zip.generateAsync({type:'blob'}); const url = URL.createObjectURL(content);
     const a = document.createElement('a'); a.href = url; a.download = 'converted-images.zip'; document.body.appendChild(a); a.click(); a.remove();
-    if (typeof gtag === 'function') { gtag('event', 'batch_zip_download', { 'event_category': 'conversion', 'file_count': total }); }
     if (dlAllBtn) dlAllBtn.innerHTML = originalText; setTimeout(() => URL.revokeObjectURL(url), 4000);
   }
 })();
 
+// ==================== VIDEO APP ====================
+(function(){
+  const state = { files: [], activeId: null };
+  let uid = 0;
+
+  const dropzone = document.getElementById('vidDropzone');
+  const fileInput = document.getElementById('vidFileInput');
+  const videoWorkspace = document.getElementById('vidVideoWorkspace');
+  const videoOriginal = document.getElementById('vidOriginal');
+  const videoConverted = document.getElementById('vidConverted');
+  const convertBtn = document.getElementById('vidConvertBtn');
+  const convertBtnText = document.getElementById('vidConvertBtnText');
+  const downloadAllBtn = document.getElementById('vidDownloadAllBtn');
+  const thumbStrip = document.getElementById('vidThumbStrip');
+  const progressWrap = document.getElementById('vidProgressWrap');
+  const progressFill = document.getElementById('vidProgressFill');
+  const progressPct = document.getElementById('vidProgressPct');
+  const stageLabel = document.getElementById('vidStageLabel');
+  const etaLabel = document.getElementById('vidEtaLabel');
+  const emptySettings = document.getElementById('vidEmptySettings');
+  const settingsBody = document.getElementById('vidSettingsBody');
+  const applyAllBtn = document.getElementById('vidApplyAllBtn');
+
+  function activeFile(){ return state.files.find(f => f.id === state.activeId) || null; }
+
+  translationListeners.push(() => {
+    renderActiveVideo();
+  });
+
+  function fmtBytes(b){
+    if (!b) return '0 B'; if (b < 1024) return b + ' B';
+    if (b < 1024*1024) return (b/1024).toFixed(1) + ' KB'; return (b/1024/1024).toFixed(1) + ' MB';
+  }
+
+  function fmtDuration(sec){
+    if (!sec) return '0s'; const m = Math.floor(sec / 60); const s = Math.floor(sec % 60); return `${m}m ${s}s`;
+  }
+
+  function getTargetResolutionDimensions(it) {
+    const sel = it.settings.res;
+    if (sel === 'original' || !it.height) return { w: it.width || 1280, h: it.height || 720 };
+    const targetH = Number(sel); const targetW = Math.round(targetH * (it.aspectRatioVal || (16/9))); return { w: targetW, h: targetH };
+  }
+
+  function getTargetFpsVal(it) {
+    const sel = it.settings.fps; return sel === 'original' ? (it.fps || 30) : Number(sel);
+  }
+
+  function extractFrameScreenshot(videoEl, item, thumbCanvas) {
+    setTimeout(() => {
+      try {
+        thumbCanvas.width = 120; thumbCanvas.height = 68;
+        thumbCanvas.getContext('2d').drawImage(videoEl, 0, 0, thumbCanvas.width, thumbCanvas.height);
+        item.thumbUrl = thumbCanvas.toDataURL('image/jpeg', 0.7); renderThumbs();
+      } catch(e) {}
+    }, 400);
+  }
+
+  function extractMetadata(file, item) {
+    const url = URL.createObjectURL(file);
+    const tempVideo = document.createElement('video'); tempVideo.preload = 'metadata'; tempVideo.muted = true; tempVideo.src = url;
+    tempVideo.onloadeddata = function() { tempVideo.currentTime = 0.5; };
+    tempVideo.onseeked = function() { extractFrameScreenshot(tempVideo, item, document.createElement('canvas')); };
+    tempVideo.onloadedmetadata = function() {
+      item.duration = tempVideo.duration; item.width = tempVideo.videoWidth; item.height = tempVideo.videoHeight;
+      item.aspectRatioVal = tempVideo.videoWidth / tempVideo.videoHeight; item.aspect = item.aspectRatioVal.toFixed(2);
+      item.fps = 30; // base estimate
+      item.bitrate = ((file.size * 8) / tempVideo.duration / 1000000).toFixed(1) + ' Mbps';
+      if (item.id === state.activeId) renderActiveVideo();
+    };
+  }
+
+  function addFiles(list){
+    [...list].forEach(file => {
+      if (!file.type.startsWith('video/')) return;
+      const item = {
+        id: 'v' + (uid++), file: file, name: file.name, size: file.size, url: URL.createObjectURL(file),
+        convertedUrl: null, convertedSize: null, convertedBlob: null, isConverted: false, thumbUrl: null,
+        duration: 0, width: 0, height: 0, aspect: '16:9', fps: 30, bitrate: '—',
+        // INDEPENDENT SETTINGS PER VIDEO
+        settings: { fmt: 'mp4', res: 'original', fps: 'original', aspect: 'original', vcodec: 'h264', acodec: 'aac', denoise: false, removeAudio: false, quality: 2 }
+      };
+      state.files.push(item); extractMetadata(file, item);
+      if (!state.activeId) state.activeId = item.id;
+    });
+    renderThumbs(); renderActiveVideo();
+  }
+
+  ['vidFmtSelect', 'vidResSelect', 'vidFpsSelect', 'vidAspectSelect', 'vidVcodecSelect', 'vidAcodecSelect'].forEach(id => {
+    document.getElementById(id).addEventListener('change', (e) => {
+      const current = activeFile(); if (!current) return;
+      current.settings[id.replace('Select', '').replace('vid', '').toLowerCase()] = e.target.value;
+      current.isConverted = false; renderActiveVideo();
+    });
+  });
+  
+  document.getElementById('vidQualitySlider').addEventListener('input', (e) => { const current = activeFile(); if(current) { current.settings.quality = Number(e.target.value); current.isConverted = false; renderActiveVideo(); } });
+  document.getElementById('vidDenoiseCheck').addEventListener('change', (e) => { const current = activeFile(); if(current) { current.settings.denoise = e.target.checked; current.isConverted = false; renderActiveVideo(); } });
+  document.getElementById('vidRemoveAudioCheck').addEventListener('change', (e) => { const current = activeFile(); if(current) { current.settings.removeAudio = e.target.checked; current.isConverted = false; renderActiveVideo(); } });
+
+  applyAllBtn.addEventListener('click', () => {
+    const current = activeFile(); if (!current) return;
+    state.files.forEach(f => { if (f.id !== current.id) { f.settings = JSON.parse(JSON.stringify(current.settings)); f.isConverted = false; } });
+    alert("Settings applied to all videos in the queue!"); renderThumbs(); renderActiveVideo();
+  });
+
+  function renderActiveVideo(){
+    const current = activeFile();
+    if (!current) { dropzone.style.display = 'flex'; videoWorkspace.style.display = 'none'; settingsBody.style.display = 'none'; emptySettings.style.display = 'block'; return; }
+
+    dropzone.style.display = 'none'; videoWorkspace.style.display = 'block'; settingsBody.style.display = 'block'; emptySettings.style.display = 'none';
+
+    document.getElementById('vidFmtSelect').value = current.settings.fmt;
+    document.getElementById('vidResSelect').value = current.settings.res;
+    document.getElementById('vidFpsSelect').value = current.settings.fps;
+    document.getElementById('vidAspectSelect').value = current.settings.aspect;
+    document.getElementById('vidVcodecSelect').value = current.settings.vcodec;
+    document.getElementById('vidAcodecSelect').value = current.settings.acodec;
+    document.getElementById('vidDenoiseCheck').checked = current.settings.denoise;
+    document.getElementById('vidRemoveAudioCheck').checked = current.settings.removeAudio;
+    document.getElementById('vidQualitySlider').value = current.settings.quality;
+
+    videoOriginal.src = current.url; videoConverted.src = current.convertedUrl || current.url;
+
+    const targetDims = getTargetResolutionDimensions(current);
+    const targetFps = getTargetFpsVal(current);
+    const targetAspect = current.settings.aspect === 'original' ? current.aspect : current.settings.aspect;
+    const targetCodec = current.settings.vcodec.toUpperCase();
+    const targetAudio = current.settings.removeAudio ? 'Muted' : current.settings.acodec.toUpperCase();
+
+    document.getElementById('vidSpecOrigRes').textContent = current.width ? `${current.width}×${current.height}` : '—';
+    document.getElementById('vidSpecOrigFps').textContent = current.fps ? `${current.fps} FPS` : '—';
+    document.getElementById('vidSpecOrigAspect').textContent = current.aspect ? `${current.aspect}` : '16:9';
+    document.getElementById('vidSpecOrigCodec').textContent = 'H.264';
+    document.getElementById('vidSpecOrigAudio').textContent = 'AAC';
+    document.getElementById('vidSpecOrigSize').textContent = fmtBytes(current.size);
+
+    document.getElementById('vidSpecTargetRes').textContent = `${targetDims.w}×${targetDims.h}`;
+    document.getElementById('vidSpecTargetFps').textContent = `${targetFps} FPS`;
+    document.getElementById('vidSpecTargetAspect').textContent = targetAspect;
+    document.getElementById('vidSpecTargetCodec').textContent = targetCodec;
+    document.getElementById('vidSpecTargetAudio').textContent = targetAudio;
+    document.getElementById('vidSpecTargetSize').textContent = current.isConverted ? fmtBytes(current.convertedSize) : 'Pending';
+
+    convertBtnText.textContent = current.isConverted ? t('vidBtnDownload') : t('vidBtnConvert');
+    downloadAllBtn.style.display = state.files.length > 1 ? 'block' : 'none';
+    updateEstimator();
+  }
+
+  function showConfirmModal(callback) {
+    const modal = document.getElementById('vidConfirmModal'); modal.style.display = 'flex';
+    document.getElementById('vidConfirmYesBtn').onclick = () => { modal.style.display = 'none'; callback(); };
+    document.getElementById('vidConfirmNoBtn').onclick = () => { modal.style.display = 'none'; };
+  }
+
+  function renderThumbs(){
+    thumbStrip.innerHTML = '';
+    state.files.forEach((it) => {
+      const wrap = document.createElement('div'); wrap.className = 'thumb-wrap';
+      const el = document.createElement('div'); el.className = 'thumb' + (it.id === state.activeId ? ' active' : '');
+      if (it.thumbUrl) { const img = document.createElement('img'); img.src = it.thumbUrl; el.appendChild(img); } 
+      else { el.innerHTML = '<span style="font-size:24px; display:flex; align-items:center; justify-content:center; height:100%;">🎬</span>'; }
+      if (it.isConverted) { const badge = document.createElement('span'); badge.className = 'thumb-badge'; badge.textContent = '✓'; el.appendChild(badge); }
+
+      el.onclick = () => { state.activeId = it.id; renderActiveVideo(); renderThumbs(); };
+      const rm = document.createElement('div'); rm.className = 'thumb-remove'; rm.innerHTML = '&times;';
+      rm.onclick = (e) => { e.stopPropagation(); showConfirmModal(() => { state.files = state.files.filter(f => f.id !== it.id); state.activeId = state.files.length ? state.files[0].id : null; renderThumbs(); renderActiveVideo(); }); };
+      wrap.appendChild(el); wrap.appendChild(rm); thumbStrip.appendChild(wrap);
+    });
+
+    if (state.files.length > 0) {
+      const addBtn = document.createElement('button'); addBtn.className = 'thumb-add'; addBtn.title = 'Add more videos';
+      addBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>';
+      addBtn.onclick = () => document.getElementById('vidFileInput').click(); thumbStrip.appendChild(addBtn);
+    }
+  }
+
+  function updateEstimator(){
+    const current = activeFile(); if (!current) return;
+    const q = current.settings.quality; const res = current.settings.res; const denoise = current.settings.denoise; const removeAudio = current.settings.removeAudio;
+    let scale = 1.0; if (q === 1) scale = 0.85; if (q === 2) scale = 0.55; if (q === 3) scale = 0.30;
+    if (res === '720') scale *= 0.7; if (res === '480') scale *= 0.4; if (res === '360') scale *= 0.25;
+    if (denoise) scale *= 0.9; if (removeAudio) scale *= 0.85;
+    const estSize = Math.max(1024 * 100, Math.round(current.size * scale)); const reduction = Math.round(((current.size - estSize) / current.size) * 100);
+    document.getElementById('vidEstCurrent').textContent = fmtBytes(current.size);
+    document.getElementById('vidEstOutput').textContent = fmtBytes(estSize);
+    document.getElementById('vidEstSaving').textContent = `${Math.max(0, reduction)}%`;
+  }
+
+  async function convertVideoCanvas(current) {
+    return new Promise((resolve) => {
+      const targetDims = getTargetResolutionDimensions(current); const targetFps = getTargetFpsVal(current);
+      const isMuted = current.settings.removeAudio; const denoise = current.settings.denoise;
+      const canvas = document.createElement('canvas'); canvas.width = targetDims.w; canvas.height = targetDims.h; const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      const video = document.createElement('video'); video.src = current.url; video.muted = true; video.playsInline = true;
+
+      video.onloadeddata = async () => {
+        await video.play();
+        const stream = canvas.captureStream(targetFps);
+        if (!isMuted) {
+          try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const source = audioCtx.createMediaElementSource(video); const dest = audioCtx.createMediaStreamDestination();
+            source.connect(dest); dest.stream.getAudioTracks().forEach(track => stream.addTrack(track));
+          } catch(e) {}
+        }
+
+        const mime = MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9' : 'video/webm';
+        const recorder = new MediaRecorder(stream, { mimeType: mime });
+        const chunks = [];
+        recorder.ondataavailable = e => chunks.push(e.data);
+        recorder.onstop = () => { const ext = current.settings.fmt === 'webm' ? 'video/webm' : 'video/mp4'; const blob = new Blob(chunks, { type: ext }); resolve(blob); };
+        recorder.start();
+
+        function drawFrame() {
+          if (video.paused || video.ended) { recorder.stop(); return; }
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          if (denoise) {
+            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height); const d = imgData.data;
+            for (let i = 0; i < d.length - 4; i += 4) { d[i] = (d[i] + d[i+4]) >> 1; d[i+1] = (d[i+1] + d[i+5]) >> 1; d[i+2] = (d[i+2] + d[i+6]) >> 1; }
+            ctx.putImageData(imgData, 0, 0);
+          }
+          requestAnimationFrame(drawFrame);
+        }
+        drawFrame();
+      };
+    });
+  }
+
+  convertBtn.addEventListener('click', async () => {
+    const current = activeFile(); if (!current) return;
+    if (current.isConverted && current.convertedUrl) {
+      const a = document.createElement('a'); a.href = current.convertedUrl; a.download = `converted-${current.name.split('.')[0]}.${current.settings.fmt}`; document.body.appendChild(a); a.click(); a.remove(); return;
+    }
+
+    progressWrap.style.display = 'block'; convertBtn.disabled = true; downloadAllBtn.disabled = true;
+    const stages = [ { name: 'Processing Video Stream...', pct: 20 }, { name: 'Applying Denoise & Resolution Scale...', pct: 50 }, { name: 'Encoding Audio & Output Tracks...', pct: 80 }, { name: 'Finalizing Video File...', pct: 100 } ];
+    let step = 0; const interval = setInterval(() => { if (step < stages.length) { stageLabel.textContent = stages[step].name; progressFill.style.width = stages[step].pct + '%'; progressPct.textContent = stages[step].pct + '%'; step++; } else { clearInterval(interval); } }, 400);
+
+    const convertedBlob = await convertVideoCanvas(current);
+    current.isConverted = true; current.convertedBlob = convertedBlob; current.convertedUrl = URL.createObjectURL(convertedBlob); current.convertedSize = convertedBlob.size;
+    progressWrap.style.display = 'none'; convertBtn.disabled = false; downloadAllBtn.disabled = false; videoConverted.src = current.convertedUrl; renderThumbs(); renderActiveVideo();
+  });
+
+  downloadAllBtn.addEventListener('click', async () => {
+    if (typeof JSZip === 'undefined') return;
+    progressWrap.style.display = 'block'; convertBtn.disabled = true; downloadAllBtn.disabled = true;
+    const zip = new JSZip(); let hasFiles = false;
+
+    for (let i = 0; i < state.files.length; i++) {
+      const f = state.files[i];
+      stageLabel.textContent = `Converting ${i + 1} of ${state.files.length}... (${f.name})`;
+      const overallPct = Math.round((i / state.files.length) * 100); progressFill.style.width = overallPct + '%'; progressPct.textContent = overallPct + '%';
+
+      if (!f.isConverted) {
+        const convertedBlob = await convertVideoCanvas(f);
+        f.isConverted = true; f.convertedBlob = convertedBlob; f.convertedUrl = URL.createObjectURL(convertedBlob); f.convertedSize = convertedBlob.size;
+      }
+      zip.file(`converted-${f.name.split('.')[0]}.${f.settings.fmt}`, f.convertedBlob); hasFiles = true;
+    }
+
+    if(!hasFiles) { alert("No videos available to download."); progressWrap.style.display = 'none'; convertBtn.disabled = false; downloadAllBtn.disabled = false; return; }
+
+    stageLabel.textContent = 'Generating ZIP file... Please wait.'; progressFill.style.width = '100%'; progressPct.textContent = '100%';
+    const content = await zip.generateAsync({type: 'blob'}); const a = document.createElement('a'); a.href = URL.createObjectURL(content); a.download = 'converted-videos.zip'; a.click();
+    progressWrap.style.display = 'none'; convertBtn.disabled = false; downloadAllBtn.disabled = false; renderThumbs(); renderActiveVideo();
+  });
+
+  dropzone.onclick = () => fileInput.click();
+  fileInput.onchange = (e) => addFiles(e.target.files);
+  dropzone.ondragover = (e) => { e.preventDefault(); dropzone.classList.add('drag'); };
+  dropzone.ondragleave = () => dropzone.classList.remove('drag');
+  dropzone.ondrop = (e) => { e.preventDefault(); dropzone.classList.remove('drag'); addFiles(e.dataTransfer.files); };
+})();
+
 // Call local language detection immediately
-restoreCachedFiles();
 detectLanguage();
 </script>
 </body>
