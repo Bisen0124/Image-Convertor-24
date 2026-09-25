@@ -18,6 +18,21 @@ def build():
     # 2. Fix the mobile SEO bug: remove `@media screen and (max-width:999px) { .seo-article { display: none; } }`
     src = src.replace("@media screen and (max-width:999px) { .seo-article { display: none; } }", "")
 
+    # 2b. Brand & Keyword Optimization for Google #1 Ranking
+    src = src.replace(
+        "<title>Free Image Converter - JPG, PNG, WEBP & More | Fast Image Convertor</title>",
+        "<title>Fast Image Convertor - Free Online Image Converter (No Login)</title>"
+    )
+    src = re.sub(
+        r'<meta property="og:title"\s+content=".*?">',
+        '<meta property="og:title"\n      content="Fast Image Convertor - Free Online Image Converter (No Login)">',
+        src
+    )
+    src = src.replace(
+        '<meta name="robots" content="index, follow">',
+        '<meta name="robots" content="index, follow">\n  <meta name="keywords" content="fast image convertor, fast image converter, free image converter, image convertor online, png to jpeg, jpg to png, webp converter, batch image converter no login">'
+    )
+
     # 3. Add Internal links CSS
     internal_links_css = """
   /* ---------------- POPULAR INTERNAL LINKS ---------------- */
