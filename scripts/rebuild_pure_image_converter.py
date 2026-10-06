@@ -32,6 +32,8 @@ def build():
         '<meta name="robots" content="index, follow">',
         '<meta name="robots" content="index, follow">\n  <meta name="keywords" content="fast image convertor, fast image converter, free image converter, image convertor online, png to jpeg, jpg to png, webp converter, batch image converter no login">'
     )
+    src = src.replace('<link rel="canonical" href="https://fastimageconvertor.com/">', '<link rel="canonical" href="https://www.fastimageconvertor.com/">')
+    src = src.replace('<meta property="og:url" content="https://fastimageconvertor.com/">', '<meta property="og:url" content="https://www.fastimageconvertor.com/">')
 
     # 3. Add Internal links CSS
     internal_links_css = """
@@ -108,7 +110,7 @@ def build():
 
     # 8. Update footer with Privacy Policy and Terms links
     footer_old = '<footer class="copyright-footer">\n    &copy; <span id="dynamicYear"></span> <a href="https://www.fastimageconvertor.com/">fastimageconvertor.com</a>\n  </footer>'
-    footer_new = '<footer class="copyright-footer">\n    &copy; <span id="dynamicYear"></span> <a href="https://fastimageconvertor.com/">fastimageconvertor.com</a> · <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a>\n  </footer>'
+    footer_new = '<footer class="copyright-footer">\n    &copy; <span id="dynamicYear"></span> <a href="https://www.fastimageconvertor.com/">fastimageconvertor.com</a> · <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a>\n  </footer>'
     src = src.replace(footer_old, footer_new)
 
     # 9. FIX JAVASCRIPT: Remove tab switching code that crashed on tabVideoBtn null
@@ -355,7 +357,7 @@ def build():
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Fast Image Convertor",
-  "url": "https://fastimageconvertor.com/",
+  "url": "https://www.fastimageconvertor.com/",
   "operatingSystem": "All",
   "applicationCategory": "MultimediaApplication",
   "offers": {
@@ -400,10 +402,10 @@ def build():
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Fast Image Convertor",
-  "url": "https://fastimageconvertor.com/",
+  "url": "https://www.fastimageconvertor.com/",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://fastimageconvertor.com/{search_term_string}",
+    "target": "https://www.fastimageconvertor.com/{search_term_string}",
     "query-input": "required name=search_term_string"
   }
 }

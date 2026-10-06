@@ -358,9 +358,9 @@ def generate():
         base_html = f.read()
 
     sitemap_urls = [
-        ("https://fastimageconvertor.com/", "1.0"),
-        ("https://fastimageconvertor.com/privacy-policy.html", "0.5"),
-        ("https://fastimageconvertor.com/terms.html", "0.5")
+        ("https://www.fastimageconvertor.com/", "1.0"),
+        ("https://www.fastimageconvertor.com/privacy-policy.html", "0.5"),
+        ("https://www.fastimageconvertor.com/terms.html", "0.5")
     ]
 
     for p in PAGES:
@@ -369,10 +369,10 @@ def generate():
         # 1. Title & Meta
         html = re.sub(r"<title>.*?</title>", f"<title>{p['title']}</title>", html)
         html = re.sub(r'<meta name="description"\s+content=".*?">', f'<meta name="description"\n      content="{p["description"]}">', html)
-        html = re.sub(r'<link rel="canonical" href=".*?">', f'<link rel="canonical" href="https://fastimageconvertor.com/{p["filename"]}">', html)
+        html = re.sub(r'<link rel="canonical" href=".*?">', f'<link rel="canonical" href="https://www.fastimageconvertor.com/{p["filename"]}">', html)
         html = re.sub(r'<meta property="og:title"\s+content=".*?">', f'<meta property="og:title"\n      content="{p["title"]}">', html)
         html = re.sub(r'<meta property="og:description"\s+content=".*?">', f'<meta property="og:description"\n      content="{p["description"]}">', html)
-        html = re.sub(r'<meta property="og:url" content=".*?">', f'<meta property="og:url" content="https://fastimageconvertor.com/{p["filename"]}">', html)
+        html = re.sub(r'<meta property="og:url" content=".*?">', f'<meta property="og:url" content="https://www.fastimageconvertor.com/{p["filename"]}">', html)
 
         # 2. Target H1 and Subhead (omit data-i18n to keep SEO-specific copy on load)
         html = re.sub(r'<h1 data-i18n="imgH1">.*?</h1>', f'<h1>{p["h1"]}</h1>', html)
@@ -421,13 +421,13 @@ def generate():
                     "@type": "ListItem",
                     "position": 1,
                     "name": "Home",
-                    "item": "https://fastimageconvertor.com/"
+                    "item": "https://www.fastimageconvertor.com/"
                 },
                 {
                     "@type": "ListItem",
                     "position": 2,
                     "name": p["h1"],
-                    "item": f"https://fastimageconvertor.com/{p['filename']}"
+                    "item": f"https://www.fastimageconvertor.com/{p['filename']}"
                 }
             ]
         }, indent=2)
@@ -436,7 +436,7 @@ def generate():
         with open(p["filename"], "w", encoding="utf-8") as out_f:
             out_f.write(html)
         print(f"Generated {p['filename']} matching original backup UI exactly!")
-        sitemap_urls.append((f"https://fastimageconvertor.com/{p['filename']}", "0.9"))
+        sitemap_urls.append((f"https://www.fastimageconvertor.com/{p['filename']}", "0.9"))
 
     # Generate clean sitemap.xml
     sitemap_lines = [
@@ -459,7 +459,7 @@ def generate():
     robots_content = """User-agent: *
 Allow: /
 
-Sitemap: https://fastimageconvertor.com/sitemap.xml
+Sitemap: https://www.fastimageconvertor.com/sitemap.xml
 """
     with open("robots.txt", "w", encoding="utf-8") as f:
         f.write(robots_content)
