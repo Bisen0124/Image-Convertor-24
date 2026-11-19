@@ -1391,6 +1391,8 @@ document.addEventListener('keydown', e => {
       rm.setAttribute('title', 'Remove image');
       rm.addEventListener('click', (e) => {
         e.stopPropagation();
+        if (it.originalUrl && it.originalUrl.startsWith('blob:')) URL.revokeObjectURL(it.originalUrl);
+        if (it.resultUrl && it.resultUrl.startsWith('blob:')) URL.revokeObjectURL(it.resultUrl);
         state.files = state.files.filter(f => f.id !== it.id);
         removeCachedFile(it.id);
         if (state.activeId === it.id) {
@@ -1509,6 +1511,23 @@ document.addEventListener('keydown', e => {
     const dlAll = document.getElementById('imgDownloadAllBtn');
     if (dlAll) dlAll.addEventListener('click', downloadAllZip);
 
+    const clearBtn = document.getElementById('imgClearAllBtn');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        state.files.forEach(f => {
+          if (f.originalUrl && f.originalUrl.startsWith('blob:')) URL.revokeObjectURL(f.originalUrl);
+          if (f.resultUrl && f.resultUrl.startsWith('blob:')) URL.revokeObjectURL(f.resultUrl);
+        });
+        state.files = [];
+        state.activeId = null;
+        dropzone.style.display = 'flex';
+        compareWrap.style.display = 'none';
+        settingsBody.innerHTML = `<div class="empty-settings">${t('imgEmptySettings')}</div>`;
+        clearAllCachedFiles();
+        renderThumbs();
+      });
+    }
+
     if (it.kind === 'image') bindResizeEvents(it);
   }
 
@@ -1564,6 +1583,8 @@ document.addEventListener('keydown', e => {
 
   function drawResized(source, sw, sh, canvas, tw, th, mode, zoom, panX, panY){
     canvas.width = tw; canvas.height = th; const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
     const baseScale = mode === 'fit' ? Math.min(tw/sw, th/sh) : Math.max(tw/sw, th/sh); const scale = baseScale * (zoom || 1.0);
     const nw = sw*scale, nh = sh*scale; const slackX = tw - nw; const slackY = th - nh;
     const x = (slackX / 2) + (slackX / 2) * ((panX || 0) / 100); const y = (slackY / 2) + (slackY / 2) * ((panY || 0) / 100);
@@ -1607,7 +1628,16 @@ document.addEventListener('keydown', e => {
       }
       
       if (it.kind === 'video') URL.revokeObjectURL(source.src);
-      if (it.targetFormat === 'jpeg'){ const c2 = document.createElement('canvas'); c2.width = canvas.width; c2.height = canvas.height; const c2x = c2.getContext('2d'); c2x.fillStyle = '#fff'; c2x.fillRect(0,0,c2.width,c2.height); c2x.drawImage(canvas,0,0); canvas.getContext('2d').drawImage(c2,0,0); }
+      if (it.targetFormat === 'jpeg' || it.targetFormat === 'jpg'){
+        const c2 = document.createElement('canvas');
+        c2.width = canvas.width;
+        c2.height = canvas.height;
+        const c2x = c2.getContext('2d');
+        c2x.fillStyle = '#ffffff';
+        c2x.fillRect(0, 0, c2.width, c2.height);
+        c2x.drawImage(canvas, 0, 0);
+        canvas = c2;
+      }
 
       let blob;
       if (it.targetFormat === 'bmp') { blob = encodeBMP(canvas); } 

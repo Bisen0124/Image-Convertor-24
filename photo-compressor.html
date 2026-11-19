@@ -829,6 +829,20 @@
 (function(){
   'use strict';
 
+  // DISABLE RIGHT CLICK & INSPECT SHORTCUTS
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if (
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+      (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) ||
+      (e.metaKey && e.altKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'U' || e.key === 'u'))
+    ) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
   // State
   let loadedImage = null; // Image element
   let originalFile = null;
@@ -929,6 +943,9 @@
   });
 
   function clearOutputs() {
+    [btnDl100, btnDl50, btnDl20, btnDlCustom].forEach(btn => {
+      if (btn && btn.href && btn.href.startsWith('blob:')) URL.revokeObjectURL(btn.href);
+    });
     [size100, size50, size20, sizeCustom].forEach(el => el.textContent = '—');
     const placeholderSvg = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' fill='%23cbd5e1'><rect width='80' height='80'/></svg>";
     thumb100.src = placeholderSvg;
@@ -1144,6 +1161,9 @@
     if (!res || !res.blob) {
       sizeEl.textContent = 'Error';
       return;
+    }
+    if (dlBtn.href && dlBtn.href.startsWith('blob:')) {
+      URL.revokeObjectURL(dlBtn.href);
     }
     const url = URL.createObjectURL(res.blob);
     thumbEl.src = url;
