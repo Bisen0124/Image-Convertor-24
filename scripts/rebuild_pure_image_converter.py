@@ -71,15 +71,20 @@ def build():
 """
     src = src.replace("</style>", internal_links_css + "\n</style>")
 
-    # 4. Remove video tab button from header
+    # 4. Remove video tab button from header and link Form Photo Compressor
     src = src.replace('<button class="nav-tab" id="tabVideoBtn" data-i18n="tabVideo" style="display: none;">🎬 Video Converter</button>', '')
     src = re.sub(r'<button class="nav-tab"[^>]*id="tabVideoBtn"[^>]*>.*?</button>', '', src)
+    src = src.replace(
+        '<button class="nav-tab active" id="tabImageBtn" data-i18n="tabImage">🖼️ Image Converter</button>',
+        '<a href="/" class="nav-tab active" id="tabImageBtn" data-i18n="tabImage">🖼️ Image Converter</a>\n        <a href="photo-compressor.html" class="nav-tab">📋 Form Photo Compressor</a>'
+    )
 
     # 5. Add internal linking matrix before </article> (expanded with all high-volume queries)
     internal_links_html = """
       <div class="seo-internal-links">
-        <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 8px;">Popular Image Converters</h3>
+        <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 8px;">Popular Tools & Converters</h3>
         <div class="seo-links-grid">
+          <a href="photo-compressor.html" class="seo-link-pill" style="background:#e0f2fe; color:#0369a1; border-color:#0284c7; font-weight:800;">📋 Form Photo Compressor (20KB, 50KB, 100KB)</a>
           <a href="png-to-jpeg.html" class="seo-link-pill">PNG to JPEG</a>
           <a href="png-to-jpg.html" class="seo-link-pill">PNG to JPG</a>
           <a href="jpg-to-png.html" class="seo-link-pill">JPG to PNG</a>

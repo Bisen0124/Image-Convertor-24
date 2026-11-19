@@ -359,6 +359,7 @@ def generate():
 
     sitemap_urls = [
         ("https://www.fastimageconvertor.com/", "1.0"),
+        ("https://www.fastimageconvertor.com/photo-compressor.html", "0.9"),
         ("https://www.fastimageconvertor.com/privacy-policy.html", "0.5"),
         ("https://www.fastimageconvertor.com/terms.html", "0.5")
     ]

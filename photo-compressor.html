@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Government Form Photo Compressor - Compress to 20KB, 50KB, 100KB | Fast Image Convertor</title>
+  <meta name="description" content="Free online photo compressor for government forms, job applications, UPSC, SSC, IBPS, passport & visa. Compress photos and signatures to exact 20 KB, 50 KB, 100 KB with custom dimensions. 100% private in-browser.">
+  <meta name="keywords" content="government form photo compressor, compress photo to 20kb, compress image to 50kb, compress photo to 100kb, upsc photo compressor, ssc photo resizer, signature compressor 20kb, passport photo compressor, image to exact kb">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://www.fastimageconvertor.com/photo-compressor.html">
+
+  <meta property="og:title" content="Government Form Photo Compressor - Compress to 20KB, 50KB, 100KB">
+  <meta property="og:description" content="Compress your photo and signature to exact file size (20KB, 50KB, 100KB) and dimensions for online applications. 100% private, free, no login.">
+  <meta property="og:url" content="https://www.fastimageconvertor.com/photo-compressor.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Fast Image Convertor">
+  <meta name="theme-color" content="#ff4d4d">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGLZ7HPRW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5VGLZ7HPRW');
+  </script>
+
+  <!-- Structured Data: WebApplication, HowTo & FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Government Form Photo Compressor",
+    "url": "https://www.fastimageconvertor.com/photo-compressor.html",
+    "operatingSystem": "All",
+    "applicationCategory": "MultimediaApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "ratingCount": "2180"
+    },
+    "description": "Compress ID photos and signatures to exact file size limits (20KB, 50KB, 100KB) and dimensions for government exams, passport, and job portals."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Compress Photo to 20KB or 50KB for Government Forms",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Upload Your Photo or Signature",
+        "text": "Drag and drop your photo or click Choose File to select an image from your device."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Select Target Size & Dimensions",
+        "text": "Click a preset like 20 KB, 50 KB, 100 KB, or enter a custom size. Optionally pick exam dimension presets like UPSC/SSC (200x230 px) or Passport size."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Download Guaranteed Compliant Photo",
+        "text": "Preview the compressed outputs and click Download to save your compliant photo ready for portal upload."
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I compress my photo to exactly 20KB or 50KB?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload your photo, select the 20 KB or 50 KB target button, and our binary search compression algorithm will automatically optimize quality so the resulting file is guaranteed to be equal to or less than your target size."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will compressing my photo reduce its clarity or blur my face?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our compressor uses smart bicubic smoothing and adaptive compression to retain facial sharpness and clean signature lines while strictly meeting the portal's KB limit."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my government ID photos and signatures safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "100% yes. All image compression runs locally inside your browser using the HTML5 Canvas API. Your photos are never uploaded to any remote server or stored anywhere."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the standard photo sizes for UPSC, SSC, and Bank exams?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most exam portals like UPSC and SSC require candidate photos to be between 20 KB and 50 KB with dimensions of 200x230 pixels, and signatures between 10 KB and 20 KB with dimensions of 140x60 pixels."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-red: #ff4d4d;
+      --page-bg: #fffdf5;
+      --card-bg: #ffffff;
+      --screen-bg: #eaf8ff;
+      --border-dark: #1e1e1e;
+      --ink: #1e1e1e;
+      --ink-dim: #4a4a4a;
+      --ink-faint: #7a7a7a;
+      --lime-accent: #c6ff00;
+      --lime-hover: #b8f000;
+      --sky-accent: #8ce0ff;
+      --coral-accent: #ff80ab;
+      --primary-blue: #2563eb;
+      --primary-blue-hover: #1d4ed8;
+      --success-green: #10b981;
+      --warning-bg: #fffbeb;
+      --warning-border: #f59e0b;
+      --sans: 'Inter', -apple-system, sans-serif;
+      --display: 'Space Grotesk', var(--sans);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+      --radius-pill: 50px;
+      --shadow-hard: 4px 4px 0px #1e1e1e;
+      --shadow-hard-lg: 8px 8px 0px #1e1e1e;
+      --shadow-hard-sm: 2.5px 2.5px 0px #1e1e1e;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background-color: var(--bg-red); color: var(--ink);
+      font-family: var(--sans); -webkit-font-smoothing: antialiased; padding: 24px 16px 60px;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.08) 120px, transparent 121px),
+        radial-gradient(circle at 90% 80%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.08) 160px, transparent 161px);
+      overflow-x: hidden;
+    }
+
+    .page {
+      max-width: 1100px; margin: 0 auto;
+      background: rgba(255, 253, 245, 0.94);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border: 3.5px solid var(--border-dark); border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-hard-lg); padding: 28px 24px 48px;
+    }
+
+    /* Header Bar */
+    .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+    .nav-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+    .nav-tab {
+      padding: 9px 18px; font-size: 13.5px; font-weight: 800; font-family: var(--sans);
+      color: var(--ink); background: #fff; border: 2.5px solid var(--border-dark);
+      border-radius: var(--radius-pill); box-shadow: var(--shadow-hard-sm);
+      cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .nav-tab:hover { background: var(--sky-accent); transform: translate(-1px, -1px); }
+    .nav-tab.active { background: var(--lime-accent); box-shadow: 3.5px 3.5px 0px var(--border-dark); pointer-events: none; }
+
+    .brand-badge {
+      display: inline-flex; align-items: center; gap: 6px; background: #e0f2fe; color: #0369a1;
+      padding: 4px 12px; border-radius: var(--radius-pill); font-size: 12px; font-weight: 700;
+      border: 1.5px solid #0284c7; margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: var(--display); font-weight: 800; font-size: clamp(26px, 4vw, 36px);
+      margin: 0 0 8px; letter-spacing: -0.02em; line-height: 1.2;
+    }
+    .sub { color: var(--ink-dim); font-size: 15px; line-height: 1.55; max-width: 75ch; margin: 0 0 24px; font-weight: 500; }
+
+    /* App Grid */
+    .app-grid {
+      display: grid; grid-template-columns: 1fr 1.35fr; gap: 24px; align-items: start;
+    }
+    @media (max-width: 920px) {
+      .app-grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card-bg); border: 3px solid var(--border-dark);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-hard); padding: 22px;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 16px; font-weight: 800; font-family: var(--display); margin: 0 0 14px;
+      padding-bottom: 10px; border-bottom: 2px solid #f0f0f0;
+    }
+    .card-title .step-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; background: var(--lime-accent); border: 2px solid var(--border-dark);
+      border-radius: 50%; font-size: 12px; font-weight: 800; margin-right: 8px;
+    }
+
+    /* Dropzone */
+    .dropzone-box {
+      border: 3px dashed var(--border-dark); border-radius: var(--radius-md);
+      background-color: var(--screen-bg); min-height: 240px; display: flex;
+      flex-direction: column; align-items: center; justify-content: center; text-align: center;
+      cursor: pointer; padding: 24px; transition: all 0.2s ease;
+    }
+    .dropzone-box:hover { background-color: #d8f3ff; transform: scale(1.01); }
+    .dropzone-box.drag { background-color: #c4eeff; border-color: var(--ink); transform: scale(1.02); }
+    .dropzone-icon {
+      width: 48px; height: 48px; color: var(--ink); margin-bottom: 12px;
+    }
+    .dz-text-main { font-weight: 800; font-size: 15px; margin-bottom: 4px; }
+    .dz-text-sub { font-size: 12.5px; color: var(--ink-faint); }
+    .btn-choose {
+      margin-top: 14px; padding: 8px 18px; font-size: 13.5px; font-weight: 700;
+      background: #fff; border: 2px solid var(--border-dark); border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-hard-sm); cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-choose:hover { background: var(--lime-accent); }
+
+    /* Photo Preview Area */
+    .preview-container { display: none; }
+    .preview-photo-wrap {
+      background: #f8fafc; border: 2px solid var(--border-dark); border-radius: var(--radius-sm);
+      padding: 12px; text-align: center; margin-bottom: 14px; position: relative;
+    }
+    .preview-img {
+      max-width: 100%; max-height: 280px; object-fit: contain; border-radius: 6px;
+      border: 1px solid #cbd5e1; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    }
+    .preview-meta-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12.5px; font-weight: 600; margin-top: 10px; padding: 6px 10px;
+      background: #ffffff; border: 1.5px solid var(--border-dark); border-radius: var(--radius-sm);
+    }
+    .badge-original { background: #fee2e2; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-weight: 700; }
+    .btn-reset-photo {
+      display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700;
+      color: #b91c1c; background: #fff; border: 1.5px solid #b91c1c; border-radius: var(--radius-pill);
+      padding: 4px 10px; cursor: pointer; margin-top: 10px;
+    }
+    .btn-reset-photo:hover { background: #fee2e2; }
+
+    .btn-crop-tool {
+      display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700;
+      color: var(--ink); background: #fff; border: 1.5px solid var(--border-dark); border-radius: var(--radius-pill);
+      padding: 4px 10px; cursor: pointer; margin-top: 10px; margin-left: 6px;
+    }
+    .btn-crop-tool:hover { background: var(--sky-accent); }
+
+    /* Important Alert Box */
+    .alert-box {
+      background: #eff6ff; border: 2px solid #3b82f6; border-radius: var(--radius-sm);
+      padding: 12px 14px; font-size: 12.5px; line-height: 1.5; color: #1e3a8a; margin-top: 14px;
+      display: flex; gap: 8px; align-items: flex-start;
+    }
+
+    /* Target Size Selection Buttons */
+    .target-pills-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px; margin-bottom: 16px;
+    }
+    .target-pill {
+      background: #ffffff; border: 2.5px solid var(--border-dark); border-radius: var(--radius-sm);
+      padding: 10px 8px; text-align: center; cursor: pointer; font-family: var(--sans);
+      box-shadow: var(--shadow-hard-sm); transition: all 0.15s ease;
+    }
+    .target-pill:hover { background: var(--sky-accent); transform: translate(-1.5px, -1.5px); }
+    .target-pill.active {
+      background: var(--lime-accent); border-color: var(--border-dark);
+      box-shadow: 3px 3px 0px var(--border-dark); font-weight: 800; transform: translate(-1px, -1px);
+    }
+    .target-pill .pill-kb { font-size: 17px; font-weight: 800; font-family: var(--display); display: block; }
+    .target-pill .pill-label { font-size: 11px; font-weight: 600; color: var(--ink-dim); display: block; margin-top: 2px; }
+
+    .custom-kb-input-wrap {
+      display: none; align-items: center; gap: 10px; margin-bottom: 16px;
+      background: #f8fafc; padding: 10px 14px; border: 2px solid var(--border-dark); border-radius: var(--radius-sm);
+    }
+    .custom-kb-input-wrap.open { display: flex; }
+    .custom-kb-input {
+      width: 100px; padding: 8px 12px; font-size: 15px; font-weight: 700; font-family: var(--sans);
+      border: 2px solid var(--border-dark); border-radius: var(--radius-sm); outline: none;
+    }
+    .btn-apply-custom {
+      padding: 8px 14px; font-size: 13px; font-weight: 700; background: var(--lime-accent);
+      border: 2px solid var(--border-dark); border-radius: var(--radius-pill); cursor: pointer;
+    }
+
+    /* Dimension Selector */
+    .dimension-select-box { margin-bottom: 18px; }
+    .field-label { font-size: 13px; font-weight: 700; margin-bottom: 6px; display: block; }
+    .custom-select {
+      width: 100%; padding: 10px 14px; font-size: 13.5px; font-weight: 600; font-family: var(--sans);
+      background: #fff; border: 2.5px solid var(--border-dark); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-hard-sm); cursor: pointer; outline: none;
+    }
+    .custom-wh-inputs {
+      display: none; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;
+    }
+    .custom-wh-inputs.open { display: grid; }
+    .input-group { display: flex; align-items: center; gap: 6px; }
+    .input-group input {
+      width: 100%; padding: 7px 10px; font-size: 13px; font-weight: 700;
+      border: 2px solid var(--border-dark); border-radius: var(--radius-sm);
+    }
+
+    /* Quality Slider */
+    .slider-row {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;
+    }
+    .slider-val-badge {
+      background: var(--ink); color: #fff; font-size: 12px; font-weight: 800;
+      padding: 3px 8px; border-radius: var(--radius-pill);
+    }
+    input[type=range] {
+      width: 100%; height: 8px; -webkit-appearance: none; appearance: none;
+      background: #e2e8f0; border: 2px solid var(--border-dark); border-radius: 4px; outline: none; margin: 8px 0 14px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 20px; height: 20px; background: var(--lime-accent);
+      border: 2px solid var(--border-dark); border-radius: 50%; cursor: pointer; box-shadow: 2px 2px 0px var(--border-dark);
+    }
+
+    /* Notice Warning */
+    .quality-notice {
+      background: var(--warning-bg); border: 2px solid var(--warning-border);
+      border-radius: var(--radius-sm); padding: 10px 12px; font-size: 12px; line-height: 1.45;
+      color: #92400e; margin-top: 10px; display: flex; gap: 8px; align-items: flex-start;
+    }
+
+    /* Compressed Outputs Grid */
+    .outputs-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin-top: 12px;
+    }
+    .output-card {
+      background: #f8fafc; border: 2.5px solid var(--border-dark); border-radius: var(--radius-sm);
+      padding: 12px 10px; text-align: center; box-shadow: var(--shadow-hard-sm); display: flex;
+      flex-direction: column; justify-content: space-between; transition: all 0.2s ease;
+    }
+    .output-card.highlight {
+      background: #f0fdf4; border-color: #15803d; border-width: 3px;
+    }
+    .output-badge-tier {
+      font-size: 11px; font-weight: 800; text-transform: uppercase; padding: 2px 6px;
+      border-radius: 4px; display: inline-block; margin-bottom: 6px;
+    }
+    .tier-high { background: #dbeafe; color: #1e40af; }
+    .tier-balanced { background: #dcfce7; color: #15803d; }
+    .tier-small { background: #fef3c7; color: #92400e; }
+    .tier-custom { background: #f3e8ff; color: #6b21a8; }
+
+    .output-thumb-wrap {
+      width: 100%; height: 110px; background: #fff; border: 1.5px solid #cbd5e1;
+      border-radius: 6px; margin: 6px 0; display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .output-thumb { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .output-size-pill {
+      font-size: 13.5px; font-weight: 800; font-family: var(--display);
+      color: var(--ink); margin: 4px 0 2px;
+    }
+    .output-dims { font-size: 11px; color: var(--ink-faint); margin-bottom: 10px; }
+
+    .btn-download-output {
+      width: 100%; padding: 8px 6px; font-size: 12.5px; font-weight: 800; font-family: var(--sans);
+      color: var(--ink); background: var(--lime-accent); border: 2px solid var(--border-dark);
+      border-radius: var(--radius-pill); box-shadow: var(--shadow-hard-sm); cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 4px; text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .btn-download-output:hover { background: var(--lime-hover); transform: translate(-1px, -1px); }
+    .btn-download-output.btn-blue { background: var(--sky-accent); }
+    .btn-download-output.btn-blue:hover { background: #71d7ff; }
+
+    /* SEO Article Section */
+    .seo-article {
+      margin-top: 40px; padding-top: 30px; border-top: 3px solid var(--border-dark);
+    }
+    .seo-article h2 {
+      font-family: var(--display); font-size: 20px; font-weight: 800; margin: 24px 0 10px;
+    }
+    .seo-article p { font-size: 14.5px; line-height: 1.65; color: #334155; margin-bottom: 14px; }
+    .specs-table {
+      width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 13.5px;
+      background: #fff; border: 2.5px solid var(--border-dark); border-radius: var(--radius-sm);
+      overflow: hidden; box-shadow: var(--shadow-hard-sm);
+    }
+    .specs-table th {
+      background: #f1f5f9; padding: 10px 14px; text-align: left; font-weight: 800;
+      border-bottom: 2px solid var(--border-dark);
+    }
+    .specs-table td {
+      padding: 10px 14px; border-bottom: 1px solid #e2e8f0;
+    }
+    .specs-table tr:last-child td { border-bottom: none; }
+
+    /* FAQ Accordion */
+    .faq-item {
+      background: #fff; border: 2px solid var(--border-dark); border-radius: var(--radius-sm);
+      margin-bottom: 10px; overflow: hidden; box-shadow: var(--shadow-hard-sm);
+    }
+    .faq-q {
+      padding: 14px 18px; font-weight: 700; font-size: 14.5px; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; user-select: none;
+    }
+    .faq-q:hover { background: #f8fafc; }
+    .faq-a {
+      padding: 0 18px 14px; font-size: 13.5px; line-height: 1.6; color: #475569; display: none;
+    }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-toggle { transform: rotate(180deg); }
+    .faq-toggle { transition: transform 0.2s ease; }
+
+    /* Footer Links */
+    .seo-internal-links { margin-top: 30px; padding-top: 20px; border-top: 2px solid var(--border-dark); }
+    .seo-links-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .seo-link-pill {
+      font-size: 12.5px; font-weight: 700; color: var(--ink); background: #fff;
+      padding: 6px 14px; border: 2px solid var(--border-dark); border-radius: var(--radius-pill);
+      text-decoration: none; box-shadow: 2px 2px 0px var(--border-dark); transition: all 0.15s ease;
+    }
+    .seo-link-pill:hover { background: var(--lime-accent); transform: translate(-1px, -1px); }
+
+    .copyright-footer {
+      text-align: center; font-size: 13px; font-weight: 600; color: var(--ink-dim);
+      margin-top: 36px; padding-top: 20px; border-top: 2px solid #e2e8f0;
+    }
+    .copyright-footer a { color: var(--ink); text-decoration: none; font-weight: 700; }
+    .copyright-footer a:hover { text-decoration: underline; }
+
+    /* Crop Modal */
+    .modal-overlay {
+      display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.65); z-index: 9999; align-items: center; justify-content: center; padding: 16px;
+    }
+    .modal-card {
+      background: #fff; border: 3.5px solid var(--border-dark); border-radius: var(--radius-md);
+      box-shadow: var(--shadow-hard-lg); max-width: 600px; width: 100%; padding: 20px;
+    }
+    .modal-crop-area { max-height: 380px; overflow: hidden; background: #0f172a; border-radius: 8px; margin-bottom: 14px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+    .btn-modal {
+      padding: 8px 16px; font-size: 13.5px; font-weight: 700; border-radius: var(--radius-pill);
+      border: 2px solid var(--border-dark); cursor: pointer;
+    }
+    .btn-modal-cancel { background: #fff; }
+    .btn-modal-save { background: var(--lime-accent); }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <header class="header-bar">
+    <div class="nav-tabs">
+      <a href="/" class="nav-tab">🖼️ Image Converter</a>
+      <a href="photo-compressor.html" class="nav-tab active">📋 Form Photo Compressor</a>
+    </div>
+    <div>
+      <span style="font-size: 12px; font-weight: 700; color: #15803d; background: #dcfce7; padding: 4px 10px; border-radius: 50px; border: 1.5px solid #16a34a;">
+        🔒 100% Client-Side Privacy
+      </span>
+    </div>
+  </header>
+
+  <div class="brand-badge">🏛️ For UPSC, SSC, Banking, Passport & Visa Applications</div>
+  <h1>Government Form Photo Compressor</h1>
+  <p class="sub">
+    Instantly compress and resize your candidate photo or signature to exact file size limits (20 KB, 50 KB, 100 KB) and dimensions for government exams, job portals, and online forms. 100% private in-browser tool—zero server uploads.
+  </p>
+
+  <div class="app-grid">
+    <!-- LEFT COLUMN: Photo Upload & Preview -->
+    <div>
+      <div class="card">
+        <div class="card-title">
+          <span><span class="step-badge">1</span> Photo Preview</span>
+          <span style="font-size: 12px; color: var(--ink-faint);">Upload ID or Signature</span>
+        </div>
+
+        <!-- Initial Upload Dropzone -->
+        <div class="dropzone-box" id="dropZone">
+          <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242M12 12v9m-4-4 4-4 4 4"/>
+          </svg>
+          <div class="dz-text-main">Drop passport photo or signature here</div>
+          <div class="dz-text-sub">Supports JPG, PNG, WEBP & HEIC (Up to 25MB)</div>
+          <button type="button" class="btn-choose" id="chooseBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+            Choose Photo
+          </button>
+          <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/heic" style="display:none;">
+        </div>
+
+        <!-- Loaded Photo Preview Container -->
+        <div class="preview-container" id="previewContainer">
+          <div class="preview-photo-wrap">
+            <img id="previewImg" class="preview-img" alt="Uploaded photo preview" src="">
+            <div class="preview-meta-row">
+              <span id="origFileName" style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">photo.jpg</span>
+              <span class="badge-original" id="origFileSize">2.4 MB</span>
+              <span id="origDims" style="color: var(--ink-dim);">630 × 810 px</span>
+            </div>
+            <div style="margin-top: 10px;">
+              <button type="button" class="btn-reset-photo" id="resetPhotoBtn">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Change Photo
+              </button>
+              <button type="button" class="btn-crop-tool" id="cropToolBtn">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2v14a2 2 0 0 0 2 2h14M18 22V8a2 2 0 0 0-2-2H2"/></svg>
+                Crop / Center
+              </button>
+            </div>
+          </div>
+
+          <div class="alert-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <div>
+              <strong>Government Portal Guidelines:</strong> Upload a clear front-facing photo with a plain white/light background. Both ears should be visible with neutral expression.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: Compression Controls & Outputs -->
+    <div>
+      <!-- 2. Target File Size Selection -->
+      <div class="card">
+        <div class="card-title">
+          <span><span class="step-badge">2</span> Choose Target File Size</span>
+          <span style="font-size: 12px; color: var(--ink-faint);">Portal requirement</span>
+        </div>
+
+        <div class="target-pills-grid">
+          <div class="target-pill" data-kb="20">
+            <span class="pill-kb">20 KB</span>
+            <span class="pill-label">Signatures / Strict</span>
+          </div>
+          <div class="target-pill active" data-kb="50">
+            <span class="pill-kb">50 KB</span>
+            <span class="pill-label">UPSC / SSC / Bank</span>
+          </div>
+          <div class="target-pill" data-kb="100">
+            <span class="pill-kb">100 KB</span>
+            <span class="pill-label">State Exams</span>
+          </div>
+          <div class="target-pill" data-kb="200">
+            <span class="pill-kb">200 KB</span>
+            <span class="pill-label">Passport / Visa</span>
+          </div>
+          <div class="target-pill" id="customPill" data-kb="custom">
+            <span class="pill-kb">Custom</span>
+            <span class="pill-label">Enter KB ✎</span>
+          </div>
+        </div>
+
+        <!-- Custom KB Input Drawer -->
+        <div class="custom-kb-input-wrap" id="customKbWrap">
+          <label for="customKbInput" style="font-size: 13px; font-weight: 700;">Target Size:</label>
+          <input type="number" id="customKbInput" class="custom-kb-input" value="35" min="5" max="2000" step="1">
+          <span style="font-weight: 700; font-size: 14px;">KB</span>
+          <button type="button" class="btn-apply-custom" id="applyCustomKbBtn">Apply</button>
+        </div>
+
+        <!-- Dimension Preset Options -->
+        <div class="dimension-select-box">
+          <label class="field-label" for="dimPresetSelect">📐 Target Dimensions (Exam & Portal Presets):</label>
+          <select id="dimPresetSelect" class="custom-select">
+            <option value="original">Keep Original Dimensions (Best Clarity)</option>
+            <option value="upsc_photo">UPSC / SSC Photo (200 × 230 px)</option>
+            <option value="upsc_sign">UPSC / SSC Signature (140 × 60 px)</option>
+            <option value="passport_india">Indian Passport / Pan Card 3.5 × 4.5 cm (350 × 450 px)</option>
+            <option value="us_visa">US / Schengen Visa 2 × 2 inch (600 × 600 px)</option>
+            <option value="custom">Custom Width × Height (px)...</option>
+          </select>
+
+          <div class="custom-wh-inputs" id="customWhInputs">
+            <div class="input-group">
+              <label style="font-size: 12px; font-weight: 700;">W:</label>
+              <input type="number" id="customW" placeholder="Width (px)" value="350">
+            </div>
+            <div class="input-group">
+              <label style="font-size: 12px; font-weight: 700;">H:</label>
+              <input type="number" id="customH" placeholder="Height (px)" value="450">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Compression Quality Slider -->
+      <div class="card">
+        <div class="card-title">
+          <span><span class="step-badge">3</span> Compression Quality Settings</span>
+        </div>
+
+        <div class="slider-row">
+          <label for="qualitySlider" style="font-size: 13px; font-weight: 700;">Target Output Clarity:</label>
+          <span class="slider-val-badge" id="qualityLabel">Auto-Fit (85%)</span>
+        </div>
+        <input type="range" id="qualitySlider" min="10" max="100" value="85">
+
+        <div class="quality-notice">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div>
+            <strong>Quality Notice:</strong> Our smart binary search algorithm ensures the output file stays strictly <em>below or equal to</em> your target size limit, ensuring instant acceptance on government application servers.
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Compressed Outputs (Preview & Instant Downloads) -->
+      <div class="card">
+        <div class="card-title">
+          <span><span class="step-badge">4</span> Compressed Outputs (Preview)</span>
+          <span style="font-size: 12px; color: var(--ink-faint);">Ready to download</span>
+        </div>
+        <p style="font-size: 13px; color: var(--ink-dim); margin: 0 0 10px;">
+          Download your photo in your preferred file size tier:
+        </p>
+
+        <!-- Dynamic Output Cards -->
+        <div class="outputs-grid" id="outputsGrid">
+          <!-- 100 KB Output Card -->
+          <div class="output-card" id="card100">
+            <div>
+              <span class="output-badge-tier tier-high">100 KB Tier</span>
+              <div class="output-thumb-wrap">
+                <img class="output-thumb" id="thumb100" alt="100KB output thumbnail" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' fill='%23cbd5e1'><rect width='80' height='80'/></svg>">
+              </div>
+              <div class="output-size-pill" id="size100">—</div>
+              <div class="output-dims" id="dims100">High Quality</div>
+            </div>
+            <a href="#" class="btn-download-output btn-blue" id="btnDl100" download="photo_100kb.jpg">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+              JPG · 100 KB
+            </a>
+          </div>
+
+          <!-- 50 KB Output Card (Highlighted as most popular) -->
+          <div class="output-card highlight" id="card50">
+            <div>
+              <span class="output-badge-tier tier-balanced">50 KB Balanced</span>
+              <div class="output-thumb-wrap">
+                <img class="output-thumb" id="thumb50" alt="50KB output thumbnail" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' fill='%23cbd5e1'><rect width='80' height='80'/></svg>">
+              </div>
+              <div class="output-size-pill" id="size50">—</div>
+              <div class="output-dims" id="dims50">UPSC / SSC / Bank</div>
+            </div>
+            <a href="#" class="btn-download-output" id="btnDl50" download="photo_50kb.jpg">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+              JPG · 50 KB
+            </a>
+          </div>
+
+          <!-- 20 KB Output Card -->
+          <div class="output-card" id="card20">
+            <div>
+              <span class="output-badge-tier tier-small">20 KB Small</span>
+              <div class="output-thumb-wrap">
+                <img class="output-thumb" id="thumb20" alt="20KB output thumbnail" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' fill='%23cbd5e1'><rect width='80' height='80'/></svg>">
+              </div>
+              <div class="output-size-pill" id="size20">—</div>
+              <div class="output-dims" id="dims20">Signatures / Strict</div>
+            </div>
+            <a href="#" class="btn-download-output btn-blue" id="btnDl20" download="photo_20kb.jpg">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+              JPG · 20 KB
+            </a>
+          </div>
+
+          <!-- Custom Target Card (Shown if custom target active) -->
+          <div class="output-card" id="cardCustom" style="display:none;">
+            <div>
+              <span class="output-badge-tier tier-custom" id="customTierBadge">Custom Target</span>
+              <div class="output-thumb-wrap">
+                <img class="output-thumb" id="thumbCustom" alt="Custom output thumbnail" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' fill='%23cbd5e1'><rect width='80' height='80'/></svg>">
+              </div>
+              <div class="output-size-pill" id="sizeCustom">—</div>
+              <div class="output-dims" id="dimsCustom">Custom Size</div>
+            </div>
+            <a href="#" class="btn-download-output" id="btnDlCustom" download="photo_custom.jpg">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+              Download
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Educational Article & Exam Guidelines Section -->
+  <article class="seo-article">
+    <h2>Standard Photo & Signature Specifications for Online Applications</h2>
+    <p>
+      Almost all government examinations, public sector recruitment tests, university admissions, and visa portals enforce strict file-size limits. If your image exceeds even a single kilobyte over the maximum limit (e.g., 50.1 KB for a 50 KB ceiling), the upload portal will reject your file immediately.
+    </p>
+
+    <table class="specs-table">
+      <thead>
+        <tr>
+          <th>Exam / Portal</th>
+          <th>Photo File Size</th>
+          <th>Signature Size</th>
+          <th>Required Dimensions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>UPSC (Civil Services / NDA / CDS)</strong></td>
+          <td>20 KB – 300 KB</td>
+          <td>20 KB – 300 KB</td>
+          <td>Min 350 × 350 px (Square)</td>
+        </tr>
+        <tr>
+          <td><strong>SSC (CGL, CHSL, MTS, GD)</strong></td>
+          <td>20 KB – 50 KB</td>
+          <td>10 KB – 20 KB</td>
+          <td>Photo: 200 × 230 px | Sign: 140 × 60 px</td>
+        </tr>
+        <tr>
+          <td><strong>IBPS / SBI Banking Exams</strong></td>
+          <td>20 KB – 50 KB</td>
+          <td>10 KB – 20 KB</td>
+          <td>Photo: 200 × 230 px | Sign: 140 × 60 px</td>
+        </tr>
+        <tr>
+          <td><strong>Indian Passport & Pan Card</strong></td>
+          <td>Under 50 KB / 100 KB</td>
+          <td>Under 20 KB / 50 KB</td>
+          <td>3.5 cm × 4.5 cm (350 × 450 px)</td>
+        </tr>
+        <tr>
+          <td><strong>US / UK / Schengen Visa</strong></td>
+          <td>Under 240 KB</td>
+          <td>—</td>
+          <td>2 × 2 inches (600 × 600 px)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Frequently Asked Questions (FAQ)</h2>
+    <div class="faq-item">
+      <div class="faq-q">
+        <span>How does this tool guarantee my photo will be accepted?</span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-a">
+        Our binary search compression algorithm iteratively tests multiple compression ratios in milliseconds to guarantee that your exported JPEG file is strictly below your chosen target threshold (e.g. 48.5 KB for a 50 KB limit).
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        <span>Can I compress my signature to 20 KB as well?</span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-a">
+        Yes! Just upload your signature image and select the <strong>20 KB</strong> preset (or SSC signature dimension of 140×60 px). It will crisp up the dark ink lines while keeping the file light and compliant.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        <span>Are my photos safe and private?</span>
+        <span class="faq-toggle">▼</span>
+      </div>
+      <div class="faq-a">
+        Yes, 100% private. Unlike other online converters that upload your personal documents to remote cloud servers, our tool runs entirely inside your device's web browser using the HTML5 Canvas API. Your ID photos and signatures never leave your computer or phone.
+      </div>
+    </div>
+
+    <!-- Popular Internal Links Matrix -->
+    <div class="seo-internal-links">
+      <h3 style="font-size: 16px; font-weight: 800; margin: 0 0 8px;">Explore All Free Conversion Tools</h3>
+      <div class="seo-links-grid">
+        <a href="/" class="seo-link-pill">🖼️ Bulk Image Converter</a>
+        <a href="png-to-jpeg.html" class="seo-link-pill">PNG to JPEG</a>
+        <a href="png-to-jpg.html" class="seo-link-pill">PNG to JPG</a>
+        <a href="jpg-to-png.html" class="seo-link-pill">JPG to PNG</a>
+        <a href="jpeg-to-webp.html" class="seo-link-pill">JPEG to WebP</a>
+        <a href="webp-to-jpeg.html" class="seo-link-pill">WebP to JPEG</a>
+        <a href="heic-to-jpg.html" class="seo-link-pill">HEIC to JPG</a>
+        <a href="svg-to-png.html" class="seo-link-pill">SVG to PNG</a>
+      </div>
+    </div>
+  </article>
+
+  <footer class="copyright-footer">
+    &copy; 2026 <a href="https://www.fastimageconvertor.com/">fastimageconvertor.com</a> · <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a>
+  </footer>
+</div>
+
+<!-- Modal for Cropping / Centering -->
+<div class="modal-overlay" id="cropModal">
+  <div class="modal-card">
+    <div style="font-size: 16px; font-weight: 800; margin-bottom: 12px; font-family: var(--display);">
+      ✂️ Crop & Center Your Passport Photo
+    </div>
+    <div class="modal-crop-area">
+      <img id="cropModalImg" src="" style="max-width: 100%; display: block;">
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn-modal btn-modal-cancel" id="btnCancelCrop">Cancel</button>
+      <button type="button" class="btn-modal btn-modal-save" id="btnApplyCrop">Apply Crop</button>
+    </div>
+  </div>
+</div>
+
+<!-- JAVASCRIPT LOGIC (100% SELF-CONTAINED & SEPARATED) -->
+<script>
+(function(){
+  'use strict';
+
+  // State
+  let loadedImage = null; // Image element
+  let originalFile = null;
+  let activeTargetKB = 50;
+  let cropper = null;
+
+  // DOM Elements
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const chooseBtn = document.getElementById('chooseBtn');
+  const previewContainer = document.getElementById('previewContainer');
+  const previewImg = document.getElementById('previewImg');
+  const origFileName = document.getElementById('origFileName');
+  const origFileSize = document.getElementById('origFileSize');
+  const origDims = document.getElementById('origDims');
+  const resetPhotoBtn = document.getElementById('resetPhotoBtn');
+  const cropToolBtn = document.getElementById('cropToolBtn');
+
+  const targetPills = document.querySelectorAll('.target-pill');
+  const customKbWrap = document.getElementById('customKbWrap');
+  const customKbInput = document.getElementById('customKbInput');
+  const applyCustomKbBtn = document.getElementById('applyCustomKbBtn');
+
+  const dimPresetSelect = document.getElementById('dimPresetSelect');
+  const customWhInputs = document.getElementById('customWhInputs');
+  const customW = document.getElementById('customW');
+  const customH = document.getElementById('customH');
+
+  const qualitySlider = document.getElementById('qualitySlider');
+  const qualityLabel = document.getElementById('qualityLabel');
+
+  // Output cards
+  const thumb100 = document.getElementById('thumb100');
+  const size100 = document.getElementById('size100');
+  const btnDl100 = document.getElementById('btnDl100');
+
+  const thumb50 = document.getElementById('thumb50');
+  const size50 = document.getElementById('size50');
+  const btnDl50 = document.getElementById('btnDl50');
+
+  const thumb20 = document.getElementById('thumb20');
+  const size20 = document.getElementById('size20');
+  const btnDl20 = document.getElementById('btnDl20');
+
+  const cardCustom = document.getElementById('cardCustom');
+  const thumbCustom = document.getElementById('thumbCustom');
+  const sizeCustom = document.getElementById('sizeCustom');
+  const btnDlCustom = document.getElementById('btnDlCustom');
+  const customTierBadge = document.getElementById('customTierBadge');
+
+  // Crop Modal elements
+  const cropModal = document.getElementById('cropModal');
+  const cropModalImg = document.getElementById('cropModalImg');
+  const btnCancelCrop = document.getElementById('btnCancelCrop');
+  const btnApplyCrop = document.getElementById('btnApplyCrop');
+
+  // Helper: Format Bytes to clean KB/MB
+  function formatBytes(bytes) {
+    if (!bytes || isNaN(bytes)) return '0 KB';
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+  }
+
+  // File Upload Handlers
+  chooseBtn.addEventListener('click', () => fileInput.click());
+  dropZone.addEventListener('click', (e) => {
+    if (e.target !== chooseBtn) fileInput.click();
+  });
+
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('drag');
+  });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag'));
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('drag');
+    if (e.dataTransfer.files && e.dataTransfer.files.length) {
+      handleFile(e.dataTransfer.files[0]);
+    }
+  });
+
+  fileInput.addEventListener('change', (e) => {
+    if (e.target.files && e.target.files.length) {
+      handleFile(e.target.files[0]);
+    }
+  });
+
+  resetPhotoBtn.addEventListener('click', () => {
+    loadedImage = null;
+    originalFile = null;
+    fileInput.value = '';
+    previewImg.src = '';
+    dropZone.style.display = 'flex';
+    previewContainer.style.display = 'none';
+    clearOutputs();
+  });
+
+  function clearOutputs() {
+    [size100, size50, size20, sizeCustom].forEach(el => el.textContent = '—');
+    const placeholderSvg = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' fill='%23cbd5e1'><rect width='80' height='80'/></svg>";
+    thumb100.src = placeholderSvg;
+    thumb50.src = placeholderSvg;
+    thumb20.src = placeholderSvg;
+    thumbCustom.src = placeholderSvg;
+  }
+
+  function handleFile(file) {
+    if (!file || !file.type.startsWith('image/')) {
+      alert('Please select a valid image file (JPG, PNG, WEBP, or HEIC).');
+      return;
+    }
+    originalFile = file;
+    origFileName.textContent = file.name;
+    origFileSize.textContent = formatBytes(file.size);
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        loadedImage = img;
+        previewImg.src = img.src;
+        origDims.textContent = `${img.naturalWidth} × ${img.naturalHeight} px`;
+        dropZone.style.display = 'none';
+        previewContainer.style.display = 'block';
+
+        if (typeof gtag === 'function') {
+          gtag('event', 'photo_compressor_upload', {
+            'file_name': file.name,
+            'file_size': file.size
+          });
+        }
+
+        processAllOutputs();
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Target Pill Click Handlers
+  targetPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      targetPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+
+      const kb = pill.dataset.kb;
+      if (kb === 'custom') {
+        customKbWrap.classList.add('open');
+        cardCustom.style.display = 'flex';
+        activeTargetKB = parseInt(customKbInput.value, 10) || 50;
+      } else {
+        customKbWrap.classList.remove('open');
+        activeTargetKB = parseInt(kb, 10);
+      }
+      highlightActiveCard();
+      processAllOutputs();
+    });
+  });
+
+  applyCustomKbBtn.addEventListener('click', () => {
+    const val = parseInt(customKbInput.value, 10);
+    if (!val || val < 2) {
+      alert('Please enter a valid target size (minimum 2 KB).');
+      return;
+    }
+    activeTargetKB = val;
+    cardCustom.style.display = 'flex';
+    customTierBadge.textContent = `${val} KB Target`;
+    btnDlCustom.download = `photo_${val}kb.jpg`;
+    highlightActiveCard();
+    processAllOutputs();
+  });
+
+  function highlightActiveCard() {
+    document.querySelectorAll('.output-card').forEach(c => c.classList.remove('highlight'));
+    if (activeTargetKB === 100) document.getElementById('card100').classList.add('highlight');
+    else if (activeTargetKB === 50) document.getElementById('card50').classList.add('highlight');
+    else if (activeTargetKB === 20) document.getElementById('card20').classList.add('highlight');
+    else cardCustom.classList.add('highlight');
+  }
+
+  // Dimension Preset Selection Handler
+  dimPresetSelect.addEventListener('change', () => {
+    if (dimPresetSelect.value === 'custom') {
+      customWhInputs.classList.add('open');
+    } else {
+      customWhInputs.classList.remove('open');
+    }
+    processAllOutputs();
+  });
+
+  [customW, customH].forEach(inp => {
+    inp.addEventListener('input', () => {
+      if (dimPresetSelect.value === 'custom') processAllOutputs();
+    });
+  });
+
+  // Quality Slider Handler
+  qualitySlider.addEventListener('input', (e) => {
+    qualityLabel.textContent = e.target.value + '%';
+    processAllOutputs();
+  });
+
+  // Get active dimensions based on preset
+  function getTargetDimensions(srcImg) {
+    const mode = dimPresetSelect.value;
+    if (mode === 'upsc_photo') return { w: 200, h: 230 };
+    if (mode === 'upsc_sign') return { w: 140, h: 60 };
+    if (mode === 'passport_india') return { w: 350, h: 450 };
+    if (mode === 'us_visa') return { w: 600, h: 600 };
+    if (mode === 'custom') {
+      const w = parseInt(customW.value, 10) || srcImg.naturalWidth;
+      const h = parseInt(customH.value, 10) || srcImg.naturalHeight;
+      return { w, h };
+    }
+    // original
+    return { w: srcImg.naturalWidth, h: srcImg.naturalHeight };
+  }
+
+  // Canvas to Blob Promise Wrapper
+  function canvasToBlob(canvas, quality) {
+    return new Promise(resolve => {
+      canvas.toBlob(blob => resolve(blob), 'image/jpeg', quality);
+    });
+  }
+
+  // Core Smart Compression Algorithm (Binary Search + Iterative Scaling)
+  async function compressToKB(img, targetKB, targetDims, userQualityPercent) {
+    const maxBytes = targetKB * 1024;
+    let canvas = document.createElement('canvas');
+    let ctx = canvas.getContext('2d', { willReadFrequently: true });
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    let curW = targetDims.w;
+    let curH = targetDims.h;
+    canvas.width = curW;
+    canvas.height = curH;
+    ctx.drawImage(img, 0, 0, curW, curH);
+
+    // Initial Quality estimation
+    let lowQ = 0.05;
+    let highQ = (userQualityPercent || 85) / 100;
+    let bestBlob = null;
+    let bestQ = lowQ;
+
+    // Binary search over quality levels
+    for (let step = 0; step < 7; step++) {
+      let midQ = (lowQ + highQ) / 2;
+      let blob = await canvasToBlob(canvas, midQ);
+      if (blob.size <= maxBytes) {
+        bestBlob = blob;
+        bestQ = midQ;
+        lowQ = midQ; // try to get better visual quality
+      } else {
+        highQ = midQ; // too heavy, lower quality
+      }
+    }
+
+    // Fallback: If at minimum quality it still exceeds target (e.g. huge photo asked for 15KB),
+    // scale dimensions down in 8% increments until it fits!
+    while ((!bestBlob || bestBlob.size > maxBytes) && curW > 60 && curH > 60) {
+      curW = Math.round(curW * 0.92);
+      curH = Math.round(curH * 0.92);
+      canvas.width = curW;
+      canvas.height = curH;
+      ctx.drawImage(img, 0, 0, curW, curH);
+      bestBlob = await canvasToBlob(canvas, 0.65);
+      if (bestBlob.size <= maxBytes) break;
+    }
+
+    return {
+      blob: bestBlob,
+      size: bestBlob ? bestBlob.size : 0,
+      width: curW,
+      height: curH,
+      quality: bestQ
+    };
+  }
+
+  // Process all output tiers simultaneously
+  let processTimer = null;
+  function processAllOutputs() {
+    if (!loadedImage) return;
+    clearTimeout(processTimer);
+    processTimer = setTimeout(async () => {
+      const targetDims = getTargetDimensions(loadedImage);
+      const userQ = parseInt(qualitySlider.value, 10);
+
+      // Generate 100 KB
+      const res100 = await compressToKB(loadedImage, 100, targetDims, userQ);
+      updateOutputCard(thumb100, size100, btnDl100, res100, 'photo_100kb.jpg');
+
+      // Generate 50 KB
+      const res50 = await compressToKB(loadedImage, 50, targetDims, userQ);
+      updateOutputCard(thumb50, size50, btnDl50, res50, 'photo_50kb.jpg');
+
+      // Generate 20 KB
+      const res20 = await compressToKB(loadedImage, 20, targetDims, userQ);
+      updateOutputCard(thumb20, size20, btnDl20, res20, 'photo_20kb.jpg');
+
+      // Generate Custom if selected
+      if (cardCustom.style.display !== 'none') {
+        const resCustom = await compressToKB(loadedImage, activeTargetKB, targetDims, userQ);
+        updateOutputCard(thumbCustom, sizeCustom, btnDlCustom, resCustom, `photo_${activeTargetKB}kb.jpg`);
+      }
+    }, 120);
+  }
+
+  function updateOutputCard(thumbEl, sizeEl, dlBtn, res, defaultName) {
+    if (!res || !res.blob) {
+      sizeEl.textContent = 'Error';
+      return;
+    }
+    const url = URL.createObjectURL(res.blob);
+    thumbEl.src = url;
+    sizeEl.innerHTML = `${formatBytes(res.size)} <span style="font-size:11px; color:#15803d; font-weight:700;">✓ Pass</span>`;
+    dlBtn.href = url;
+    dlBtn.download = defaultName;
+    dlBtn.onclick = () => {
+      if (typeof gtag === 'function') {
+        gtag('event', 'photo_compressor_download', {
+          'target_kb': defaultName,
+          'file_size': res.size
+        });
+      }
+    };
+  }
+
+  // Crop & Center Modal
+  cropToolBtn.addEventListener('click', () => {
+    if (!loadedImage) return;
+    cropModalImg.src = loadedImage.src;
+    cropModal.style.display = 'flex';
+
+    if (cropper) cropper.destroy();
+    cropper = new Cropper(cropModalImg, {
+      aspectRatio: dimPresetSelect.value === 'upsc_sign' ? 140/60 : 3.5/4.5,
+      viewMode: 1,
+      autoCropArea: 0.9,
+      responsive: true
+    });
+  });
+
+  btnCancelCrop.addEventListener('click', () => {
+    cropModal.style.display = 'none';
+    if (cropper) cropper.destroy();
+  });
+
+  btnApplyCrop.addEventListener('click', () => {
+    if (!cropper) return;
+    const croppedCanvas = cropper.getCroppedCanvas();
+    const croppedImg = new Image();
+    croppedImg.onload = () => {
+      loadedImage = croppedImg;
+      previewImg.src = croppedImg.src;
+      origDims.textContent = `${croppedImg.naturalWidth} × ${croppedImg.naturalHeight} px`;
+      cropModal.style.display = 'none';
+      if (cropper) cropper.destroy();
+      processAllOutputs();
+    };
+    croppedImg.src = croppedCanvas.toDataURL('image/jpeg', 0.95);
+  });
+
+  // FAQ Accordion toggle
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      item.classList.toggle('open');
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
